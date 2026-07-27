@@ -5,45 +5,162 @@ import PageHero from '../components/PageHero.astro';
 import SectionHeading from '../components/SectionHeading.astro';
 import Icon from '../components/Icon.astro';
 import { whatsappUrl } from '../data/site';
-import communityImage from '../assets/community-team.png';
-import classImage from '../assets/class-technique.png';
-import heroImage from '../assets/hero-bjj-menorca.png';
+import { getLocale } from '../i18n';
+import communityImage from '../assets/photos/pexels-28945401.jpg';
+import classImage from '../assets/photos/pexels-8611381.jpg';
+import heroImage from '../assets/photos/pexels-35029376.jpg';
+import nogiImage from '../assets/photos/pexels-11391978.jpg';
+import womenImage from '../assets/photos/pexels-20182272.jpg';
+import kidsImage from '../assets/photos/pexels-7988960.jpg';
+import detailImage from '../assets/photos/pexels-8611941.jpg';
+import islandImage from '../assets/photos/pexels-9510812.jpg';
 
-const values = [
-  ['Respeto', 'Cuidamos al compañero, escuchamos y dejamos el ego fuera del tatami.'],
-  ['Compañerismo', 'Cada progreso individual mejora el nivel y la energía de todo el grupo.'],
-  ['Aprendizaje', 'Preguntar, probar y equivocarse forma parte de entrenar bien.'],
-];
-
-const events = [
-  ['Campus', 'Días intensivos para profundizar, convivir y volver al tatami con nuevas ideas.'],
-  ['Viajes', 'Entrenamos fuera, visitamos otras escuelas y ampliamos nuestra forma de ver el Jiu-Jitsu.'],
-  ['Seminarios', 'Invitamos a instructores que aportan experiencia, detalle y perspectivas nuevas.'],
-  ['Intercambio Calasans', 'Conexión con una comunidad técnica más grande sin perder el carácter cercano del club.'],
-];
-
-const testimonials = [
-  ['“Llegué sin saber nada y desde el primer día sentí que podía aprender a mi ritmo.”', 'Alumno principiante'],
-  ['“Entrenar aquí durante mis vacaciones fue fácil: buen nivel, cero ego y un ambiente increíble.”', 'Visitante de la isla'],
-  ['“Lo mejor es ver cómo la disciplina del tatami se traduce en confianza fuera de él.”', 'Familia Monkey'],
-];
+const locale = getLocale(Astro.url);
+const content = {
+  es: {
+    metaTitle: 'Comunidad',
+    metaDescription: 'Descubre la comunidad familiar de Monkey Menorca: compañerismo, seminarios, campus, viajes e intercambio Calasans.',
+    heroTitle: 'Comunidad',
+    heroCopy: 'Personas que comparten la pasión por aprender, mejorar y disfrutar del Jiu-Jitsu en un ambiente cercano y familiar.',
+    heroAlt: 'Equipo de grappling reunido en el tatami',
+    leadAlt: 'Grupo de practicantes compartiendo un momento en el tatami',
+    leadTitle: 'Una escuela pequeña y familiar',
+    lifestyleEyebrow: 'Mediterráneo · Menorca',
+    lifestyleTitle: 'Entrenar en<br />Cala Galdana',
+    islandAlt: 'Cala de aguas turquesas en Menorca',
+    lifestyleLabel: 'Entrenar junto al mar',
+    lifestyleQuote: 'Deporte, naturaleza y calidad de vida.',
+    lifestyleCopy: 'Uno de los pilares del proyecto es unir el entrenamiento con el entorno privilegiado de Cala Galdana, para disfrutar y crecer a través del Jiu-Jitsu sin renunciar a la calidad de vida que ofrece la isla.',
+    lifestyleFooter: 'Jiu-Jitsu en la isla',
+    eventsEyebrow: 'Más allá de la clase',
+    eventsTitle: 'Campus, viajes y seminarios',
+    eventsCopy: 'Actividades e intercambios para compartir experiencias y seguir creciendo a nivel técnico y personal.',
+    events: [
+      ['Campus', 'Monkey Menorca Jiu-Jitsu organiza campus como actividad especial.'],
+      ['Viajes', 'Los viajes forman parte de las actividades especiales del gimnasio.'],
+      ['Seminarios', 'Se invita regularmente a instructores de referencia para compartir diferentes estilos.'],
+      ['Intercambio Calasans', 'El proyecto fomenta las visitas de alumnos e instructores entre ambos gimnasios.'],
+    ],
+    voices: 'Voces del tatami',
+    testimonialsTitle: 'Testimonios<br />de alumnos',
+    testimonialsCopy: 'Aspectos que nuestros alumnos destacan con más frecuencia cuando hablan de su experiencia en el gimnasio.',
+    carouselLabel: 'Testimonios de alumnos',
+    carouselDescription: 'carrusel',
+    previous: 'Ver testimonio anterior',
+    next: 'Ver siguiente testimonio',
+    choose: 'Elegir testimonio',
+    chooseNumber: (number: number) => `Ver testimonio ${number}`,
+    testimonialCaption: 'Lo que más valoran nuestros alumnos',
+    testimonials: ['Buen ambiente', 'Profesores cercanos', 'Sensación de comunidad', 'Limpieza e instalaciones'],
+    galleryTitle: 'Galería',
+    galleryAlts: ['Clase técnica de Jiu-Jitsu', 'Dos mujeres entrenando Brazilian Jiu-Jitsu', 'Jóvenes practicando artes marciales', 'Entrenamiento de No-Gi y grappling', 'Detalle de una técnica de control con kimono', 'Clase compartiendo una explicación en el tatami'],
+    ctaTitle: 'Clase gratuita',
+    ctaAction: 'Conocer el ambiente',
+    ctaMessage: 'Hola, me gustaría conocer el ambiente en una clase gratuita.',
+  },
+  ca: {
+    metaTitle: 'Comunitat',
+    metaDescription: 'Descobreix la comunitat familiar de Monkey Menorca: companyonia, seminaris, campus, viatges i intercanvi Calasans.',
+    heroTitle: 'Comunitat',
+    heroCopy: 'Persones que comparteixen la passió per aprendre, millorar i gaudir del Jiu-Jitsu en un ambient proper i familiar.',
+    heroAlt: 'Equip de grappling reunit al tatami',
+    leadAlt: 'Grup de practicants compartint un moment al tatami',
+    leadTitle: 'Una escola petita i familiar',
+    lifestyleEyebrow: 'Mediterrània · Menorca',
+    lifestyleTitle: 'Entrenar a<br />Cala Galdana',
+    islandAlt: 'Cala d’aigües turqueses a Menorca',
+    lifestyleLabel: 'Entrenar vora la mar',
+    lifestyleQuote: 'Esport, natura i qualitat de vida.',
+    lifestyleCopy: 'Un dels pilars del projecte és unir l’entrenament amb l’entorn privilegiat de Cala Galdana, per gaudir i créixer a través del Jiu-Jitsu sense renunciar a la qualitat de vida que ofereix l’illa.',
+    lifestyleFooter: 'Jiu-Jitsu a l’illa',
+    eventsEyebrow: 'Més enllà de la classe',
+    eventsTitle: 'Campus, viatges i seminaris',
+    eventsCopy: 'Activitats i intercanvis per compartir experiències i continuar creixent tècnicament i personalment.',
+    events: [
+      ['Campus', 'Monkey Menorca Jiu-Jitsu organitza campus com a activitat especial.'],
+      ['Viatges', 'Els viatges formen part de les activitats especials del gimnàs.'],
+      ['Seminaris', 'Convidem regularment instructors de referència per compartir estils diferents.'],
+      ['Intercanvi Calasans', 'El projecte fomenta les visites d’alumnes i instructors entre tots dos gimnasos.'],
+    ],
+    voices: 'Veus del tatami',
+    testimonialsTitle: 'Testimonis<br />d’alumnes',
+    testimonialsCopy: 'Aspectes que els nostres alumnes destaquen més sovint quan parlen de la seva experiència al gimnàs.',
+    carouselLabel: 'Testimonis d’alumnes',
+    carouselDescription: 'carrusel',
+    previous: 'Veure el testimoni anterior',
+    next: 'Veure el testimoni següent',
+    choose: 'Triar testimoni',
+    chooseNumber: (number: number) => `Veure el testimoni ${number}`,
+    testimonialCaption: 'El que més valoren els nostres alumnes',
+    testimonials: ['Bon ambient', 'Professors propers', 'Sensació de comunitat', 'Neteja i instal·lacions'],
+    galleryTitle: 'Galeria',
+    galleryAlts: ['Classe tècnica de Jiu-Jitsu', 'Dues dones entrenant Brazilian Jiu-Jitsu', 'Joves practicant arts marcials', 'Entrenament de No-Gi i grappling', 'Detall d’una tècnica de control amb quimono', 'Classe compartint una explicació al tatami'],
+    ctaTitle: 'Classe gratuïta',
+    ctaAction: 'Conèixer l’ambient',
+    ctaMessage: 'Hola, m’agradaria conèixer l’ambient en una classe gratuïta.',
+  },
+  en: {
+    metaTitle: 'Community',
+    metaDescription: 'Discover the Monkey Menorca family: camaraderie, seminars, camps, trips and the Calasans exchange.',
+    heroTitle: 'Community',
+    heroCopy: 'People who share a passion for learning, improving and enjoying Jiu-Jitsu in a friendly, family atmosphere.',
+    heroAlt: 'Grappling team gathered on the mat',
+    leadAlt: 'Group of practitioners sharing a moment on the mat',
+    leadTitle: 'A small, family-run school',
+    lifestyleEyebrow: 'Mediterranean · Menorca',
+    lifestyleTitle: 'Training in<br />Cala Galdana',
+    islandAlt: 'Turquoise cove in Menorca',
+    lifestyleLabel: 'Train by the sea',
+    lifestyleQuote: 'Sport, nature and quality of life.',
+    lifestyleCopy: 'One of the project’s foundations is combining training with Cala Galdana’s exceptional surroundings, so you can enjoy and grow through Jiu-Jitsu without giving up the quality of life the island offers.',
+    lifestyleFooter: 'Jiu-Jitsu on the island',
+    eventsEyebrow: 'Beyond class',
+    eventsTitle: 'Camps, trips and seminars',
+    eventsCopy: 'Activities and exchanges for sharing experiences and continuing to grow both technically and personally.',
+    events: [
+      ['Camps', 'Monkey Menorca Jiu-Jitsu organises camps as special activities.'],
+      ['Trips', 'Trips are part of the gym’s special activities.'],
+      ['Seminars', 'Leading instructors are regularly invited to share different styles.'],
+      ['Calasans exchange', 'The project encourages visits by students and instructors between both gyms.'],
+    ],
+    voices: 'Voices from the mat',
+    testimonialsTitle: 'Student<br />testimonials',
+    testimonialsCopy: 'The things our students mention most often when they talk about their experience at the gym.',
+    carouselLabel: 'Student testimonials',
+    carouselDescription: 'carousel',
+    previous: 'View previous testimonial',
+    next: 'View next testimonial',
+    choose: 'Choose a testimonial',
+    chooseNumber: (number: number) => `View testimonial ${number}`,
+    testimonialCaption: 'What our students value most',
+    testimonials: ['Great atmosphere', 'Approachable coaches', 'A sense of community', 'Clean facilities'],
+    galleryTitle: 'Gallery',
+    galleryAlts: ['Technical Jiu-Jitsu class', 'Two women training Brazilian Jiu-Jitsu', 'Young people practising martial arts', 'No-Gi and grappling training', 'Detail of a gi control technique', 'Class sharing an explanation on the mat'],
+    ctaTitle: 'Free class',
+    ctaAction: 'Experience the atmosphere',
+    ctaMessage: 'Hi, I would like to experience the atmosphere in a free class.',
+  },
+}[locale];
+const wa = (message: string) => whatsappUrl(message, locale);
 ---
 
 <BaseLayout
-  title="Comunidad"
-  description="Descubre la comunidad familiar de Monkey Menorca: compañerismo, seminarios, campus, viajes e intercambio Calasans."
+  title={content.metaTitle}
+  description={content.metaDescription}
 >
   <PageHero
-    eyebrow="Comunidad"
-    title="Pequeña en tamaño.<br /><em>Grande en energía.</em>"
-    copy="Una escuela familiar donde se entrena en serio, se comparte lo aprendido y cada persona suma."
+    eyebrow={content.heroTitle}
+    title={content.heroTitle}
+    copy={content.heroCopy}
     number="06"
+    image={heroImage}
+    imageAlt={content.heroAlt}
   />
 
   <section class="community-lead">
     <Image
       src={communityImage}
-      alt="El equipo de Monkey Menorca compartiendo un momento en el tatami"
+      alt={content.leadAlt}
       widths={[720, 1100, 1600]}
       sizes="100vw"
       format="webp"
@@ -52,40 +169,34 @@ const testimonials = [
     />
     <div class="community-lead__shade"></div>
     <div class="shell community-lead__content">
-      <p class="eyebrow">Una escuela pequeña y familiar</p>
-      <p class="statement">El compañero de hoy es parte de tu progreso de <em>mañana.</em></p>
-    </div>
-  </section>
-
-  <section class="section section--cream">
-    <div class="shell">
-      <SectionHeading
-        eyebrow="Nuestra manera de estar"
-        title="Tres valores.<br /><em>Un solo equipo.</em>"
-        copy="La técnica importa. La forma en que llegamos a ella, todavía más."
-      />
-      <div class="values-grid">
-        {values.map(([title, copy], index) => (
-          <article>
-            <span>{String(index + 1).padStart(2, '0')}</span>
-            <h3>{title}</h3>
-            <p>{copy}</p>
-          </article>
-        ))}
-      </div>
+      <h2 class="statement">{content.leadTitle}</h2>
     </div>
   </section>
 
   <section class="section lifestyle">
-    <div class="shell lifestyle__grid">
-      <div>
-        <p class="eyebrow">Entrenar en Cala Galdana</p>
-        <h2>Deporte.<br />Naturaleza.<br /><em>Calidad de vida.</em></h2>
-      </div>
-      <div>
-        <p class="quote">“El tatami te activa. La isla te devuelve la calma.”</p>
-        <p>Entrenar en Menorca tiene otro ritmo. Puedes empezar el día moviéndote, trabajar, ir a la cala y volver al día siguiente con la cabeza limpia.</p>
-        <ul class="pill-list"><li>Mar</li><li>Naturaleza</li><li>Movimiento</li><li>Equilibrio</li></ul>
+    <div class="shell">
+      <header class="lifestyle__heading">
+        <p class="eyebrow">{content.lifestyleEyebrow}</p>
+        <h2 set:html={content.lifestyleTitle} />
+      </header>
+      <div class="lifestyle__showcase">
+        <figure class="lifestyle__image">
+          <Image src={islandImage} alt={content.islandAlt} widths={[720, 1100]} sizes="(max-width: 850px) 100vw, 55vw" format="webp" quality={84} />
+          <figcaption>
+            <span>40° 00' N</span>
+            <span>Cala Galdana · Menorca</span>
+          </figcaption>
+        </figure>
+        <div class="lifestyle__copy">
+          <span class="lifestyle__number">01</span>
+          <p class="lifestyle__label">{content.lifestyleLabel}</p>
+        <p class="quote">{content.lifestyleQuote}</p>
+        <p>{content.lifestyleCopy}</p>
+          <div class="lifestyle__footer">
+            <span>{content.lifestyleFooter}</span>
+            <Icon name="arrow" size={24} />
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -93,54 +204,180 @@ const testimonials = [
   <section class="section section--dark">
     <div class="shell">
       <SectionHeading
-        eyebrow="Más allá de la clase"
-        title="Campus, viajes<br />y <em>seminarios.</em>"
-        copy="El aprendizaje crece cuando salimos de la rutina y dejamos entrar ideas nuevas."
+        eyebrow={content.eventsEyebrow}
+        title={content.eventsTitle}
+        copy={content.eventsCopy}
         light
       />
       <div class="events-list">
-        {events.map(([title, copy], index) => (
+        {content.events.map(([title, copy], index) => (
           <article>
             <span>{String(index + 1).padStart(2, '0')}</span>
             <h3>{title}</h3>
             <p>{copy}</p>
-            <Icon name="arrow" size={26} />
           </article>
         ))}
       </div>
     </div>
   </section>
 
-  <section class="section section--paper">
+  <section class="section testimonials-section">
     <div class="shell">
-      <SectionHeading eyebrow="Voces del tatami" title="Lo que se siente<br /><em>desde dentro.</em>" />
-      <div class="testimonials">
-        {testimonials.map(([quote, role], index) => (
-          <blockquote>
-            <span>0{index + 1}</span>
-            <p>{quote}</p>
-            <cite>{role}</cite>
-          </blockquote>
-        ))}
+      <header class="testimonials-heading">
+        <p class="eyebrow">{content.voices}</p>
+        <h2 set:html={content.testimonialsTitle} />
+        <p>{content.testimonialsCopy}</p>
+      </header>
+
+      <div
+        class="testimonial-carousel"
+        data-testimonial-carousel
+        tabindex="0"
+        role="region"
+        aria-roledescription={content.carouselDescription}
+        aria-label={content.carouselLabel}
+      >
+        <div class="testimonial-carousel__viewport" aria-live="polite">
+          {content.testimonials.map((feedback, index) => (
+            <article
+              class:list={['testimonial-slide', { 'is-active': index === 0 }]}
+              data-testimonial-slide
+              aria-hidden={index === 0 ? 'false' : 'true'}
+            >
+              <span class="testimonial-slide__number">0{index + 1}</span>
+              <span class="testimonial-slide__quote" aria-hidden="true">“</span>
+              <p>{feedback}</p>
+              <small>{content.testimonialCaption}</small>
+            </article>
+          ))}
+        </div>
+
+        <div class="testimonial-carousel__controls">
+          <button type="button" class="testimonial-carousel__arrow testimonial-carousel__arrow--prev" data-testimonial-prev aria-label={content.previous}>
+            <Icon name="arrow" size={23} />
+          </button>
+          <div class="testimonial-carousel__progress">
+            <span data-testimonial-current>01</span>
+            <div class="testimonial-carousel__dots" aria-label={content.choose}>
+              {content.testimonials.map((_, index) => (
+                <button
+                  type="button"
+                  class:list={{ 'is-active': index === 0 }}
+                  data-testimonial-dot
+                  aria-label={content.chooseNumber(index + 1)}
+                  aria-current={index === 0 ? 'true' : undefined}
+                ></button>
+              ))}
+            </div>
+            <span>0{content.testimonials.length}</span>
+          </div>
+          <button type="button" class="testimonial-carousel__arrow" data-testimonial-next aria-label={content.next}>
+            <Icon name="arrow" size={23} />
+          </button>
+        </div>
       </div>
     </div>
   </section>
 
+  <script>
+    const carousels = document.querySelectorAll<HTMLElement>('[data-testimonial-carousel]');
+
+    carousels.forEach((carousel) => {
+      const slides = Array.from(carousel.querySelectorAll<HTMLElement>('[data-testimonial-slide]'));
+      const dots = Array.from(carousel.querySelectorAll<HTMLButtonElement>('[data-testimonial-dot]'));
+      const current = carousel.querySelector<HTMLElement>('[data-testimonial-current]');
+      const previous = carousel.querySelector<HTMLButtonElement>('[data-testimonial-prev]');
+      const next = carousel.querySelector<HTMLButtonElement>('[data-testimonial-next]');
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      let activeIndex = 0;
+      let timer: number | undefined;
+      let touchStartX: number | undefined;
+
+      const showSlide = (newIndex: number) => {
+        activeIndex = (newIndex + slides.length) % slides.length;
+
+        slides.forEach((slide, index) => {
+          const isActive = index === activeIndex;
+          slide.classList.toggle('is-active', isActive);
+          slide.setAttribute('aria-hidden', String(!isActive));
+        });
+
+        dots.forEach((dot, index) => {
+          const isActive = index === activeIndex;
+          dot.classList.toggle('is-active', isActive);
+          if (isActive) dot.setAttribute('aria-current', 'true');
+          else dot.removeAttribute('aria-current');
+        });
+
+        if (current) current.textContent = String(activeIndex + 1).padStart(2, '0');
+      };
+
+      const stopAutoplay = () => {
+        if (timer !== undefined) window.clearInterval(timer);
+      };
+      const startAutoplay = () => {
+        stopAutoplay();
+        if (!reduceMotion) timer = window.setInterval(() => showSlide(activeIndex + 1), 5500);
+      };
+
+      previous?.addEventListener('click', () => {
+        showSlide(activeIndex - 1);
+        startAutoplay();
+      });
+      next?.addEventListener('click', () => {
+        showSlide(activeIndex + 1);
+        startAutoplay();
+      });
+      dots.forEach((dot, index) => dot.addEventListener('click', () => {
+        showSlide(index);
+        startAutoplay();
+      }));
+      carousel.addEventListener('keydown', (event: KeyboardEvent) => {
+        if (event.key === 'ArrowLeft') previous?.click();
+        if (event.key === 'ArrowRight') next?.click();
+      });
+      carousel.addEventListener('touchstart', (event: TouchEvent) => {
+        touchStartX = event.changedTouches[0]?.clientX;
+        stopAutoplay();
+      }, { passive: true });
+      carousel.addEventListener('touchend', (event: TouchEvent) => {
+        const touchEndX = event.changedTouches[0]?.clientX;
+        if (touchStartX !== undefined && touchEndX !== undefined) {
+          const distance = touchEndX - touchStartX;
+          if (Math.abs(distance) > 48) showSlide(activeIndex + (distance < 0 ? 1 : -1));
+        }
+        touchStartX = undefined;
+        startAutoplay();
+      }, { passive: true });
+      carousel.addEventListener('mouseenter', stopAutoplay);
+      carousel.addEventListener('mouseleave', startAutoplay);
+      carousel.addEventListener('focusin', stopAutoplay);
+      carousel.addEventListener('focusout', startAutoplay);
+      startAutoplay();
+    });
+  </script>
+
   <section class="gallery section--cream">
     <div class="shell">
-      <SectionHeading eyebrow="Galería" title="Esto también<br /><em>es Monkey.</em>" />
+      <SectionHeading eyebrow={content.galleryTitle} title={content.galleryTitle} />
       <div class="gallery-grid">
         <figure class="gallery-grid__wide">
-          <Image src={classImage} alt="Clase técnica de Jiu-Jitsu" widths={[720, 1200]} sizes="(max-width: 800px) 100vw, 66vw" format="webp" quality={82} />
+          <Image src={classImage} alt={content.galleryAlts[0]} widths={[720, 1200]} sizes="(max-width: 800px) 100vw, 66vw" format="webp" quality={82} />
         </figure>
         <figure class="gallery-grid__portrait">
-          <Image src={heroImage} alt="Practicantes entrenando grappling" widths={[400, 680]} sizes="(max-width: 800px) 100vw, 33vw" format="webp" quality={82} />
+          <Image src={womenImage} alt={content.galleryAlts[1]} widths={[400, 680]} sizes="(max-width: 800px) 100vw, 33vw" format="webp" quality={82} />
         </figure>
         <figure class="gallery-grid__portrait">
-          <Image src={communityImage} alt="Compañeros de equipo después de entrenar" widths={[400, 680]} sizes="(max-width: 800px) 100vw, 33vw" format="webp" quality={82} />
+          <Image src={kidsImage} alt={content.galleryAlts[2]} widths={[400, 680]} sizes="(max-width: 800px) 100vw, 33vw" format="webp" quality={82} />
         </figure>
         <figure class="gallery-grid__wide">
-          <Image src={heroImage} alt="Entrenamiento de No-Gi en Cala Galdana" widths={[720, 1200]} sizes="(max-width: 800px) 100vw, 66vw" format="webp" quality={82} />
+          <Image src={nogiImage} alt={content.galleryAlts[3]} widths={[720, 1200]} sizes="(max-width: 800px) 100vw, 66vw" format="webp" quality={82} />
+        </figure>
+        <figure class="gallery-grid__portrait">
+          <Image src={detailImage} alt={content.galleryAlts[4]} widths={[400, 680]} sizes="(max-width: 800px) 100vw, 33vw" format="webp" quality={82} />
+        </figure>
+        <figure class="gallery-grid__portrait">
+          <Image src={communityImage} alt={content.galleryAlts[5]} widths={[400, 680]} sizes="(max-width: 800px) 100vw, 33vw" format="webp" quality={82} />
         </figure>
       </div>
     </div>
@@ -148,9 +385,9 @@ const testimonials = [
 
   <section class="cta-band">
     <div class="shell cta-band__inner">
-      <h2>El ambiente se entiende cuando lo vives.</h2>
-      <a class="btn btn--dark" href={whatsappUrl('Hola, me gustaría conocer el ambiente en una clase gratuita.')} target="_blank" rel="noreferrer">
-        Conocer el ambiente <Icon name="whatsapp" />
+      <h2>{content.ctaTitle}</h2>
+      <a class="btn btn--dark" href={wa(content.ctaMessage)} target="_blank" rel="noreferrer">
+        {content.ctaAction} <Icon name="whatsapp" />
       </a>
     </div>
   </section>
@@ -163,26 +400,277 @@ const testimonials = [
   .community-lead__content { position: relative; z-index: 1; }
   .community-lead .statement { max-width: 75rem; margin-top: 1.5rem; }
   .community-lead .statement em { color: var(--lime); }
-  .values-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); }
-  .values-grid article { min-height: 27rem; display: flex; flex-direction: column; padding: clamp(2rem, 4vw, 3.5rem); background: var(--cream); }
-  .values-grid span { color: var(--lime-dark); font-size: .68rem; font-weight: 900; letter-spacing: .12em; }
-  .values-grid h3 { margin: auto 0 .7rem; font-family: var(--font-display); font-size: clamp(3rem, 5vw, 5rem); line-height: .8; text-transform: uppercase; }
-  .values-grid p { margin: 0; color: var(--muted); font-size: .88rem; line-height: 1.7; }
   .lifestyle { background: var(--sand); }
-  .lifestyle__grid { display: grid; grid-template-columns: 1.2fr .7fr; gap: clamp(3rem, 8vw, 9rem); align-items: end; }
-  .lifestyle h2 { margin: 1.2rem 0 0; font-family: var(--font-display); font-size: clamp(5rem, 9vw, 9rem); font-weight: 900; line-height: .75; letter-spacing: -.04em; text-transform: uppercase; }
-  .lifestyle h2 em { color: #3f5100; font-style: normal; }
-  .lifestyle__grid > div:last-child > p:not(.quote) { line-height: 1.75; }
+  .lifestyle__heading {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: start;
+    gap: 2rem;
+    margin-bottom: clamp(2.5rem, 5vw, 4.5rem);
+    border-top: 1px solid rgba(17,17,15,.25);
+    padding-top: 1.25rem;
+  }
+  .lifestyle__heading .eyebrow { grid-column: 2; grid-row: 1; margin-top: .45rem; }
+  .lifestyle h2 {
+    grid-column: 1;
+    grid-row: 1;
+    max-width: 58rem;
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: clamp(4.6rem, 9vw, 9rem);
+    font-weight: 400;
+    line-height: .76;
+    letter-spacing: 0;
+    text-transform: uppercase;
+  }
+  .lifestyle__showcase {
+    display: grid;
+    grid-template-columns: minmax(0, 1.35fr) minmax(19rem, .72fr);
+    align-items: center;
+  }
+  .lifestyle__image {
+    position: relative;
+    aspect-ratio: 16 / 10;
+    margin: 0;
+    overflow: hidden;
+    background: var(--ink);
+  }
+  .lifestyle__image::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,.18);
+    pointer-events: none;
+  }
+  .lifestyle__image :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform .7s ease;
+  }
+  .lifestyle__showcase:hover .lifestyle__image :global(img) { transform: scale(1.025); }
+  .lifestyle__image figcaption {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1;
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1rem 1.25rem;
+    background: linear-gradient(0deg, rgba(10,10,9,.78), transparent);
+    color: white;
+    font-size: .62rem;
+    font-weight: 900;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+  }
+  .lifestyle__copy {
+    position: relative;
+    z-index: 2;
+    margin-left: clamp(-5rem, -5vw, -3rem);
+    padding: clamp(2rem, 4vw, 4rem);
+    border: 1px solid var(--ink);
+    background: var(--lime);
+    box-shadow: 1rem 1rem 0 var(--ink);
+    color: var(--ink);
+  }
+  .lifestyle__number {
+    position: absolute;
+    top: 1rem;
+    right: 1.25rem;
+    font-family: var(--font-display);
+    font-size: 2.4rem;
+    line-height: 1;
+  }
+  .lifestyle__label {
+    margin: 0 0 clamp(3.5rem, 7vw, 6rem);
+    font-size: .66rem;
+    font-weight: 900;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+  }
+  .lifestyle__copy .quote {
+    max-width: 28rem;
+    margin: 0 0 1.5rem;
+    font-family: var(--font-display);
+    font-size: clamp(2.7rem, 4.5vw, 4.8rem);
+    font-weight: 600;
+    line-height: .92;
+  }
+  .lifestyle__copy > p:not(.quote):not(.lifestyle__label) {
+    max-width: 30rem;
+    margin: 0;
+    font-size: .92rem;
+    font-weight: 650;
+    line-height: 1.7;
+  }
+  .lifestyle__footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(17,17,15,.35);
+    font-size: .65rem;
+    font-weight: 900;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+  }
   .events-list { border-top: 1px solid rgba(255,255,255,.16); }
-  .events-list article { display: grid; grid-template-columns: 3rem .7fr 1fr auto; align-items: center; gap: clamp(1rem, 4vw, 4rem); padding: 2rem 0; border-bottom: 1px solid rgba(255,255,255,.16); }
+  .events-list article { display: grid; grid-template-columns: 3rem .7fr 1fr; align-items: center; gap: clamp(1rem, 4vw, 4rem); padding: 2rem 0; border-bottom: 1px solid rgba(255,255,255,.16); }
   .events-list span { color: var(--lime); font-size: .65rem; font-weight: 900; }
   .events-list h3 { margin: 0; font-family: var(--font-display); font-size: clamp(2rem, 4vw, 4rem); line-height: .9; text-transform: uppercase; }
   .events-list p { margin: 0; color: rgba(255,255,255,.55); font-size: .85rem; line-height: 1.65; }
-  .testimonials { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); }
-  blockquote { min-height: 30rem; display: flex; flex-direction: column; margin: 0; padding: clamp(2rem, 4vw, 3.5rem); background: var(--paper); }
-  blockquote > span { color: var(--lime-dark); font-size: .68rem; font-weight: 900; }
-  blockquote p { margin: auto 0 2rem; font-family: var(--font-display); font-size: clamp(2rem, 3.5vw, 3.6rem); line-height: 1; }
-  blockquote cite { font-size: .7rem; font-style: normal; font-weight: 900; letter-spacing: .1em; text-transform: uppercase; }
+  .testimonials-section {
+    position: relative;
+    overflow: hidden;
+    background:
+      linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px),
+      var(--ink);
+    background-size: 6rem 6rem;
+    color: white;
+  }
+  .testimonials-section::before {
+    content: '';
+    position: absolute;
+    top: -13rem;
+    right: -11rem;
+    width: 31rem;
+    height: 31rem;
+    border: 5rem solid rgba(255,31,31,.08);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  .testimonials-heading {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(17rem, .55fr);
+    gap: clamp(2rem, 8vw, 8rem);
+    align-items: end;
+    padding-bottom: clamp(2.5rem, 5vw, 4.5rem);
+    border-bottom: 1px solid rgba(255,255,255,.16);
+  }
+  .testimonials-heading .eyebrow { position: absolute; top: 0; left: 0; color: var(--lime); }
+  .testimonials-heading h2 {
+    margin: 2rem 0 0;
+    font-family: var(--font-display);
+    font-size: clamp(4.8rem, 9vw, 9rem);
+    font-weight: 400;
+    line-height: .76;
+    text-transform: uppercase;
+  }
+  .testimonials-heading > p:last-child {
+    margin: 0;
+    color: rgba(255,255,255,.64);
+    line-height: 1.75;
+  }
+  .testimonial-carousel { position: relative; outline: none; touch-action: pan-y; }
+  .testimonial-carousel:focus-visible { box-shadow: 0 0 0 2px var(--lime); }
+  .testimonial-carousel__viewport {
+    position: relative;
+    min-height: clamp(25rem, 42vw, 37rem);
+  }
+  .testimonial-slide {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-content: center;
+    justify-items: center;
+    margin: 0;
+    padding: clamp(3rem, 7vw, 7rem) clamp(1rem, 9vw, 9rem);
+    text-align: center;
+    visibility: hidden;
+    opacity: 0;
+    transform: translateX(2.5rem);
+    transition: opacity .45s ease, transform .45s ease, visibility .45s;
+    pointer-events: none;
+  }
+  .testimonial-slide.is-active {
+    visibility: visible;
+    opacity: 1;
+    transform: translateX(0);
+    pointer-events: auto;
+  }
+  .testimonial-slide__number {
+    position: absolute;
+    top: 2rem;
+    left: 0;
+    color: var(--lime);
+    font-size: .68rem;
+    font-weight: 900;
+    letter-spacing: .12em;
+  }
+  .testimonial-slide__quote {
+    height: 4rem;
+    color: var(--lime);
+    font-family: Georgia, serif;
+    font-size: 8rem;
+    line-height: .85;
+  }
+  .testimonial-slide p {
+    max-width: 58rem;
+    margin: 1rem 0 2rem;
+    font-family: var(--font-display);
+    font-size: clamp(3.2rem, 7vw, 7rem);
+    line-height: .88;
+    text-transform: uppercase;
+    text-wrap: balance;
+  }
+  .testimonial-slide small {
+    color: rgba(255,255,255,.58);
+    font-size: .65rem;
+    font-weight: 900;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+  }
+  .testimonial-carousel__controls {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255,255,255,.16);
+  }
+  .testimonial-carousel__arrow {
+    width: 3.75rem;
+    height: 3.75rem;
+    display: grid;
+    place-items: center;
+    border: 1px solid rgba(255,255,255,.32);
+    border-radius: 50%;
+    background: transparent;
+    color: white;
+    cursor: pointer;
+    transition: border-color .2s ease, background .2s ease, color .2s ease;
+  }
+  .testimonial-carousel__arrow:hover { border-color: var(--lime); background: var(--lime); color: var(--ink); }
+  .testimonial-carousel__arrow--prev :global(svg) { transform: rotate(180deg); }
+  .testimonial-carousel__progress {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1.25rem;
+    font-size: .64rem;
+    font-weight: 900;
+    letter-spacing: .12em;
+  }
+  .testimonial-carousel__progress > span:first-child { color: var(--lime); }
+  .testimonial-carousel__dots { display: flex; align-items: center; gap: .5rem; }
+  .testimonial-carousel__dots button {
+    width: 1.35rem;
+    height: .25rem;
+    padding: 0;
+    border: 0;
+    border-radius: 1rem;
+    background: rgba(255,255,255,.25);
+    cursor: pointer;
+    transition: width .25s ease, background .25s ease;
+  }
+  .testimonial-carousel__dots button.is-active { width: 3rem; background: var(--lime); }
   .gallery { padding-block: var(--section-space); }
   .gallery-grid { display: grid; grid-template-columns: 2fr 1fr; grid-auto-rows: 26rem; gap: 1rem; }
   .gallery-grid figure { margin: 0; overflow: hidden; background: var(--ink); }
@@ -190,13 +678,85 @@ const testimonials = [
   .gallery-grid figure:hover :global(img) { transform: scale(1.025); }
   .gallery-grid__portrait :global(img) { object-position: 70% center; }
   @media (max-width: 850px) {
-    .values-grid, .testimonials { grid-template-columns: 1fr; }
-    .lifestyle__grid { grid-template-columns: 1fr; }
-    .values-grid article, blockquote { min-height: 20rem; }
+    .lifestyle__heading { grid-template-columns: 1fr; }
+    .lifestyle__heading .eyebrow { grid-column: 1; grid-row: 1; margin: 0 0 .5rem; }
+    .lifestyle h2 { grid-column: 1; grid-row: 2; }
+    .lifestyle__showcase { grid-template-columns: 1fr; }
+    .lifestyle__copy {
+      width: calc(100% - 2rem);
+      margin: -3rem 1rem 0;
+      box-shadow: .65rem .65rem 0 var(--ink);
+    }
+    .testimonials-heading { grid-template-columns: 1fr; }
+    .testimonials-heading > p:last-child { max-width: 32rem; }
     .events-list article { grid-template-columns: 2rem 1fr auto; }
     .events-list p { grid-column: 2; }
   }
   @media (max-width: 600px) {
-    .gallery-grid { grid-template-columns: 1fr; grid-auto-rows: 22rem; }
+    .community-lead {
+      min-height: 30rem;
+      padding-bottom: 3.25rem;
+    }
+    .community-lead .statement { max-width: 8.5ch; font-size: 3.8rem; }
+    .lifestyle__heading { gap: .5rem; margin-bottom: 2rem; }
+    .lifestyle h2 { font-size: clamp(3.45rem, 16vw, 4.2rem); line-height: .82; }
+    .lifestyle__image { aspect-ratio: 4 / 3; }
+    .lifestyle__image figcaption span:first-child { display: none; }
+    .lifestyle__copy {
+      width: calc(100% - 1.25rem);
+      margin: -2rem .625rem 0;
+      padding: 1.4rem;
+      box-shadow: .45rem .45rem 0 var(--ink);
+    }
+    .lifestyle__label { margin-bottom: 2.75rem; }
+    .lifestyle__copy .quote { font-size: 2.65rem; }
+    .lifestyle__copy > p:not(.quote):not(.lifestyle__label) { font-size: .82rem; line-height: 1.6; }
+    .events-list {
+      margin-right: -1rem;
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: min(80vw, 19rem);
+      gap: .75rem;
+      padding: 0 1rem .15rem 0;
+      border: 0;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+    }
+    .events-list::-webkit-scrollbar { display: none; }
+    .events-list article {
+      min-height: 15rem;
+      grid-template-columns: 1fr;
+      align-content: space-between;
+      gap: .75rem;
+      padding: 1.35rem;
+      border: 1px solid rgba(255,255,255,.16);
+      scroll-snap-align: start;
+    }
+    .events-list h3 { font-size: 2.45rem; }
+    .events-list p { grid-column: auto; font-size: .78rem; line-height: 1.55; }
+    .testimonials-heading { gap: 1rem; padding-bottom: 2rem; }
+    .testimonials-heading h2 { margin-top: 1.65rem; font-size: 3.9rem; line-height: .8; }
+    .testimonials-heading > p:last-child { font-size: .84rem; line-height: 1.6; }
+    .testimonial-carousel__viewport { min-height: 23rem; }
+    .testimonial-slide { padding-inline: 0; }
+    .testimonial-slide__number { top: 1.5rem; }
+    .testimonial-slide__quote { height: 3rem; font-size: 6rem; }
+    .testimonial-slide p { margin-block: .65rem 1.25rem; font-size: clamp(2.45rem, 12vw, 3.2rem); }
+    .testimonial-carousel__controls { gap: .75rem; }
+    .testimonial-carousel__arrow { width: 3.25rem; height: 3.25rem; }
+    .testimonial-carousel__progress { gap: .7rem; }
+    .testimonial-carousel__dots { gap: .3rem; }
+    .testimonial-carousel__dots button { width: .75rem; }
+    .testimonial-carousel__dots button.is-active { width: 1.8rem; }
+    .gallery-grid {
+      grid-template-columns: 1fr 1fr;
+      grid-auto-rows: 10rem;
+      gap: .55rem;
+    }
+    .gallery-grid__wide { grid-column: 1 / -1; }
+    .gallery-grid__wide:nth-of-type(1) { grid-row: span 2; }
+    .gallery-grid__wide:nth-of-type(4) { grid-row: span 1; }
+    .gallery-grid__portrait { grid-row: span 2; }
   }
 </style>

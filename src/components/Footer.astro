@@ -1,24 +1,30 @@
 ---
 import Logo from './Logo.astro';
 import Icon from './Icon.astro';
-import { nav, site, whatsappUrl } from '../data/site';
+import { site, whatsappUrl } from '../data/site';
+import { getLocale, languageAlternates, localizedPath, ui } from '../i18n';
+
+const locale = getLocale(Astro.url);
+const messages = ui[locale];
+const nav = messages.nav.map(([href, label]) => ({ href: localizedPath(href, locale), label }));
+const alternates = languageAlternates(Astro.url.pathname);
 ---
 
 <footer class="footer">
   <div class="footer__top shell">
     <div class="footer__intro">
       <Logo light />
-      <h2>Nos vemos<br />en el tatami.</h2>
-      <a class="btn btn--lime" href={whatsappUrl()} target="_blank" rel="noreferrer">
-        Probar una clase gratis <Icon name="arrow" />
+      <h2>{messages.contact}</h2>
+      <a class="btn btn--lime" href={whatsappUrl(undefined, locale)} target="_blank" rel="noreferrer">
+        {messages.tryFreeClass} <Icon name="arrow" />
       </a>
     </div>
     <div class="footer__nav">
-      <p class="eyebrow">Explora</p>
+      <p class="eyebrow">{messages.explore}</p>
       {nav.map((item) => <a href={item.href}>{item.label}</a>)}
     </div>
     <div class="footer__contact">
-      <p class="eyebrow">Encuéntranos</p>
+      <p class="eyebrow">{messages.findUs}</p>
       <address>{site.address}</address>
       <a href={site.phoneHref}>{site.phone}</a>
       <a href={`mailto:${site.email}`}>{site.email}</a>
@@ -28,9 +34,13 @@ import { nav, site, whatsappUrl } from '../data/site';
     </div>
   </div>
   <div class="footer__bottom shell">
-    <span>© {new Date().getFullYear()} Monkey Menorca Jiu-Jitsu</span>
+    <span>© {new Date().getFullYear()} {site.displayName}</span>
     <span>Cala Galdana · Menorca</span>
-    <span>Respeto · Técnica · Comunidad</span>
+    <nav class="footer__languages" aria-label={messages.language}>
+      {alternates.map((item) => (
+        <a class:list={{ active: item.locale === locale }} href={item.href} lang={item.locale} hreflang={item.locale}>{item.label}</a>
+      ))}
+    </nav>
   </div>
 </footer>
 
@@ -47,7 +57,7 @@ import { nav, site, whatsappUrl } from '../data/site';
     font-size: clamp(4rem, 8vw, 8.5rem);
     font-weight: 900;
     line-height: .76;
-    letter-spacing: -.035em;
+    letter-spacing: 0;
     text-transform: uppercase;
   }
   .footer__nav, .footer__contact { display: flex; flex-direction: column; align-items: flex-start; gap: .85rem; }
@@ -69,9 +79,35 @@ import { nav, site, whatsappUrl } from '../data/site';
     letter-spacing: .08em;
     text-transform: uppercase;
   }
+  .footer__languages { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: .5rem 1rem; }
+  .footer__languages a { color: inherit; font-size: inherit; line-height: inherit; }
+  .footer__languages a:hover,
+  .footer__languages a.active { color: var(--cream); }
   @media (max-width: 800px) {
     .footer__top { grid-template-columns: 1fr; }
     .footer__bottom { flex-direction: column; }
     h2 { font-size: clamp(3.8rem, 20vw, 6rem); }
+  }
+  @media (max-width: 580px) {
+    .footer { padding: 3.5rem 0 max(1.25rem, env(safe-area-inset-bottom)); }
+    .footer__top {
+      grid-template-columns: minmax(0, .82fr) minmax(0, 1.18fr);
+      gap: 3rem 1.5rem;
+    }
+    .footer__intro { grid-column: 1 / -1; }
+    h2 { margin: 2.25rem 0 1.75rem; font-size: clamp(3.7rem, 18vw, 4.75rem); }
+    .footer__intro .btn { width: 100%; }
+    .footer__nav, .footer__contact { gap: .7rem; min-width: 0; }
+    a, address { max-width: 100%; font-size: .76rem; overflow-wrap: anywhere; }
+    .footer__bottom {
+      gap: .85rem;
+      margin-top: 3.5rem;
+      font-size: .59rem;
+    }
+    .footer__languages { justify-content: flex-start; }
+  }
+  @media (max-width: 340px) {
+    .footer__top { grid-template-columns: 1fr; }
+    .footer__intro { grid-column: auto; }
   }
 </style>

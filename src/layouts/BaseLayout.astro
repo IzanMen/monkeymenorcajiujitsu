@@ -1,18 +1,17 @@
 ---
-import '@fontsource/barlow-condensed/300.css';
-import '@fontsource/barlow-condensed/600.css';
-import '@fontsource/barlow-condensed/700.css';
-import '@fontsource/barlow-condensed/800.css';
-import '@fontsource/barlow-condensed/900.css';
-import '@fontsource/manrope/400.css';
-import '@fontsource/manrope/600.css';
-import '@fontsource/manrope/700.css';
-import '@fontsource/manrope/800.css';
+import '@fontsource/teko/500.css';
+import '@fontsource/teko/600.css';
+import '@fontsource/teko/700.css';
+import '@fontsource/inter/400.css';
+import '@fontsource/inter/500.css';
+import '@fontsource/inter/600.css';
+import '@fontsource/inter/700.css';
 import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import WhatsAppFloat from '../components/WhatsAppFloat.astro';
 import { site } from '../data/site';
+import { getLocale, languageAlternates, ui } from '../i18n';
 
 interface Props {
   title?: string;
@@ -20,22 +19,29 @@ interface Props {
   image?: string;
 }
 
+const locale = getLocale(Astro.url);
+const messages = ui[locale];
 const {
-  title = 'Jiu-Jitsu brasileño en Cala Galdana, Menorca',
-  description = 'Club cercano y técnico de BJJ, No-Gi y Grappling en Cala Galdana. Empieza desde cero con una clase gratuita.',
+  title = messages.defaultTitle,
+  description = messages.defaultDescription,
   image = '/og-image.jpg',
 } = Astro.props;
 const fullTitle = title.includes(site.shortName) ? title : `${title} | ${site.shortName}`;
 const canonical = new URL(Astro.url.pathname, Astro.site);
+const alternates = languageAlternates(Astro.url.pathname);
+const ogLocales = { es: 'es_ES', ca: 'ca_ES', en: 'en_GB' } as const;
 
 const schema = {
   '@context': 'https://schema.org',
   '@type': 'SportsActivityLocation',
-  name: site.name,
+  name: site.displayName,
+  alternateName: site.name,
   description,
   url: canonical.href,
   telephone: site.phone,
   email: site.email,
+  sameAs: [site.instagram],
+  availableLanguage: site.serviceLanguages,
   address: {
     '@type': 'PostalAddress',
     streetAddress: 'Avenida Costa del Mirador LC1',
@@ -47,7 +53,7 @@ const schema = {
 ---
 
 <!doctype html>
-<html lang="es">
+<html lang={locale}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
@@ -55,21 +61,79 @@ const schema = {
     <meta name="description" content={description} />
     <meta name="generator" content={Astro.generator} />
     <link rel="canonical" href={canonical} />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    {alternates.map((alternate) => (
+      <link rel="alternate" hreflang={alternate.locale} href={new URL(alternate.href, Astro.site)} />
+    ))}
+    <link rel="alternate" hreflang="x-default" href={new URL(alternates[0].href, Astro.site)} />
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <meta property="og:type" content="website" />
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
+    <meta property="og:locale" content={ogLocales[locale]} />
+    {alternates.filter((alternate) => alternate.locale !== locale).map((alternate) => (
+      <meta property="og:locale:alternate" content={ogLocales[alternate.locale]} />
+    ))}
     <meta property="og:image" content={new URL(image, Astro.site)} />
     <meta name="twitter:card" content="summary_large_image" />
     <title>{fullTitle}</title>
     <script is:inline type="application/ld+json" set:html={JSON.stringify(schema)} />
   </head>
   <body>
-    <a class="skip-link" href="#contenido">Saltar al contenido</a>
+    <a class="skip-link" href="#contenido">{messages.skip}</a>
     <Header />
     <main id="contenido"><slot /></main>
     <Footer />
     <WhatsAppFloat />
+    <script>
+      const mobileViewport = window.matchMedia('(max-width: 600px)');
+
+      if (mobileViewport.matches) {
+        const scrollerSelectors = [
+          '.audience-grid',
+          '.coach-grid',
+          '.coach-list__grid',
+          '.method-grid',
+          '.access-grid',
+          '.quick-grid',
+          '.events-list',
+          '.promise-grid',
+          '.bring-grid',
+          '.trial-steps',
+          '.photo-strip__grid',
+          '.class-item__copy ul',
+        ];
+
+        document.querySelectorAll<HTMLElement>(scrollerSelectors.join(',')).forEach((scroller) => {
+          scroller.dataset.mobileScroll = '';
+          scroller.tabIndex = 0;
+        });
+
+        if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          const revealItems = document.querySelectorAll<HTMLElement>([
+            '.section-heading',
+            'main article',
+            '.image-frame',
+            '.lifestyle__showcase',
+            '.location-showcase__grid',
+            '.community-lead__content',
+          ].join(','));
+
+          const revealObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach((entry) => {
+              if (!entry.isIntersecting) return;
+              entry.target.classList.add('is-visible');
+              observer.unobserve(entry.target);
+            });
+          }, { rootMargin: '0px 0px -7% 0px', threshold: .08 });
+
+          revealItems.forEach((item) => {
+            item.classList.add('mobile-reveal');
+            revealObserver.observe(item);
+          });
+        }
+      }
+    </script>
   </body>
 </html>

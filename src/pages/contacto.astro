@@ -4,40 +4,126 @@ import PageHero from '../components/PageHero.astro';
 import Map from '../components/Map.astro';
 import Icon from '../components/Icon.astro';
 import { site, whatsappUrl } from '../data/site';
+import { getLocale } from '../i18n';
+import heroImage from '../assets/photos/pexels-12087743.jpg';
 
-const quickQuestions = [
-  ['Clase de prueba', 'Hola, quiero probar una clase gratis de Jiu-Jitsu.'],
-  ['Clase privada', 'Hola, quiero información sobre clases privadas.'],
-  ['Información general', 'Hola, quiero información general sobre Monkey Menorca Jiu-Jitsu.'],
-];
+const locale = getLocale(Astro.url);
+const content = {
+  es: {
+    metaTitle: 'Contacto',
+    metaDescription: 'Contacta con Monkey Menorca Jiu-Jitsu por WhatsApp, teléfono o email y encuentra el club en Cala Galdana.',
+    heroTitle: 'Contacto',
+    heroCopy: 'Contacta por WhatsApp o por teléfono. Atendemos en castellano, catalán e inglés.',
+    heroAlt: 'Costa mediterránea cerca de Cala Galdana',
+    preferred: 'Contacto preferente',
+    whatsappAction: 'Contactar por WhatsApp',
+    alternatives: 'También puedes',
+    phone: 'Teléfono',
+    address: 'Dirección',
+    social: 'Redes',
+    quickEyebrow: 'Contacto rápido',
+    quickTitle: '¿Qué necesitas?',
+    steps: ['Elige', 'WhatsApp', 'Envía'],
+    popular: 'Más elegido',
+    quickQuestions: [
+      ['Gratis', 'Probar una clase', 'Primera clase sin coste', 'Quiero probarla', 'Hola, quiero probar una clase gratis de Jiu-Jitsu.'],
+      ['1:1', 'Clase privada', 'Entrenamiento personalizado', 'Quiero una privada', 'Hola, quiero información sobre clases privadas.'],
+      ['?', 'Tengo una duda', 'Horarios, precios o cualquier consulta', 'Hacer una pregunta', 'Hola, quiero información general sobre Monkey Menorca Jiu-Jitsu.'],
+    ],
+    visitTitle: 'Dirección',
+    visitCopy: 'Estamos en Avenida Costa del Mirador LC1, Cala Galdana. Se llega en coche y el acceso no está adaptado para personas con movilidad reducida.',
+    mapsAction: 'Abrir en Maps',
+  },
+  ca: {
+    metaTitle: 'Contacte',
+    metaDescription: 'Contacta amb Monkey Menorca Jiu-Jitsu per WhatsApp, telèfon o correu i troba el club a Cala Galdana.',
+    heroTitle: 'Contacte',
+    heroCopy: 'Contacta per WhatsApp o per telèfon. T’atenem en castellà, català i anglès.',
+    heroAlt: 'Costa mediterrània prop de Cala Galdana',
+    preferred: 'Contacte preferent',
+    whatsappAction: 'Contactar per WhatsApp',
+    alternatives: 'També pots',
+    phone: 'Telèfon',
+    address: 'Adreça',
+    social: 'Xarxes',
+    quickEyebrow: 'Contacte ràpid',
+    quickTitle: 'Què necessites?',
+    steps: ['Tria', 'WhatsApp', 'Envia'],
+    popular: 'Més triat',
+    quickQuestions: [
+      ['Gratis', 'Provar una classe', 'Primera classe sense cost', 'La vull provar', 'Hola, vull provar una classe gratis de Jiu-Jitsu.'],
+      ['1:1', 'Classe privada', 'Entrenament personalitzat', 'Vull una privada', 'Hola, vull informació sobre les classes privades.'],
+      ['?', 'Tinc un dubte', 'Horaris, preus o qualsevol consulta', 'Fer una pregunta', 'Hola, vull informació general sobre Monkey Menorca Jiu-Jitsu.'],
+    ],
+    visitTitle: 'Adreça',
+    visitCopy: 'Som a l’Avinguda Costa del Mirador LC1, Cala Galdana. S’hi arriba en cotxe i l’accés no està adaptat per a persones amb mobilitat reduïda.',
+    mapsAction: 'Obrir a Maps',
+  },
+  en: {
+    metaTitle: 'Contact',
+    metaDescription: 'Contact Monkey Menorca Jiu-Jitsu by WhatsApp, phone or email and find the club in Cala Galdana.',
+    heroTitle: 'Contact',
+    heroCopy: 'Contact us by WhatsApp or phone. We speak Spanish, Catalan and English.',
+    heroAlt: 'Mediterranean coast near Cala Galdana',
+    preferred: 'Preferred contact',
+    whatsappAction: 'Contact us on WhatsApp',
+    alternatives: 'You can also',
+    phone: 'Phone',
+    address: 'Address',
+    social: 'Social media',
+    quickEyebrow: 'Quick contact',
+    quickTitle: 'What do you need?',
+    steps: ['Choose', 'WhatsApp', 'Send'],
+    popular: 'Most popular',
+    quickQuestions: [
+      ['Free', 'Try a class', 'Your first class is free', 'I want to try it', 'Hi, I would like to try a free Jiu-Jitsu class.'],
+      ['1:1', 'Private class', 'Personal training', 'Book a private class', 'Hi, I would like information about private classes.'],
+      ['?', 'I have a question', 'Schedule, prices or anything else', 'Ask a question', 'Hi, I would like general information about Monkey Menorca Jiu-Jitsu.'],
+    ],
+    visitTitle: 'Address',
+    visitCopy: 'We are at Avenida Costa del Mirador LC1, Cala Galdana. The gym is accessible by car, but access is not adapted for people with reduced mobility.',
+    mapsAction: 'Open in Maps',
+  },
+}[locale];
+const quickQuestions = content.quickQuestions.map(([mark, label, detail, action, message], index) => ({
+  mark,
+  label,
+  detail,
+  action,
+  message,
+  primary: index === 0,
+}));
+const wa = (message?: string) => whatsappUrl(message, locale);
 ---
 
 <BaseLayout
-  title="Contacto"
-  description="Contacta con Monkey Menorca Jiu-Jitsu por WhatsApp, teléfono o email y encuentra el club en Cala Galdana."
+  title={content.metaTitle}
+  description={content.metaDescription}
 >
   <PageHero
-    eyebrow="Contacto"
-    title="Hablemos.<br /><em>Entrenamos luego.</em>"
-    copy="La forma más rápida de empezar es WhatsApp. Cuéntanos qué buscas y te orientamos sin compromiso."
+    eyebrow={content.heroTitle}
+    title={content.heroTitle}
+    copy={content.heroCopy}
     number="07"
+    image={heroImage}
+    imageAlt={content.heroAlt}
   />
 
   <section class="contact-main section section--cream">
     <div class="shell contact-main__grid">
       <div class="whatsapp-card">
         <Icon name="whatsapp" size={56} />
-        <p>Respuesta directa</p>
-        <h2>Tu clase gratis está a un mensaje.</h2>
-        <a class="btn btn--dark" href={whatsappUrl()} target="_blank" rel="noreferrer">
-          Contactar por WhatsApp <Icon name="arrow" />
+        <p>{content.preferred}</p>
+        <h2>WhatsApp</h2>
+        <a class="btn btn--dark" href={wa()} target="_blank" rel="noreferrer">
+          {content.whatsappAction} <Icon name="arrow" />
         </a>
       </div>
       <div class="contact-list">
-        <p class="eyebrow">También puedes</p>
+        <p class="eyebrow">{content.alternatives}</p>
         <a href={site.phoneHref}>
           <Icon name="phone" size={28} />
-          <span><small>Teléfono</small><strong>{site.phone}</strong></span>
+          <span><small>{content.phone}</small><strong>{site.phone}</strong></span>
           <Icon name="arrow" />
         </a>
         <a href={`mailto:${site.email}`}>
@@ -47,33 +133,52 @@ const quickQuestions = [
         </a>
         <a href={site.mapLink} target="_blank" rel="noreferrer">
           <Icon name="pin" size={28} />
-          <span><small>Dirección</small><strong>{site.address}</strong></span>
+          <span><small>{content.address}</small><strong>{site.address}</strong></span>
           <Icon name="arrow" />
         </a>
         <a href={site.instagram} target="_blank" rel="noreferrer">
           <Icon name="instagram" size={28} />
-          <span><small>Redes</small><strong>Instagram</strong></span>
+          <span><small>{content.social}</small><strong>Instagram</strong></span>
           <Icon name="arrow" />
         </a>
       </div>
     </div>
   </section>
 
-  <section class="section section--dark">
+  <section class="quick-contact section section--dark">
     <div class="shell">
       <div class="quick-heading">
         <div>
-          <p class="eyebrow">Pregunta rápida</p>
-          <h2>¿Qué necesitas?</h2>
+          <p class="eyebrow">{content.quickEyebrow}</p>
+          <h2>{content.quickTitle}</h2>
         </div>
-        <p>Elige una opción y abriremos WhatsApp con el mensaje preparado. Puedes editarlo antes de enviarlo.</p>
       </div>
+
+      <div class="quick-steps" aria-hidden="true">
+        <span><b>1</b> {content.steps[0]}</span>
+        <i></i>
+        <span><b>2</b> {content.steps[1]}</span>
+        <i></i>
+        <span><b>3</b> {content.steps[2]}</span>
+      </div>
+
       <div class="quick-grid">
-        {quickQuestions.map(([label, message], index) => (
-          <a href={whatsappUrl(message)} target="_blank" rel="noreferrer">
-            <span>{String(index + 1).padStart(2, '0')}</span>
-            <h3>{label}</h3>
-            <Icon name="arrow" size={30} />
+        {quickQuestions.map(({ mark, label, detail, action, message, primary }, index) => (
+          <a class:list={['quick-option', { 'quick-option--primary': primary }]} href={wa(message)} target="_blank" rel="noreferrer">
+            <span class="quick-option__top">
+              <b>0{index + 1}</b>
+              {primary && <em>{content.popular}</em>}
+            </span>
+            <span class="quick-option__mark">{mark}</span>
+            <span class="quick-option__text">
+              <strong>{label}</strong>
+              <small>{detail}</small>
+            </span>
+            <span class="quick-option__cta">
+              <Icon name="whatsapp" size={26} />
+              {action}
+              <Icon name="arrow" size={21} />
+            </span>
           </a>
         ))}
       </div>
@@ -83,36 +188,25 @@ const quickQuestions = [
   <section class="visit section section--paper">
     <div class="shell visit__intro">
       <div>
-        <p class="eyebrow">Ven a conocernos</p>
-        <h2>Monkey Menorca<br /><em>Cala Galdana.</em></h2>
+        <h2>{content.visitTitle}</h2>
       </div>
       <div>
-        <p>Estamos en Avenida Costa del Mirador LC1. Si es tu primera vez, llega diez minutos antes y te enseñamos el espacio con calma.</p>
-        <a class="btn btn--dark" href={site.mapLink} target="_blank" rel="noreferrer">Abrir en Maps <Icon name="pin" /></a>
+        <p>{content.visitCopy}</p>
+        <a class="btn btn--dark" href={site.mapLink} target="_blank" rel="noreferrer">{content.mapsAction} <Icon name="pin" /></a>
       </div>
     </div>
   </section>
 
   <Map />
 
-  <section class="instagram-band">
-    <div class="shell instagram-band__inner">
-      <Icon name="instagram" size={38} />
-      <div>
-        <span>Sigue el día a día</span>
-        <h2>Entrenos, seminarios y vida Monkey.</h2>
-      </div>
-      <a class="btn btn--outline" href={site.instagram} target="_blank" rel="noreferrer">Ver Instagram <Icon name="arrow" /></a>
-    </div>
-  </section>
 </BaseLayout>
 
 <style>
   .contact-main__grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2rem, 5vw, 5rem); }
   .whatsapp-card { min-height: 39rem; display: flex; flex-direction: column; align-items: flex-start; justify-content: flex-end; padding: clamp(2rem, 5vw, 4.5rem); background: var(--lime); }
-  .whatsapp-card > svg { margin-bottom: auto; }
+  .whatsapp-card > :global(.icon--whatsapp) { margin-bottom: auto; }
   .whatsapp-card > p { margin: 0 0 .75rem; font-size: .68rem; font-weight: 900; letter-spacing: .12em; text-transform: uppercase; }
-  .whatsapp-card h2 { margin: 0 0 2rem; font-family: var(--font-display); font-size: clamp(4rem, 7vw, 7rem); font-weight: 900; line-height: .78; text-transform: uppercase; }
+  .whatsapp-card h2 { margin: 0 0 2rem; font-family: var(--font-display); font-size: clamp(4rem, 7vw, 7rem); font-weight: 400; line-height: .78; text-transform: uppercase; }
   .contact-list { display: flex; flex-direction: column; }
   .contact-list > .eyebrow { margin-bottom: 3rem; }
   .contact-list > a { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 1rem; padding: 1.5rem 0; border-bottom: 1px solid var(--line); color: inherit; text-decoration: none; }
@@ -120,28 +214,160 @@ const quickQuestions = [
   .contact-list span { display: grid; gap: .3rem; }
   .contact-list small { color: var(--muted); font-size: .62rem; font-weight: 900; letter-spacing: .1em; text-transform: uppercase; }
   .contact-list strong { font-family: var(--font-display); font-size: clamp(1.35rem, 2.5vw, 2.2rem); line-height: 1; text-transform: uppercase; }
-  .quick-heading { display: grid; grid-template-columns: 1fr .6fr; gap: 3rem; align-items: end; margin-bottom: 4rem; }
-  .quick-heading h2 { margin: 1rem 0 0; font-family: var(--font-display); font-size: clamp(5rem, 10vw, 10rem); font-weight: 900; line-height: .72; text-transform: uppercase; }
-  .quick-heading > p { color: rgba(255,255,255,.58); line-height: 1.7; }
-  .quick-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: rgba(255,255,255,.15); border: 1px solid rgba(255,255,255,.15); }
-  .quick-grid a { min-height: 23rem; display: flex; flex-direction: column; padding: 2rem; background: var(--ink); color: white; text-decoration: none; transition: background .25s ease, color .25s ease; }
-  .quick-grid a:hover { background: var(--lime); color: var(--ink); }
-  .quick-grid span { color: var(--lime); font-size: .68rem; font-weight: 900; }
-  .quick-grid a:hover span { color: var(--ink); }
-  .quick-grid h3 { margin: auto 0 1.5rem; font-family: var(--font-display); font-size: clamp(2.6rem, 4vw, 4rem); line-height: .85; text-transform: uppercase; }
+  .quick-contact { background: var(--ink); }
+  .quick-heading {
+    margin-bottom: clamp(2rem, 4vw, 3.5rem);
+  }
+  .quick-heading h2 {
+    max-width: 10ch;
+    margin: .9rem 0 0;
+    font-family: var(--font-display);
+    font-size: clamp(4.5rem, 8vw, 8rem);
+    font-weight: 400;
+    line-height: .76;
+    text-transform: uppercase;
+    text-wrap: balance;
+  }
+  .quick-steps {
+    display: grid;
+    grid-template-columns: auto 1fr auto 1fr auto;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    color: rgba(255,255,255,.72);
+    font-size: .65rem;
+    font-weight: 900;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+  }
+  .quick-steps span { display: flex; align-items: center; gap: .55rem; }
+  .quick-steps b {
+    width: 1.8rem;
+    height: 1.8rem;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: var(--lime);
+    color: var(--ink);
+  }
+  .quick-steps i { height: 1px; background: rgba(255,255,255,.2); }
+  .quick-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
+  .quick-option {
+    min-height: 29rem;
+    display: flex;
+    flex-direction: column;
+    padding: clamp(1.35rem, 2.5vw, 2rem);
+    border: 1px solid rgba(17,17,15,.2);
+    background: var(--cream);
+    color: var(--ink);
+    text-decoration: none;
+    transition: transform .25s ease, box-shadow .25s ease;
+  }
+  .quick-option--primary { background: var(--lime); }
+  .quick-option:hover { transform: translateY(-.5rem); box-shadow: 0 .75rem 0 var(--lime); }
+  .quick-option--primary:hover { box-shadow: 0 .75rem 0 var(--cream); }
+  .quick-option__top { display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
+  .quick-option__top b { color: var(--lime-dark); font-size: .68rem; letter-spacing: .12em; }
+  .quick-option--primary .quick-option__top b { color: var(--ink); }
+  .quick-option__top em {
+    padding: .45rem .65rem;
+    border: 1px solid var(--ink);
+    border-radius: 2rem;
+    color: var(--ink);
+    font-size: .58rem;
+    font-style: normal;
+    font-weight: 900;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+  .quick-option__mark {
+    margin: auto 0;
+    color: var(--lime);
+    font-family: var(--font-display);
+    font-size: clamp(5.5rem, 8vw, 8.5rem);
+    line-height: .75;
+    text-transform: uppercase;
+  }
+  .quick-option--primary .quick-option__mark { color: var(--ink); }
+  .quick-option__text { display: grid; gap: .65rem; margin-bottom: 1.5rem; }
+  .quick-option__text strong {
+    font-family: var(--font-display);
+    font-size: clamp(2.25rem, 3.3vw, 3.6rem);
+    line-height: .86;
+    text-transform: uppercase;
+  }
+  .quick-option__text small { min-height: 1.2rem; color: rgba(17,17,15,.7); font-size: .76rem; font-weight: 750; }
+  .quick-option__cta {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: .65rem;
+    padding: .85rem 1rem;
+    background: var(--ink);
+    color: white;
+    font-size: .68rem;
+    font-weight: 900;
+    letter-spacing: .07em;
+    text-transform: uppercase;
+  }
+  .quick-option__cta :global(.icon--whatsapp) { width: 1.85rem; height: 1.85rem; }
   .visit__intro { display: grid; grid-template-columns: 1.2fr .6fr; gap: clamp(3rem, 8vw, 9rem); align-items: end; }
-  .visit h2 { margin: 1rem 0 0; font-family: var(--font-display); font-size: clamp(5rem, 9vw, 9rem); font-weight: 900; line-height: .75; letter-spacing: -.04em; text-transform: uppercase; }
+  .visit h2 { margin: 1rem 0 0; font-family: var(--font-display); font-size: clamp(5rem, 9vw, 9rem); font-weight: 400; line-height: .75; letter-spacing: 0; text-transform: uppercase; }
   .visit h2 em { color: var(--lime-dark); font-style: normal; }
   .visit__intro > div:last-child > p { color: var(--muted); line-height: 1.75; margin-bottom: 2rem; }
-  .instagram-band { padding: 2rem 0; background: var(--sand); }
-  .instagram-band__inner { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 1.25rem; }
-  .instagram-band span { color: #3f5100; font-size: .62rem; font-weight: 900; letter-spacing: .1em; text-transform: uppercase; }
-  .instagram-band h2 { margin: .25rem 0 0; font-family: var(--font-display); font-size: clamp(1.7rem, 3vw, 3rem); line-height: .9; text-transform: uppercase; }
   @media (max-width: 800px) {
     .contact-main__grid, .quick-heading, .visit__intro { grid-template-columns: 1fr; }
+    .quick-heading h2 { max-width: none; }
+    .quick-steps { display: none; }
     .quick-grid { grid-template-columns: 1fr; }
-    .quick-grid a { min-height: 15rem; }
-    .instagram-band__inner { grid-template-columns: auto 1fr; }
-    .instagram-band .btn { grid-column: 2; justify-self: start; }
+    .quick-option { min-height: 21rem; }
+    .quick-option__mark { margin: 3rem 0; }
+  }
+  @media (max-width: 580px) {
+    .contact-main__grid { gap: 2.5rem; }
+    .whatsapp-card {
+      min-height: 23rem;
+      justify-content: flex-start;
+      padding: 1.5rem;
+      background:
+        radial-gradient(circle at 92% 8%, rgba(255,255,255,.22) 0 4.5rem, transparent 4.55rem),
+        var(--lime);
+    }
+    .whatsapp-card > :global(.icon--whatsapp) { margin-bottom: 5.25rem; }
+    .whatsapp-card h2 { margin-bottom: 1.25rem; font-size: 4rem; }
+    .whatsapp-card .btn { width: 100%; }
+    .contact-list > .eyebrow { margin-bottom: 1rem; }
+    .contact-list > a {
+      grid-template-columns: 1.65rem minmax(0, 1fr) auto;
+      gap: .75rem;
+      padding-block: 1.1rem;
+    }
+    .contact-list > a > :global(svg:first-child) { width: 1.35rem; height: 1.35rem; }
+    .contact-list strong { font-size: 1.25rem; overflow-wrap: anywhere; }
+    .quick-heading { margin-bottom: 1.75rem; }
+    .quick-heading h2 { font-size: 3.9rem; line-height: .8; }
+    .quick-grid {
+      margin-right: -1rem;
+      grid-template-columns: none;
+      grid-auto-flow: column;
+      grid-auto-columns: min(80vw, 19rem);
+      gap: .8rem;
+      padding: 0 1rem .8rem 0;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+    }
+    .quick-option {
+      min-height: 23rem;
+      padding: 1.25rem;
+      scroll-snap-align: start;
+    }
+    .quick-option__mark { margin: auto 0; font-size: 5.25rem; }
+    .quick-option__text strong { font-size: 2.5rem; }
+    .quick-option__text small { font-size: .7rem; }
+    .quick-option__cta { padding: .75rem; font-size: .62rem; }
+    .visit__intro { gap: 1.25rem; }
+    .visit h2 { margin: 0; font-size: 4.25rem; line-height: .8; }
+    .visit__intro > div:last-child > p { margin: 0 0 1.35rem; font-size: .86rem; line-height: 1.6; }
+    .visit .btn { width: 100%; }
   }
 </style>

@@ -1,11 +1,23 @@
+import type { Locale } from '../i18n';
+import { ui } from '../i18n';
+
 export const site = {
-  name: 'Monkey Menorca Jiu-Jitsu',
+  name: 'Monkeymenorcajiujitsu',
+  displayName: 'Monkey Menorca Jiu-Jitsu',
   shortName: 'Monkey Menorca',
-  phone: '+34 600 000 000',
-  phoneHref: 'tel:+34600000000',
-  email: 'hola@monkeymenorca.com',
+  legalName: 'Monkeyboatsantader',
+  taxId: 'B44735066',
+  phone: '+34 662 435 842',
+  phoneHref: 'tel:+34662435842',
+  whatsappNumber: '34662435842',
+  email: 'Salvadorpinto1978@gmail.com',
   address: 'Avenida Costa del Mirador LC1, Cala Galdana, Menorca',
-  instagram: 'https://instagram.com/',
+  legalAddress: 'Calle Alta 49, Santander',
+  privacyEmail: 'Salvadorpinto1978@gma.com',
+  instagram:
+    'https://www.instagram.com/monkeymenorcajiujitsu?igsh=MW93dngwamcybnR4ZA%3D%3D&utm_source=qr',
+  serviceLanguages: ['Castellano', 'Catalán', 'Inglés'],
+  websiteLanguages: ['Castellano', 'Inglés'],
   mapLink:
     'https://www.google.com/maps/search/?api=1&query=Avenida+Costa+del+Mirador+LC1%2C+Cala+Galdana%2C+Menorca',
   mapEmbed:
@@ -22,55 +34,60 @@ export const nav = [
   { href: '/contacto', label: 'Contacto' },
 ] as const;
 
-export function whatsappUrl(message = 'Hola, me gustaría probar una clase gratis de Jiu-Jitsu en Cala Galdana.') {
-  return `https://wa.me/?text=${encodeURIComponent(message)}`;
+export function whatsappUrl(message?: string, locale: Locale = 'es') {
+  const text = message ?? ui[locale].defaultWhatsapp;
+  return `https://wa.me/${site.whatsappNumber}?text=${encodeURIComponent(text)}`;
 }
 
 export const schedules = [
-  { days: 'Lunes · Miércoles · Viernes', time: '08:00 — 09:00', type: 'BJJ / Grappling' },
-  { days: 'Lunes · Miércoles · Viernes', time: '14:00 — 15:00', type: 'BJJ / Grappling' },
+  { days: 'Horario de mañana', time: '08:00 — 09:00', type: 'Clase por nivel' },
+  { days: 'Horario de mediodía', time: '14:00 — 15:00', type: 'Clase por nivel' },
   { days: 'Sábado', time: '14:00 — 15:00', type: 'Open Mat' },
 ] as const;
 
 export const faqs = [
   {
-    q: '¿Necesito experiencia previa?',
-    a: 'No. La mayoría empieza desde cero y adaptamos cada ejercicio a tu nivel.',
+    q: '¿Puedo empezar sin experiencia?',
+    a: 'Sí. No es necesario tener experiencia previa: puedes empezar desde cero.',
   },
   {
-    q: '¿Cuál es la edad mínima?',
-    a: 'Escríbenos con la edad del alumno y te diremos el grupo más adecuado.',
+    q: '¿Hay una edad mínima?',
+    a: 'No hay una edad mínima establecida. Los grupos se organizan por nivel.',
   },
   {
-    q: '¿Tengo que estar en forma?',
-    a: 'No. La forma física se construye entrenando, a tu ritmo y sin presión.',
+    q: '¿Necesito estar en buena forma?',
+    a: 'No. El objetivo es que cualquier persona pueda dar el primer paso sin miedo en un ambiente cercano, seguro y acogedor.',
   },
   {
-    q: '¿Qué ropa llevo?',
-    a: 'Camiseta deportiva ajustada y pantalón corto sin bolsillos ni cremalleras.',
+    q: '¿Qué ropa tengo que llevar?',
+    a: 'Trae chanclas, ropa adecuada para entrenar y ven aseado.',
   },
   {
-    q: '¿Necesito kimono?',
-    a: 'No para tu primera clase. Confírmanos por WhatsApp qué modalidad vas a probar.',
+    q: '¿Puedo probar una clase?',
+    a: 'Sí. La clase de prueba es gratuita y no tiene condiciones.',
   },
   {
-    q: '¿La clase de prueba es gratis?',
-    a: 'Sí, tu primera clase de prueba es gratuita.',
+    q: '¿Cuánto cuesta?',
+    a: 'Los precios no se publican en la web. Contacta por WhatsApp o por teléfono para recibir información.',
+  },
+  {
+    q: '¿Necesito comprar un kimono?',
+    a: 'El préstamo de kimono o material para la primera clase depende de la disponibilidad. Consúltalo antes de venir.',
+  },
+  {
+    q: '¿Hay clases para niños?',
+    a: 'Monkey Menorca Jiu-Jitsu recibe a niños y adolescentes. Los grupos se organizan por nivel.',
   },
   {
     q: '¿Hay clases para mujeres?',
-    a: 'Sí. El entrenamiento es mixto, inclusivo y se empareja por nivel y tamaño.',
+    a: 'Sí. El gimnasio se dirige al público general y quiere acercar el Jiu-Jitsu a todas las personas.',
   },
   {
-    q: '¿Pueden entrenar niños?',
-    a: 'Sí, según edad y disponibilidad del grupo. Consúltanos antes de venir.',
+    q: '¿Puedo entrenar durante mis vacaciones?',
+    a: 'Sí. Los visitantes y turistas forman parte del público al que se dirige el gimnasio.',
   },
   {
-    q: 'Estoy de vacaciones, ¿puedo venir?',
-    a: 'Claro. Recibimos visitantes de Menorca y alumnos que pasan unos días en la isla.',
-  },
-  {
-    q: '¿Aceptáis alumnos de otros gimnasios?',
-    a: 'Sí. El Open Mat y las sesiones especiales están abiertos con aviso previo.',
+    q: '¿Puedo asistir si entreno en otro gimnasio?',
+    a: 'Consulta por WhatsApp o por teléfono antes de venir, especialmente si quieres asistir al Open Mat.',
   },
 ] as const;

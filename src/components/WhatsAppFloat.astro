@@ -1,18 +1,35 @@
 ---
 import Icon from './Icon.astro';
 import { whatsappUrl } from '../data/site';
+import { getLocale, ui } from '../i18n';
+
+const locale = getLocale(Astro.url);
+const messages = ui[locale];
 ---
 
 <a
   class="wa-float"
-  href={whatsappUrl()}
+  href={whatsappUrl(undefined, locale)}
   target="_blank"
   rel="noreferrer"
-  aria-label="Probar una clase gratis por WhatsApp"
+  aria-label={messages.whatsappLabel}
 >
-  <Icon name="whatsapp" size={24} />
-  <span>Clase gratis</span>
+  <Icon name="whatsapp" size={16} />
+  <span>{messages.freeClass}</span>
 </a>
+
+<script>
+  const floatingWhatsApp = document.querySelector<HTMLElement>('.wa-float');
+  const firstSection = document.querySelector<HTMLElement>('main > section:first-child');
+
+  if (floatingWhatsApp && firstSection && window.matchMedia('(max-width: 580px)').matches && 'IntersectionObserver' in window) {
+    floatingWhatsApp.classList.add('wa-float--smart');
+    const heroObserver = new IntersectionObserver(([entry]) => {
+      floatingWhatsApp.classList.toggle('is-visible', !entry?.isIntersecting);
+    }, { threshold: .08 });
+    heroObserver.observe(firstSection);
+  }
+</script>
 
 <style>
   .wa-float {
@@ -22,20 +39,55 @@ import { whatsappUrl } from '../data/site';
     z-index: 45;
     display: inline-flex;
     align-items: center;
-    gap: .55rem;
-    padding: .85rem 1.05rem;
+    gap: .78rem;
+    padding: .95rem 1.2rem;
     border: 1px solid rgba(255,255,255,.25);
     border-radius: 999px;
-    background: #1dc86a;
-    color: #07170d;
+    background: var(--ink) !important;
+    color: white;
     box-shadow: 0 12px 35px rgba(0,0,0,.28);
-    font-size: .72rem;
+    font-size: .76rem;
     font-weight: 900;
     letter-spacing: .06em;
     text-transform: uppercase;
     text-decoration: none;
-    transition: transform .2s ease;
+    transition: transform .25s ease, opacity .25s ease;
   }
   .wa-float:hover { transform: translateY(-3px); }
-  @media (max-width: 480px) { .wa-float span { display: none; } .wa-float { padding: .9rem; } }
+  .wa-float :global(.icon--whatsapp) {
+    width: 1.05rem;
+    height: 1.05rem;
+    min-width: 1.05rem;
+    min-height: 1.05rem;
+  }
+
+  @media (max-width: 580px) {
+    .wa-float.wa-float--smart {
+      opacity: 0;
+      transform: translateY(.75rem);
+      pointer-events: none;
+    }
+    .wa-float.wa-float--smart.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .wa-float span { display: none; }
+    .wa-float {
+      right: .8rem;
+      bottom: max(.8rem, env(safe-area-inset-bottom));
+      padding: .85rem;
+      border-color: rgba(255,255,255,.35);
+      box-shadow: 0 9px 28px rgba(0,0,0,.32);
+    }
+    .wa-float :global(.icon--whatsapp) {
+      width: 1rem;
+      height: 1rem;
+      min-width: 1rem;
+      min-height: 1rem;
+    }
+  }
 </style>

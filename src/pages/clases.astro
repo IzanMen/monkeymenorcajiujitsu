@@ -4,65 +4,138 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
 import Icon from '../components/Icon.astro';
 import { whatsappUrl } from '../data/site';
-import classImage from '../assets/class-technique.png';
+import { getLocale } from '../i18n';
+import heroImage from '../assets/photos/pexels-35029376.jpg';
+import giImage from '../assets/photos/pexels-8611381.jpg';
+import nogiImage from '../assets/photos/pexels-11391978.jpg';
+import privateImage from '../assets/photos/pexels-9313037.jpg';
+import openMatImage from '../assets/photos/pexels-4062182.jpg';
+import classImage from '../assets/photos/pexels-8612042.jpg';
 
-const classes = [
-  {
-    id: 'bjj-kimono',
-    n: '01',
-    title: 'BJJ con kimono',
-    tagline: 'Precisión, paciencia y control.',
-    copy: 'El kimono multiplica las opciones de agarre y convierte cada posición en un ejercicio de estrategia. Construimos una base sólida: escapes, controles, pases y finalizaciones con progresión técnica.',
-    suitable: ['Principiantes', 'Técnica de detalle', 'Competición'],
+const locale = getLocale(Astro.url);
+const content = {
+  es: {
+    metaTitle: 'Clases de BJJ y Grappling',
+    metaDescription: 'BJJ con kimono, No-Gi, Grappling, clases privadas y Open Mat en Cala Galdana, Menorca.',
+    heroTitle: 'Clases',
+    heroCopy: 'BJJ con kimono, BJJ sin kimono, Grappling, clases privadas y Open Mat. Te ayudamos a encontrar tu punto de partida.',
+    heroAlt: 'Grupo de practicantes reunido después de entrenar',
+    introTitle: 'Introducción',
+    introCopy: 'Los grupos se organizan por nivel y algunas clases son adecuadas para principiantes. No necesitas experiencia previa para empezar.',
+    introAction: 'Preguntar qué clase encaja conmigo',
+    introMessage: 'Hola, no sé qué clase encaja conmigo. ¿Me podéis orientar?',
+    classAction: 'Consultar esta clase',
+    classMessage: (title: string) => `Hola, me interesa ${title}. ¿Puedo probar una clase?`,
+    organizationBadge: 'Grupos<br />por nivel',
+    organizationTitle: 'Cómo se organizan las clases',
+    organizationAlt: 'Instructor mostrando una técnica de Jiu-Jitsu durante una clase',
+    organizationItems: ['Grupos organizados por nivel', 'Algunas clases adecuadas para principiantes', 'Atención cercana en un gimnasio pequeño', 'Clases privadas para una o dos personas', 'Participación ocasional en competiciones'],
+    ctaTitle: 'Preguntar qué clase encaja conmigo',
+    ctaAction: 'Preguntar por WhatsApp',
+    ctaMessage: 'Hola, quiero saber qué clase encaja mejor conmigo.',
+    classes: [
+      ['BJJ con kimono', 'Brazilian Jiu-Jitsu', 'El Jiu-Jitsu brasileño es un arte marcial y deporte de combate centrado en la técnica, el control y las sumisiones. Utiliza la estrategia y el apalancamiento por encima de la fuerza física.', ['Con kimono', 'Técnica', 'Control y sumisiones'], 'Dos practicantes entrenando BJJ con kimono'],
+      ['BJJ No-Gi · Grappling', 'Sin kimono · Sin golpes', 'El Grappling reúne técnicas de lucha cuerpo a cuerpo como derribos, controles y sumisiones, pero sin golpes. Es una disciplina dinámica que desarrolla la técnica, la condición física y la capacidad de resolver situaciones de combate.', ['No-Gi', 'Derribos y controles', 'Condición física'], 'Practicantes entrenando grappling sin kimono'],
+      ['Clases privadas', 'Para una o dos personas', 'Los entrenamientos privados se adaptan completamente a las necesidades del alumno. El horario y el contenido se acuerdan con el cliente para ofrecer atención personalizada y un aprendizaje más rápido y eficaz.', ['Atención personalizada', 'Contenido a medida', 'Horario acordado'], 'Entrenamiento individual de una técnica de grappling'],
+      ['Open Mat', 'Sábado · 14:00 a 15:00', 'Entrenamiento abierto programado los sábados de 14:00 a 15:00. Contacta con el gimnasio antes de asistir para confirmar el horario.', ['Entrenamiento abierto', 'Sábados', 'Horario de 14:00 a 15:00'], 'Dos atletas practicando grappling durante una sesión abierta'],
+    ],
   },
-  {
-    id: 'nogi',
-    n: '02',
-    title: 'BJJ No-Gi · Grappling',
-    tagline: 'Movimiento, reacción y fluidez.',
-    copy: 'Sin kimono, el ritmo cambia. Trabajamos control corporal, derribos, transiciones y sumisiones con una metodología segura, adaptable y dinámica.',
-    suitable: ['Todos los niveles', 'Forma física', 'Defensa personal'],
+  ca: {
+    metaTitle: 'Classes de BJJ i Grappling',
+    metaDescription: 'BJJ amb quimono, No-Gi, Grappling, classes privades i Open Mat a Cala Galdana, Menorca.',
+    heroTitle: 'Classes',
+    heroCopy: 'BJJ amb quimono, BJJ sense quimono, Grappling, classes privades i Open Mat. T’ajudem a trobar el teu punt de partida.',
+    heroAlt: 'Grup de practicants reunit després d’entrenar',
+    introTitle: 'Introducció',
+    introCopy: 'Els grups s’organitzen per nivell i algunes classes són adequades per a principiants. No necessites experiència prèvia per començar.',
+    introAction: 'Preguntar quina classe m’encaixa',
+    introMessage: 'Hola, no sé quina classe m’encaixa. Em podeu orientar?',
+    classAction: 'Consultar aquesta classe',
+    classMessage: (title: string) => `Hola, m’interessa ${title}. Puc provar una classe?`,
+    organizationBadge: 'Grups<br />per nivell',
+    organizationTitle: 'Com s’organitzen les classes',
+    organizationAlt: 'Instructor mostrant una tècnica de Jiu-Jitsu durant una classe',
+    organizationItems: ['Grups organitzats per nivell', 'Algunes classes adequades per a principiants', 'Atenció propera en un gimnàs petit', 'Classes privades per a una o dues persones', 'Participació ocasional en competicions'],
+    ctaTitle: 'Preguntar quina classe m’encaixa',
+    ctaAction: 'Preguntar per WhatsApp',
+    ctaMessage: 'Hola, vull saber quina classe m’encaixa millor.',
+    classes: [
+      ['BJJ amb quimono', 'Brazilian Jiu-Jitsu', 'El Jiu-Jitsu brasiler és un art marcial i esport de combat centrat en la tècnica, el control i les submissions. Utilitza l’estratègia i la palanca per damunt de la força física.', ['Amb quimono', 'Tècnica', 'Control i submissions'], 'Dos practicants entrenant BJJ amb quimono'],
+      ['BJJ No-Gi · Grappling', 'Sense quimono · Sense cops', 'El Grappling reuneix tècniques de lluita cos a cos com ara enderrocaments, controls i submissions, però sense cops. És una disciplina dinàmica que desenvolupa la tècnica, la condició física i la capacitat de resoldre situacions de combat.', ['No-Gi', 'Enderrocaments i controls', 'Condició física'], 'Practicants entrenant grappling sense quimono'],
+      ['Classes privades', 'Per a una o dues persones', 'Els entrenaments privats s’adapten completament a les necessitats de l’alumne. L’horari i el contingut s’acorden amb el client per oferir atenció personalitzada i un aprenentatge més ràpid i eficaç.', ['Atenció personalitzada', 'Contingut a mida', 'Horari acordat'], 'Entrenament individual d’una tècnica de grappling'],
+      ['Open Mat', 'Dissabte · 14:00 a 15:00', 'Entrenament obert programat els dissabtes de 14:00 a 15:00. Contacta amb el gimnàs abans d’assistir-hi per confirmar l’horari.', ['Entrenament obert', 'Dissabtes', 'Horari de 14:00 a 15:00'], 'Dos atletes practicant grappling durant una sessió oberta'],
+    ],
   },
-  {
-    id: 'privadas',
-    n: '03',
-    title: 'Clases privadas',
-    tagline: 'Tu objetivo. Tu ritmo.',
-    copy: 'Una sesión individual o en grupo reducido para resolver dudas, acelerar tu progreso, preparar una competición o descubrir el Jiu-Jitsu con atención exclusiva.',
-    suitable: ['Atención individual', 'Objetivos concretos', 'Horario flexible'],
+  en: {
+    metaTitle: 'BJJ and Grappling classes',
+    metaDescription: 'Gi BJJ, No-Gi, Grappling, private classes and Open Mat in Cala Galdana, Menorca.',
+    heroTitle: 'Classes',
+    heroCopy: 'Gi BJJ, No-Gi BJJ, Grappling, private classes and Open Mat. We will help you find the right place to start.',
+    heroAlt: 'Group of practitioners together after training',
+    introTitle: 'Introduction',
+    introCopy: 'Groups are organised by level and some classes are suitable for beginners. You do not need previous experience to start.',
+    introAction: 'Ask which class suits me',
+    introMessage: 'Hi, I am not sure which class suits me. Could you advise me?',
+    classAction: 'Ask about this class',
+    classMessage: (title: string) => `Hi, I am interested in ${title}. Can I try a class?`,
+    organizationBadge: 'Groups<br />by level',
+    organizationTitle: 'How classes are organised',
+    organizationAlt: 'Instructor demonstrating a Jiu-Jitsu technique during class',
+    organizationItems: ['Groups organised by level', 'Beginner-friendly classes', 'Personal attention in a small gym', 'Private classes for one or two people', 'Occasional participation in competitions'],
+    ctaTitle: 'Ask which class suits me',
+    ctaAction: 'Ask on WhatsApp',
+    ctaMessage: 'Hi, I would like to know which class is best for me.',
+    classes: [
+      ['Gi BJJ', 'Brazilian Jiu-Jitsu', 'Brazilian Jiu-Jitsu is a martial art and combat sport focused on technique, control and submissions. It uses strategy and leverage over physical strength.', ['Gi', 'Technique', 'Control and submissions'], 'Two practitioners training gi BJJ'],
+      ['No-Gi BJJ · Grappling', 'No gi · No strikes', 'Grappling combines close-combat techniques such as takedowns, controls and submissions, without strikes. It is a dynamic discipline that develops technique, fitness and the ability to solve combat situations.', ['No-Gi', 'Takedowns and controls', 'Fitness'], 'Practitioners training no-gi grappling'],
+      ['Private classes', 'For one or two people', 'Private training is fully adapted to the student’s needs. Schedule and content are agreed with the client to provide personal attention and faster, more effective learning.', ['Personal attention', 'Tailored content', 'Agreed schedule'], 'Individual grappling technique training'],
+      ['Open Mat', 'Saturday · 14:00 to 15:00', 'Open training scheduled on Saturdays from 14:00 to 15:00. Contact the gym before attending to confirm the time.', ['Open training', 'Saturdays', '14:00 to 15:00'], 'Two athletes practising grappling during an open session'],
+    ],
   },
-  {
-    id: 'open-mat',
-    n: '04',
-    title: 'Open Mat',
-    tagline: 'El tatami está abierto.',
-    copy: 'Una sesión libre para rodar, practicar y compartir conocimiento. Recibimos a alumnos de otros gimnasios con respeto y aviso previo.',
-    suitable: ['Intercambio', 'Rounds libres', 'Visitantes'],
-  },
-];
+}[locale];
+
+const classVisuals = [
+  ['bjj-kimono', '01', giImage],
+  ['nogi', '02', nogiImage],
+  ['privadas', '03', privateImage],
+  ['open-mat', '04', openMatImage],
+] as const;
+const localizedClasses = content.classes as unknown as readonly (readonly [string, string, string, readonly string[], string])[];
+const classes = localizedClasses.map(([title, tagline, copy, suitable, alt], index) => ({
+  id: classVisuals[index][0],
+  n: classVisuals[index][1],
+  image: classVisuals[index][2],
+  title,
+  tagline,
+  copy,
+  suitable,
+  alt,
+}));
+const wa = (message?: string) => whatsappUrl(message, locale);
 ---
 
 <BaseLayout
-  title="Clases de BJJ y Grappling"
-  description="BJJ con kimono, No-Gi, Grappling, clases privadas y Open Mat en Cala Galdana, Menorca."
+  title={content.metaTitle}
+  description={content.metaDescription}
 >
   <PageHero
-    eyebrow="Clases"
-    title="Elige cómo<br /><em>quieres crecer.</em>"
-    copy="Elige la forma de entrenar que encaja contigo. Si no lo tienes claro, te ayudamos a encontrar tu punto de partida."
+    eyebrow={content.heroTitle}
+    title={content.heroTitle}
+    copy={content.heroCopy}
     number="02"
+    image={heroImage}
+    imageAlt={content.heroAlt}
   />
 
   <section class="section section--cream">
     <div class="shell classes-intro">
       <div>
-        <p class="eyebrow">Un sistema, varios caminos</p>
-        <p class="statement">No necesitas elegir perfecto. Solo necesitas <em>empezar.</em></p>
+        <h2 class="statement">{content.introTitle}</h2>
       </div>
       <div>
-        <p>Cada modalidad comparte la misma filosofía: técnica antes que fuerza, seguridad antes que ego y progreso constante.</p>
-        <a class="btn btn--dark" href={whatsappUrl('Hola, no sé qué clase encaja conmigo. ¿Me podéis orientar?')} target="_blank" rel="noreferrer">
-          Preguntar qué clase encaja conmigo <Icon name="whatsapp" />
+        <p>{content.introCopy}</p>
+        <a class="btn btn--dark" href={wa(content.introMessage)} target="_blank" rel="noreferrer">
+          {content.introAction} <Icon name="whatsapp" />
         </a>
       </div>
     </div>
@@ -74,6 +147,9 @@ const classes = [
         <div class="shell class-item__grid">
           <span class="class-item__number">{item.n}</span>
           <div>
+            <figure class="class-item__visual">
+              <Image src={item.image} alt={item.alt} widths={[640, 960]} sizes="(max-width: 850px) 100vw, 45vw" format="webp" quality={82} />
+            </figure>
             <p class="eyebrow">{item.tagline}</p>
             <h2>{item.title}</h2>
           </div>
@@ -82,8 +158,8 @@ const classes = [
             <ul>
               {item.suitable.map((tag) => <li>{tag}</li>)}
             </ul>
-            <a class="text-link" href={whatsappUrl(`Hola, me interesa ${item.title}. ¿Puedo probar una clase?`)} target="_blank" rel="noreferrer">
-              Consultar esta clase <Icon name="arrow" />
+            <a class="text-link" href={wa(content.classMessage(item.title))} target="_blank" rel="noreferrer">
+              {content.classAction} <Icon name="arrow" />
             </a>
           </div>
         </div>
@@ -96,23 +172,18 @@ const classes = [
       <div class="image-frame">
         <Image
           src={classImage}
-          alt="Instructor mostrando una técnica de Jiu-Jitsu durante una clase"
+          alt={content.organizationAlt}
           widths={[520, 800, 1100]}
           sizes="(max-width: 900px) 100vw, 50vw"
           format="webp"
           quality={84}
         />
-        <span class="image-badge">Aprender.<br />Practicar.<br />Integrar.</span>
+        <span class="image-badge" set:html={content.organizationBadge} />
       </div>
       <div>
-        <p class="eyebrow">Así enseñamos</p>
-        <p class="prose-lead">Entender primero. Repetir después. Aplicar con control.</p>
+        <h2 class="prose-lead">{content.organizationTitle}</h2>
         <ul class="check-list">
-          <li>Activación y movilidad</li>
-          <li>Explicación técnica paso a paso</li>
-          <li>Práctica guiada con compañero</li>
-          <li>Situaciones y rounds adaptados</li>
-          <li>Vuelta a la calma y preguntas</li>
+          {content.organizationItems.map((item) => <li>{item}</li>)}
         </ul>
       </div>
     </div>
@@ -120,9 +191,9 @@ const classes = [
 
   <section class="cta-band">
     <div class="shell cta-band__inner">
-      <h2>¿Cuál es tu clase? Vamos a descubrirlo.</h2>
-      <a class="btn btn--dark" href={whatsappUrl('Hola, quiero saber qué clase encaja mejor conmigo.')} target="_blank" rel="noreferrer">
-        Preguntar por WhatsApp <Icon name="whatsapp" />
+      <h2>{content.ctaTitle}</h2>
+      <a class="btn btn--dark" href={wa(content.ctaMessage)} target="_blank" rel="noreferrer">
+        {content.ctaAction} <Icon name="whatsapp" />
       </a>
     </div>
   </section>
@@ -136,7 +207,9 @@ const classes = [
   .class-item__grid { display: grid; grid-template-columns: 4rem 1.1fr .75fr; gap: clamp(1.5rem, 5vw, 6rem); align-items: start; }
   .class-item__number { color: var(--lime-dark); font-family: var(--font-display); font-size: 3.5rem; font-weight: 300; line-height: 1; }
   .class-item--dark .class-item__number { color: var(--lime); }
-  .class-item h2 { max-width: 45rem; margin: 1.5rem 0 0; font-family: var(--font-display); font-size: clamp(4rem, 8vw, 8rem); font-weight: 900; line-height: .78; letter-spacing: -.04em; text-transform: uppercase; }
+  .class-item h2 { max-width: 45rem; margin: 1.5rem 0 0; font-family: var(--font-display); font-size: clamp(4rem, 8vw, 8rem); font-weight: 400; line-height: .78; letter-spacing: 0; text-transform: uppercase; }
+  .class-item__visual { height: clamp(15rem, 27vw, 25rem); margin: 0 0 2rem; overflow: hidden; background: var(--ink-soft); }
+  .class-item__visual :global(img) { width: 100%; height: 100%; object-fit: cover; }
   .class-item__copy > p { margin: 0 0 2rem; color: #535149; line-height: 1.75; }
   .class-item--dark .class-item__copy > p { color: rgba(255,255,255,.62); }
   .class-item__copy ul { display: flex; flex-wrap: wrap; gap: .5rem; margin: 0 0 2rem; padding: 0; list-style: none; }
@@ -145,5 +218,39 @@ const classes = [
   @media (max-width: 850px) {
     .classes-intro, .class-item__grid { grid-template-columns: 1fr; }
     .class-item__number { font-size: 2.5rem; }
+  }
+  @media (max-width: 580px) {
+    .classes-intro { gap: 1.5rem; }
+    .classes-intro > div:last-child > p { margin-bottom: 1.25rem; font-size: .88rem; line-height: 1.6; }
+    .classes-intro .btn { width: 100%; }
+    .class-item { padding-block: 3.25rem; scroll-margin-top: var(--header-height); }
+    .class-item__grid { position: relative; gap: 0; }
+    .class-item__number {
+      position: absolute;
+      z-index: 2;
+      top: .85rem;
+      left: .85rem;
+      width: 2.65rem;
+      height: 2.65rem;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--lime);
+      color: var(--ink);
+      font-family: var(--font-body);
+      font-size: .64rem;
+      font-weight: 900;
+    }
+    .class-item--dark .class-item__number { color: var(--ink); }
+    .class-item__visual { height: 16.5rem; margin-bottom: 1.5rem; }
+    .class-item__visual :global(img) { object-position: center; }
+    .class-item h2 { margin-top: .85rem; font-size: clamp(3.25rem, 15vw, 4rem); line-height: .82; }
+    .class-item__copy { padding-top: 1.25rem; }
+    .class-item__copy > p { margin-bottom: 1.35rem; font-size: .86rem; line-height: 1.65; }
+    .class-item__copy ul { flex-wrap: nowrap; margin-right: -1rem; padding-right: 1rem; overflow-x: auto; scrollbar-width: none; }
+    .class-item__copy ul::-webkit-scrollbar { display: none; }
+    .class-item__copy li { flex: 0 0 auto; padding: .55rem .7rem; font-size: .58rem; }
+    .class-item__copy .text-link { min-height: 2.75rem; }
+    .class-catalog + .section .split { gap: 2rem; }
   }
 </style>

@@ -1,0 +1,29 @@
+---
+import ClassesPage from '../clases.astro';
+import CommunityPage from '../comunidad.astro';
+import ContactPage from '../contacto.astro';
+import CoachesPage from '../entrenadores.astro';
+import SchedulePage from '../horarios.astro';
+import TrialPage from '../probar-clase.astro';
+
+const pages = {
+  clases: ClassesPage,
+  comunidad: CommunityPage,
+  contacto: ContactPage,
+  entrenadores: CoachesPage,
+  horarios: SchedulePage,
+  'probar-clase': TrialPage,
+};
+
+export function getStaticPaths() {
+  const pageNames = ['clases', 'comunidad', 'contacto', 'entrenadores', 'horarios', 'probar-clase'];
+  return ['ca', 'en'].flatMap((lang) =>
+    pageNames.map((page) => ({ params: { lang, page } }))
+  );
+}
+
+const page = Astro.params.page as keyof typeof pages;
+const Page = pages[page];
+---
+
+<Page />

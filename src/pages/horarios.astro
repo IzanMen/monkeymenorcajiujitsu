@@ -3,90 +3,170 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
 import SectionHeading from '../components/SectionHeading.astro';
 import Schedule from '../components/Schedule.astro';
-import Map from '../components/Map.astro';
 import Icon from '../components/Icon.astro';
 import { site, whatsappUrl } from '../data/site';
+import { getLocale } from '../i18n';
+import heroImage from '../assets/photos/pexels-12087743.jpg';
 
-const access = [
-  ['Tatami', 'Zona amplia, limpia y preparada para el trabajo técnico.'],
-  ['Vestuario y duchas', 'Cámbiate y vuelve a tu día con comodidad.'],
-  ['Climatización', 'Aire acondicionado y ventilación para entrenar todo el año.'],
-  ['Zona de espera', 'Un lugar cómodo para acompañantes y familias.'],
-  ['Preparación física', 'Material para completar el trabajo de fuerza y movilidad.'],
-  ['Acceso sencillo', 'Local a pie de calle en Cala Galdana.'],
-];
+const locale = getLocale(Astro.url);
+const content = {
+  es: {
+    metaTitle: 'Horarios y ubicación',
+    metaDescription: 'Consulta los horarios, Open Mat y la ubicación de Monkey Menorca Jiu-Jitsu en Avenida Costa del Mirador, Cala Galdana.',
+    heroTitle: 'Horarios y ubicación',
+    heroCopy: 'Horario de mañana y mediodía en Avenida Costa del Mirador LC1, Cala Galdana. En verano puede cambiar.',
+    heroAlt: 'Acantilados y mar Mediterráneo en las Islas Baleares',
+    scheduleTitle: 'Horario actual',
+    scheduleCopy: 'Clases de 08:00 a 09:00 y de 14:00 a 15:00. Confirma por WhatsApp o teléfono qué días están disponibles.',
+    summerTitle: 'Horarios sujetos a cambios en verano',
+    summerCopy: 'Menorca cambia de ritmo en temporada. Escríbenos antes de venir y te confirmamos la próxima sesión.',
+    confirmNow: 'Confirmar ahora',
+    confirmMessage: 'Hola, ¿me podéis confirmar el horario actual?',
+    locationTitle: 'Ubicación',
+    gymAddress: 'Dirección del gimnasio',
+    mapLabel: 'Mapa de Monkey Menorca Jiu-Jitsu en Cala Galdana',
+    mapAction: 'Ver en Google Maps',
+    accessTitle: 'Acceso e instalaciones',
+    access: [
+      ['Zona de tatami', 'El gimnasio es nuevo y agradable.'],
+      ['Vestuario y duchas', 'El local dispone de vestuario y duchas.'],
+      ['Preparación física', 'Hay una zona específica de preparación física.'],
+      ['Climatización', 'El espacio cuenta con aire acondicionado y ventilación.'],
+      ['Familias y material', 'Hay zona de espera para familias y tienda o venta de material.'],
+      ['Acceso', 'Se llega en coche y el acceso no está adaptado para personas con movilidad reducida.'],
+    ],
+    ctaTitle: 'Avisar que voy a probar',
+    ctaAction: 'Avisar que voy a probar',
+    ctaMessage: 'Hola, voy a probar una clase. ¿Me confirmáis el horario?',
+  },
+  ca: {
+    metaTitle: 'Horaris i ubicació',
+    metaDescription: 'Consulta els horaris, l’Open Mat i la ubicació de Monkey Menorca Jiu-Jitsu a l’Avinguda Costa del Mirador, Cala Galdana.',
+    heroTitle: 'Horaris i ubicació',
+    heroCopy: 'Horari de matí i migdia a l’Avinguda Costa del Mirador LC1, Cala Galdana. A l’estiu pot canviar.',
+    heroAlt: 'Penya-segats i mar Mediterrània a les Illes Balears',
+    scheduleTitle: 'Horari actual',
+    scheduleCopy: 'Classes de 08:00 a 09:00 i de 14:00 a 15:00. Confirma per WhatsApp o telèfon quins dies estan disponibles.',
+    summerTitle: 'Horaris subjectes a canvis a l’estiu',
+    summerCopy: 'Menorca canvia de ritme durant la temporada. Escriu-nos abans de venir i et confirmarem la pròxima sessió.',
+    confirmNow: 'Confirmar ara',
+    confirmMessage: 'Hola, em podeu confirmar l’horari actual?',
+    locationTitle: 'Ubicació',
+    gymAddress: 'Adreça del gimnàs',
+    mapLabel: 'Mapa de Monkey Menorca Jiu-Jitsu a Cala Galdana',
+    mapAction: 'Veure a Google Maps',
+    accessTitle: 'Accés i instal·lacions',
+    access: [
+      ['Zona de tatami', 'El gimnàs és nou i agradable.'],
+      ['Vestidor i dutxes', 'El local disposa de vestidor i dutxes.'],
+      ['Preparació física', 'Hi ha una zona específica de preparació física.'],
+      ['Climatització', 'L’espai disposa d’aire condicionat i ventilació.'],
+      ['Famílies i material', 'Hi ha una zona d’espera per a famílies i botiga o venda de material.'],
+      ['Accés', 'S’hi arriba en cotxe i l’accés no està adaptat per a persones amb mobilitat reduïda.'],
+    ],
+    ctaTitle: 'Avisar que vindré a provar',
+    ctaAction: 'Avisar que vindré a provar',
+    ctaMessage: 'Hola, vindré a provar una classe. Em confirmeu l’horari?',
+  },
+  en: {
+    metaTitle: 'Schedule and location',
+    metaDescription: 'See the class schedule, Open Mat and location of Monkey Menorca Jiu-Jitsu on Avenida Costa del Mirador, Cala Galdana.',
+    heroTitle: 'Schedule and location',
+    heroCopy: 'Morning and midday sessions at Avenida Costa del Mirador LC1, Cala Galdana. Times may change in summer.',
+    heroAlt: 'Cliffs and the Mediterranean Sea in the Balearic Islands',
+    scheduleTitle: 'Current schedule',
+    scheduleCopy: 'Classes run from 08:00 to 09:00 and from 14:00 to 15:00. Confirm available days by WhatsApp or phone.',
+    summerTitle: 'Schedule may change in summer',
+    summerCopy: 'Menorca changes pace during the season. Message us before coming and we will confirm the next session.',
+    confirmNow: 'Confirm now',
+    confirmMessage: 'Hi, could you confirm the current schedule?',
+    locationTitle: 'Location',
+    gymAddress: 'Gym address',
+    mapLabel: 'Map of Monkey Menorca Jiu-Jitsu in Cala Galdana',
+    mapAction: 'View on Google Maps',
+    accessTitle: 'Access and facilities',
+    access: [
+      ['Mat area', 'The gym is new and welcoming.'],
+      ['Changing room and showers', 'The premises include a changing room and showers.'],
+      ['Strength and conditioning', 'There is a dedicated strength and conditioning area.'],
+      ['Climate control', 'The space has air conditioning and ventilation.'],
+      ['Families and equipment', 'There is a waiting area for families and a shop or equipment sales area.'],
+      ['Access', 'The gym is accessible by car, but access is not adapted for people with reduced mobility.'],
+    ],
+    ctaTitle: 'Let you know I am coming',
+    ctaAction: 'I am coming for a trial',
+    ctaMessage: 'Hi, I am coming to try a class. Could you confirm the schedule?',
+  },
+}[locale];
+const wa = (message: string) => whatsappUrl(message, locale);
 ---
 
 <BaseLayout
-  title="Horarios y ubicación"
-  description="Consulta los horarios, Open Mat y la ubicación de Monkey Menorca Jiu-Jitsu en Avenida Costa del Mirador, Cala Galdana."
+  title={content.metaTitle}
+  description={content.metaDescription}
 >
   <PageHero
-    eyebrow="Horarios y ubicación"
-    title="Tu momento.<br /><em>Tu lugar.</em>"
-    copy="Entrena por la mañana o al mediodía, a pocos minutos de la cala. Confirma el horario antes de venir."
+    eyebrow={content.heroTitle}
+    title={content.heroTitle}
+    copy={content.heroCopy}
     number="04"
+    image={heroImage}
+    imageAlt={content.heroAlt}
   />
 
   <section class="section section--paper">
     <div class="shell">
       <SectionHeading
-        eyebrow="Horario actual"
-        title="La semana se<br /><em>mide en rounds.</em>"
-        copy="Clases regulares para construir una práctica constante. Llega diez minutos antes si es tu primera vez."
+        eyebrow={content.scheduleTitle}
+        title={content.scheduleTitle}
+        copy={content.scheduleCopy}
       />
       <Schedule />
       <div class="summer-alert">
         <Icon name="clock" size={28} />
         <div>
-          <strong>Horarios sujetos a cambios en verano</strong>
-          <p>Menorca cambia de ritmo en temporada. Escríbenos antes de venir y te confirmamos la próxima sesión.</p>
+          <strong>{content.summerTitle}</strong>
+          <p>{content.summerCopy}</p>
         </div>
-        <a class="text-link" href={whatsappUrl('Hola, ¿me podéis confirmar el horario actual?')} target="_blank" rel="noreferrer">
-          Confirmar ahora <Icon name="whatsapp" />
+        <a class="text-link" href={wa(content.confirmMessage)} target="_blank" rel="noreferrer">
+          {content.confirmNow} <Icon name="whatsapp" />
         </a>
       </div>
     </div>
   </section>
 
-  <section class="section section--dark">
-    <div class="shell open-mat">
-      <div>
-        <p class="eyebrow">Sábados · 14:00 — 15:00</p>
-        <h2>Open<br /><em>Mat.</em></h2>
-      </div>
-      <div>
-        <p class="quote">“Una hora para probar, preguntar, rodar y compartir.”</p>
-        <p class="open-mat__copy">Abierto a la comunidad y a visitantes de otros gimnasios. También anunciamos entrenamientos especiales, seminarios y cambios puntuales por WhatsApp e Instagram.</p>
-        <a class="btn btn--lime" href={whatsappUrl('Hola, quiero venir al próximo Open Mat.')} target="_blank" rel="noreferrer">
-          Avisar que voy al Open Mat <Icon name="arrow" />
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <section class="location-intro section section--cream">
-    <div class="shell split">
-      <div>
-        <p class="eyebrow">Cala Galdana · Menorca</p>
-        <p class="statement">Entrena donde otros vienen a <em>respirar.</em></p>
-      </div>
-      <div class="location-details">
-        <Icon name="pin" size={38} />
-        <h2>{site.address}</h2>
-        <p>Un club cercano, integrado en el ritmo de Cala Galdana y con todo lo necesario para entrenar cómodo.</p>
-        <a class="btn btn--dark" href={site.mapLink} target="_blank" rel="noreferrer">Cómo llegar <Icon name="arrow" /></a>
+  <section class="location-showcase section section--cream">
+    <div class="shell">
+      <div class="location-showcase__grid">
+        <div class="location-showcase__content">
+          <p class="eyebrow">Cala Galdana · Menorca</p>
+          <h2>{content.locationTitle}</h2>
+          <div class="location-card">
+            <Icon name="pin" size={34} />
+            <div>
+              <span>{content.gymAddress}</span>
+              <h3>{site.address}</h3>
+            </div>
+          </div>
+          <a class="btn btn--lime" href={site.mapLink} target="_blank" rel="noreferrer">{content.mapAction} <Icon name="arrow" /></a>
+        </div>
+        <div class="location-map" aria-label={content.mapLabel}>
+          <iframe
+            src={site.mapEmbed}
+            title={content.mapLabel}
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+          ></iframe>
+        </div>
       </div>
     </div>
   </section>
-
-  <Map />
 
   <section class="section section--paper">
     <div class="shell">
-      <SectionHeading eyebrow="Acceso e instalaciones" title="Llegar fácil.<br /><em>Entrenar mejor.</em>" />
+      <SectionHeading eyebrow={content.accessTitle} title={content.accessTitle} />
       <div class="access-grid">
-        {access.map(([title, copy], index) => (
+        {content.access.map(([title, copy], index) => (
           <article>
             <span>{String(index + 1).padStart(2, '0')}</span>
             <h3>{title}</h3>
@@ -99,38 +179,144 @@ const access = [
 
   <section class="cta-band">
     <div class="shell cta-band__inner">
-      <h2>¿Vienes a probar? Avísanos y te esperamos.</h2>
-      <a class="btn btn--dark" href={whatsappUrl('Hola, voy a probar una clase. ¿Me confirmáis el horario?')} target="_blank" rel="noreferrer">
-        Avisar que voy a probar <Icon name="whatsapp" />
+      <h2>{content.ctaTitle}</h2>
+      <a class="btn btn--dark" href={wa(content.ctaMessage)} target="_blank" rel="noreferrer">
+        {content.ctaAction} <Icon name="whatsapp" />
       </a>
     </div>
   </section>
 </BaseLayout>
 
 <style>
-  .summer-alert { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 1.25rem; margin-top: 2rem; padding: 1.5rem; background: #fff0bd; color: #5e4a00; }
+  .summer-alert { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 1.25rem; margin-top: 2rem; padding: 1.5rem; background: #ffe0e0; color: #870000; }
   .summer-alert strong { display: block; margin-bottom: .25rem; font-family: var(--font-display); font-size: 1.35rem; text-transform: uppercase; }
   .summer-alert p { margin: 0; font-size: .82rem; line-height: 1.6; }
-  .open-mat { display: grid; grid-template-columns: 1fr .75fr; gap: clamp(3rem, 8vw, 9rem); align-items: end; }
-  .open-mat h2 { margin: 1rem 0 0; font-family: var(--font-display); font-size: clamp(7rem, 15vw, 15rem); font-weight: 900; letter-spacing: -.05em; line-height: .65; text-transform: uppercase; }
-  .open-mat h2 em { color: var(--lime); font-style: normal; }
-  .open-mat__copy { margin: 2rem 0; color: rgba(255,255,255,.6); line-height: 1.75; }
-  .location-details { padding: clamp(2rem, 4vw, 4rem); background: var(--lime); }
-  .location-details > svg { margin-bottom: 4rem; }
-  .location-details h2 { margin: 0 0 1rem; font-family: var(--font-display); font-size: clamp(2.5rem, 5vw, 4.8rem); font-weight: 800; line-height: .9; text-transform: uppercase; }
-  .location-details p { margin: 0 0 2rem; font-size: .9rem; line-height: 1.7; }
+  .location-showcase { padding-top: clamp(4rem, 8vw, 7rem); }
+  .location-showcase__grid {
+    display: grid;
+    grid-template-columns: minmax(20rem, .72fr) minmax(26rem, 1.28fr);
+    align-items: stretch;
+    background: var(--paper);
+    color: var(--ink);
+    border: 1px solid rgba(13,13,12,.14);
+    box-shadow: 0 2rem 5rem rgba(13,13,12,.16);
+    overflow: hidden;
+  }
+  .location-showcase__content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: clamp(2rem, 4.5vw, 4rem);
+    background: var(--paper);
+  }
+  .location-showcase h2 {
+    margin: 1rem 0 2rem;
+    font-family: var(--font-display);
+    font-size: clamp(4rem, 8vw, 7rem);
+    font-weight: 400;
+    line-height: .78;
+    text-transform: uppercase;
+  }
+  .location-card {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: start;
+    gap: 1.1rem;
+    margin-bottom: 2rem;
+  }
+  .location-card :global(svg) { color: var(--lime); }
+  .location-card span {
+    display: block;
+    margin-bottom: .5rem;
+    font-size: .65rem;
+    font-weight: 900;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+  }
+  .location-card h3 {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 3vw, 3rem);
+    font-weight: 400;
+    line-height: .95;
+    text-transform: uppercase;
+    overflow-wrap: anywhere;
+  }
+  .location-map {
+    position: relative;
+    min-height: 34rem;
+    background: #d9d6ca;
+  }
+  .location-map iframe {
+    width: 100%;
+    height: 100%;
+    min-height: 34rem;
+    border: 0;
+    filter: saturate(.8) contrast(1.02);
+  }
+  .location-map::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+      linear-gradient(0deg, rgba(13,13,12,.16), transparent 38%);
+  }
   .access-grid { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
   .access-grid article { min-height: 16rem; padding: 2rem; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
   .access-grid span { color: var(--lime-dark); font-size: .65rem; font-weight: 900; letter-spacing: .12em; }
   .access-grid h3 { margin: 4rem 0 .6rem; font-family: var(--font-display); font-size: 2.2rem; line-height: .9; text-transform: uppercase; }
   .access-grid p { margin: 0; color: var(--muted); font-size: .84rem; line-height: 1.65; }
   @media (max-width: 800px) {
-    .open-mat { grid-template-columns: 1fr; }
     .summer-alert { grid-template-columns: auto 1fr; }
     .summer-alert .text-link { grid-column: 2; }
+    .location-showcase__grid { grid-template-columns: 1fr; }
+    .location-showcase__content { min-height: auto; }
+    .location-map,
+    .location-map iframe { min-height: 28rem; }
     .access-grid { grid-template-columns: 1fr 1fr; }
   }
-  @media (max-width: 520px) {
-    .access-grid { grid-template-columns: 1fr; }
+  @media (max-width: 580px) {
+    .summer-alert {
+      grid-template-columns: auto minmax(0, 1fr);
+      gap: .85rem;
+      margin-top: 1.5rem;
+      padding: 1.1rem;
+    }
+    .summer-alert strong { font-size: 1.15rem; }
+    .summer-alert p { font-size: .76rem; line-height: 1.55; }
+    .summer-alert .text-link { grid-column: 1 / -1; justify-content: center; min-height: 2.75rem; background: rgba(255,255,255,.55); }
+    .location-showcase { padding-top: 3.5rem; }
+    .location-showcase__grid { box-shadow: 0 1.2rem 3rem rgba(13,13,12,.12); }
+    .location-showcase__content { padding: 1.5rem; }
+    .location-showcase h2 { margin: .75rem 0 1.5rem; font-size: 3.65rem; }
+    .location-card { gap: .75rem; margin-bottom: 1.5rem; }
+    .location-card h3 { font-size: 1.85rem; }
+    .location-showcase__content > .btn { width: 100%; }
+    .location-map,
+    .location-map iframe { min-height: 21rem; }
+    .access-grid {
+      margin-right: -1rem;
+      grid-template-columns: none;
+      grid-auto-flow: column;
+      grid-auto-columns: min(78vw, 18rem);
+      gap: .75rem;
+      padding: 0 1rem .15rem 0;
+      border: 0;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+    }
+    .access-grid article {
+      min-height: 14rem;
+      padding: 1.35rem;
+      border: 1px solid var(--line);
+      background: var(--paper);
+      scroll-snap-align: start;
+    }
+    .access-grid h3 { margin: auto 0 .55rem; padding-top: 3rem; font-size: 1.9rem; }
+    .access-grid p { font-size: .78rem; line-height: 1.55; }
   }
 </style>

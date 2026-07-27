@@ -4,31 +4,254 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Icon from '../components/Icon.astro';
 import SectionHeading from '../components/SectionHeading.astro';
 import Schedule from '../components/Schedule.astro';
-import Map from '../components/Map.astro';
-import { faqs, whatsappUrl } from '../data/site';
-import heroImage from '../assets/hero-bjj-menorca.png';
-import classImage from '../assets/class-technique.png';
-import communityImage from '../assets/community-team.png';
-import fernandoImage from '../assets/fernando-coach.png';
-import erikImage from '../assets/erik-coach.png';
+import { whatsappUrl } from '../data/site';
+import { getLocale, localizedPath } from '../i18n';
+import heroImage from '../assets/photos/pexels-11391978.jpg';
+import classImage from '../assets/photos/pexels-8611381.jpg';
+import communityImage from '../assets/photos/pexels-35029376.jpg';
+import fernandoImage from '../assets/photos/fernando-temp-coach.jpg';
+import erikImage from '../assets/photos/erik-temp-coach.avif';
+import childrenImage from '../assets/photos/pexels-7988960.jpg';
+import basicsImage from '../assets/photos/pexels-8612498.jpg';
+import islandImage from '../assets/photos/pexels-9510812.jpg';
+import openMatImage from '../assets/photos/pexels-4062182.jpg';
+import competitorImage from '../assets/photos/pexels-9313037.jpg';
+import familyImage from '../assets/photos/pexels-8612042.jpg';
 
-const audiences = [
-  ['Niños y adolescentes', 'Confianza, disciplina y aprendizaje en un entorno cuidado.'],
-  ['Adultos principiantes', 'Empieza desde cero. Te guiamos paso a paso y sin presión.'],
-  ['Con experiencia', 'Técnica, rounds y compañeros con ganas de seguir creciendo.'],
-  ['Familias', 'Un espacio cercano para compartir deporte y buenos hábitos.'],
-  ['Competidores', 'Preparación específica, estrategia y trabajo técnico de detalle.'],
-  ['Visitantes de Menorca', 'Entrena durante tus vacaciones y mantén tu ritmo en la isla.'],
+const audienceImages = [
+  childrenImage,
+  basicsImage,
+  openMatImage,
+  familyImage,
+  competitorImage,
+  islandImage,
 ];
 
-const modalities = [
-  { n: '01', title: 'BJJ con kimono', copy: 'Agarres, control, precisión y una base técnica que siempre sigue creciendo.', href: '/clases#bjj-kimono' },
-  { n: '02', title: 'No-Gi · Grappling', copy: 'Un entrenamiento dinámico, sin kimono, centrado en movilidad y control.', href: '/clases#nogi' },
-  { n: '03', title: 'Clases privadas', copy: 'Atención individual para acelerar tu aprendizaje o trabajar objetivos concretos.', href: '/clases#privadas' },
-  { n: '04', title: 'Open Mat', copy: 'Entrenamiento libre, intercambio técnico y rounds con la comunidad.', href: '/clases#open-mat' },
-];
+const locale = getLocale(Astro.url);
+const content = {
+  es: {
+    heroTitle: 'Jiu-Jitsu<br />brasileño<br /><em>en Cala Galdana.</em>',
+    heroLead: 'Descubre un deporte que enseña respeto, disciplina y superación personal en un ambiente cercano, seguro y acogedor. No necesitas experiencia previa.',
+    tryAction: 'Probar una clase gratis',
+    scheduleAction: 'Ver horarios',
+    trustLabel: 'Valores del club',
+    trust: ['Respeto', 'Disciplina', 'Aprendizaje', 'Salud', 'Superación personal'],
+    audienceTitle: 'Para quién es',
+    audienceCopy: 'Para niños, adolescentes, adultos, familias, competidores, residentes y visitantes. El público es general y no hace falta experiencia previa.',
+    audiences: [
+      ['Niños y adolescentes', 'Un lugar cercano para descubrir el Jiu-Jitsu y crecer dentro y fuera del tatami.'],
+      ['Adultos de todos los niveles', 'Puedes empezar desde cero o continuar aprendiendo si ya tienes experiencia.'],
+      ['Familias', 'Una comunidad pequeña y familiar basada en el respeto y la ayuda mutua.'],
+      ['Competidores', 'El gimnasio participa ocasionalmente en competiciones y trabaja con atención técnica.'],
+      ['Defensa personal y forma física', 'Técnica, control y movimiento para quienes buscan cuidarse y sentirse más seguros.'],
+      ['Residentes y visitantes', 'Entrena en Cala Galdana tanto si vives en Menorca como si estás de vacaciones.'],
+    ],
+    classAlt: 'Una clase técnica de Jiu-Jitsu en un tatami',
+    purposeBadge: 'Técnica<br />con propósito',
+    aboutTitle: 'Qué es Monkey Menorca Jiu-Jitsu',
+    aboutCopy: 'Monkey Menorca Jiu-Jitsu es un club de Jiu-Jitsu brasileño donde enseñamos mucho más que un deporte. A través de un ambiente cercano, transmitimos valores como el respeto, la disciplina y la superación personal, ayudando a cada alumno a crecer dentro y fuera del tatami.',
+    aboutItems: ['Gimnasio pequeño con atención personalizada', 'Grupos organizados por nivel', 'Método en la línea de Claudio Calasans', 'Profesores cualificados e instructores invitados', 'Comunidad actual de 5 alumnos'],
+    trainingAction: 'Conoce nuestra forma de entrenar',
+    modalitiesTitle: 'Modalidades',
+    modalitiesCopy: 'BJJ con kimono, BJJ sin kimono, Grappling, clases privadas y entrenamientos abiertos.',
+    modalities: [
+      ['BJJ con kimono', 'Técnica, control y sumisiones utilizando estrategia y apalancamiento por encima de la fuerza.'],
+      ['No-Gi · Grappling', 'Derribos, controles y sumisiones sin golpes en una modalidad dinámica y sin kimono.'],
+      ['Clases privadas', 'Sesiones para una o dos personas, con horario y contenido adaptados a sus necesidades.'],
+      ['Open Mat', 'Entrenamiento abierto los sábados de 14:00 a 15:00.'],
+    ],
+    startTitle: 'Cómo empezar',
+    startCopy: 'Solo tienes que escribirnos y venir a probar una clase gratuita. Te diremos cuándo puedes venir y qué traer.',
+    startSteps: [
+      ['Escríbenos por WhatsApp', 'Dinos que quieres probar una clase. No es obligatorio reservar, pero recomendamos avisar antes de venir.'],
+      ['Ven a probar', 'Ven con ropa cómoda, chanclas y buena higiene. La clase de prueba es gratuita y sin condiciones.'],
+    ],
+    tryShort: 'Probar clase gratis',
+    scheduleTitle: 'Horario actual',
+    scheduleCopy: 'Clases de 08:00 a 09:00 y de 14:00 a 15:00. El Open Mat es el sábado de 14:00 a 15:00.',
+    scheduleNote: 'Horarios sujetos a cambios en verano. Confirma antes de venir.',
+    confirmAction: 'Confirmar por WhatsApp',
+    confirmMessage: 'Hola, quiero confirmar el horario de la próxima clase.',
+    coachesTitle: 'Entrenadores',
+    coachRole: 'Entrenador',
+    coachAlt: (name: string) => `${name}, entrenador de Monkey Menorca Jiu-Jitsu`,
+    coachesAction: 'Conoce a los entrenadores',
+    facilitiesTitle: 'Instalaciones',
+    facilities: ['Zona de tatami', 'Vestuario', 'Duchas', 'Zona de preparación física', 'Aire acondicionado', 'Ventilación', 'Zona de espera para familias', 'Tienda o venta de material'],
+    communityTitle: 'Comunidad',
+    communityCopy: 'Una comunidad cercana y familiar donde el respeto, el compañerismo y la ayuda mutua están por encima de la competición.',
+    communityAlt: 'Compañeros de Jiu-Jitsu compartiendo un momento después de entrenar',
+    communityAction: 'Conocer la comunidad',
+    faqTitle: 'Preguntas frecuentes',
+    faqCopy: 'Respuestas basadas en la información facilitada por el gimnasio.',
+    faqs: [
+      ['¿Puedo empezar sin experiencia?', 'Sí. No es necesario tener experiencia previa: puedes empezar desde cero.'],
+      ['¿Hay una edad mínima?', 'No hay una edad mínima establecida. Los grupos se organizan por nivel.'],
+      ['¿Necesito estar en buena forma?', 'No. El objetivo es que cualquier persona pueda dar el primer paso sin miedo en un ambiente cercano, seguro y acogedor.'],
+      ['¿Qué ropa tengo que llevar?', 'Trae chanclas, ropa adecuada para entrenar y ven aseado.'],
+      ['¿Puedo probar una clase?', 'Sí. La clase de prueba es gratuita y no tiene condiciones.'],
+      ['¿Cuánto cuesta?', 'Los precios no se publican en la web. Contacta por WhatsApp o por teléfono para recibir información.'],
+      ['¿Necesito comprar un kimono?', 'El préstamo de kimono o material para la primera clase depende de la disponibilidad. Consúltalo antes de venir.'],
+      ['¿Hay clases para niños?', 'Monkey Menorca Jiu-Jitsu recibe a niños y adolescentes. Los grupos se organizan por nivel.'],
+      ['¿Hay clases para mujeres?', 'Sí. El gimnasio se dirige al público general y quiere acercar el Jiu-Jitsu a todas las personas.'],
+      ['¿Puedo entrenar durante mis vacaciones?', 'Sí. Los visitantes y turistas forman parte del público al que se dirige el gimnasio.'],
+      ['¿Puedo asistir si entreno en otro gimnasio?', 'Consulta por WhatsApp o por teléfono antes de venir, especialmente si quieres asistir al Open Mat.'],
+    ],
+    ctaTitle: 'Ven a probar una clase gratis en Cala Galdana',
+    ctaAction: 'Escribir por WhatsApp',
+  },
+  ca: {
+    heroTitle: 'Jiu-Jitsu<br />brasiler<br /><em>a Cala Galdana.</em>',
+    heroLead: 'Descobreix un esport que ensenya respecte, disciplina i superació personal en un ambient proper, segur i acollidor. No necessites experiència prèvia.',
+    tryAction: 'Prova una classe gratis',
+    scheduleAction: 'Veure horaris',
+    trustLabel: 'Valors del club',
+    trust: ['Respecte', 'Disciplina', 'Aprenentatge', 'Salut', 'Superació personal'],
+    audienceTitle: 'Per a qui és',
+    audienceCopy: 'Per a infants, adolescents, adults, famílies, competidors, residents i visitants. És per a tothom i no cal experiència prèvia.',
+    audiences: [
+      ['Infants i adolescents', 'Un lloc proper per descobrir el Jiu-Jitsu i créixer dins i fora del tatami.'],
+      ['Adults de tots els nivells', 'Pots començar des de zero o continuar aprenent si ja tens experiència.'],
+      ['Famílies', 'Una comunitat petita i familiar basada en el respecte i l’ajuda mútua.'],
+      ['Competidors', 'El gimnàs participa ocasionalment en competicions i treballa amb atenció tècnica.'],
+      ['Defensa personal i forma física', 'Tècnica, control i moviment per a qui vol cuidar-se i sentir-se més segur.'],
+      ['Residents i visitants', 'Entrena a Cala Galdana tant si vius a Menorca com si hi ets de vacances.'],
+    ],
+    classAlt: 'Una classe tècnica de Jiu-Jitsu en un tatami',
+    purposeBadge: 'Tècnica<br />amb propòsit',
+    aboutTitle: 'Què és Monkey Menorca Jiu-Jitsu',
+    aboutCopy: 'Monkey Menorca Jiu-Jitsu és un club de Jiu-Jitsu brasiler on ensenyem molt més que un esport. En un ambient proper, transmetem valors com el respecte, la disciplina i la superació personal, i ajudem cada alumne a créixer dins i fora del tatami.',
+    aboutItems: ['Gimnàs petit amb atenció personalitzada', 'Grups organitzats per nivell', 'Mètode en la línia de Claudio Calasans', 'Professors qualificats i instructors convidats', 'Comunitat actual de 5 alumnes'],
+    trainingAction: 'Coneix la nostra manera d’entrenar',
+    modalitiesTitle: 'Modalitats',
+    modalitiesCopy: 'BJJ amb quimono, BJJ sense quimono, Grappling, classes privades i entrenaments oberts.',
+    modalities: [
+      ['BJJ amb quimono', 'Tècnica, control i submissions utilitzant estratègia i palanca per damunt de la força.'],
+      ['No-Gi · Grappling', 'Enderrocaments, controls i submissions sense cops en una modalitat dinàmica i sense quimono.'],
+      ['Classes privades', 'Sessions per a una o dues persones, amb horari i contingut adaptats a les seves necessitats.'],
+      ['Open Mat', 'Entrenament obert els dissabtes de 14:00 a 15:00.'],
+    ],
+    startTitle: 'Com començar',
+    startCopy: 'Només ens has d’escriure i venir a provar una classe gratuïta. Et direm quan pots venir i què has de dur.',
+    startSteps: [
+      ['Escriu-nos per WhatsApp', 'Digues-nos que vols provar una classe. No és obligatori reservar, però recomanem avisar abans de venir.'],
+      ['Vine a provar', 'Vine amb roba còmoda, xancletes i una bona higiene. La classe de prova és gratuïta i sense condicions.'],
+    ],
+    tryShort: 'Provar classe gratis',
+    scheduleTitle: 'Horari actual',
+    scheduleCopy: 'Classes de 08:00 a 09:00 i de 14:00 a 15:00. L’Open Mat és el dissabte de 14:00 a 15:00.',
+    scheduleNote: 'Horaris subjectes a canvis a l’estiu. Confirma abans de venir.',
+    confirmAction: 'Confirmar per WhatsApp',
+    confirmMessage: 'Hola, vull confirmar l’horari de la pròxima classe.',
+    coachesTitle: 'Entrenadors',
+    coachRole: 'Entrenador',
+    coachAlt: (name: string) => `${name}, entrenador de Monkey Menorca Jiu-Jitsu`,
+    coachesAction: 'Coneix els entrenadors',
+    facilitiesTitle: 'Instal·lacions',
+    facilities: ['Zona de tatami', 'Vestidor', 'Dutxes', 'Zona de preparació física', 'Aire condicionat', 'Ventilació', 'Zona d’espera per a famílies', 'Botiga o venda de material'],
+    communityTitle: 'Comunitat',
+    communityCopy: 'Una comunitat propera i familiar on el respecte, la companyonia i l’ajuda mútua estan per damunt de la competició.',
+    communityAlt: 'Companys de Jiu-Jitsu compartint un moment després d’entrenar',
+    communityAction: 'Conèixer la comunitat',
+    faqTitle: 'Preguntes freqüents',
+    faqCopy: 'Respostes basades en la informació facilitada pel gimnàs.',
+    faqs: [
+      ['Puc començar sense experiència?', 'Sí. No cal tenir experiència prèvia: pots començar des de zero.'],
+      ['Hi ha una edat mínima?', 'No hi ha una edat mínima establerta. Els grups s’organitzen per nivell.'],
+      ['He d’estar en bona forma?', 'No. L’objectiu és que qualsevol persona pugui fer el primer pas sense por en un ambient proper, segur i acollidor.'],
+      ['Quina roba he de dur?', 'Porta xancletes, roba adequada per entrenar i vine net.'],
+      ['Puc provar una classe?', 'Sí. La classe de prova és gratuïta i no té condicions.'],
+      ['Quant costa?', 'Els preus no es publiquen al web. Contacta per WhatsApp o per telèfon per rebre informació.'],
+      ['He de comprar un quimono?', 'El préstec de quimono o material per a la primera classe depèn de la disponibilitat. Consulta-ho abans de venir.'],
+      ['Hi ha classes per a infants?', 'Monkey Menorca Jiu-Jitsu rep infants i adolescents. Els grups s’organitzen per nivell.'],
+      ['Hi ha classes per a dones?', 'Sí. El gimnàs s’adreça a tothom i vol apropar el Jiu-Jitsu a totes les persones.'],
+      ['Puc entrenar durant les vacances?', 'Sí. Els visitants i turistes formen part del públic al qual s’adreça el gimnàs.'],
+      ['Puc assistir-hi si entreno en un altre gimnàs?', 'Consulta per WhatsApp o per telèfon abans de venir, especialment si vols assistir a l’Open Mat.'],
+    ],
+    ctaTitle: 'Vine a provar una classe gratis a Cala Galdana',
+    ctaAction: 'Escriure per WhatsApp',
+  },
+  en: {
+    heroTitle: 'Brazilian<br />Jiu-Jitsu<br /><em>in Cala Galdana.</em>',
+    heroLead: 'Discover a sport that teaches respect, discipline and personal growth in a friendly, safe and welcoming environment. No previous experience is required.',
+    tryAction: 'Try a free class',
+    scheduleAction: 'View schedule',
+    trustLabel: 'Club values',
+    trust: ['Respect', 'Discipline', 'Learning', 'Health', 'Personal growth'],
+    audienceTitle: 'Who it is for',
+    audienceCopy: 'For children, teenagers, adults, families, competitors, residents and visitors. Everyone is welcome and no previous experience is required.',
+    audiences: [
+      ['Children and teenagers', 'A friendly place to discover Jiu-Jitsu and grow on and off the mat.'],
+      ['Adults of all levels', 'Start from scratch or keep learning if you already have experience.'],
+      ['Families', 'A small, family community based on respect and mutual support.'],
+      ['Competitors', 'The gym occasionally takes part in competitions and places strong emphasis on technical detail.'],
+      ['Self-defence and fitness', 'Technique, control and movement for people who want to take care of themselves and feel more confident.'],
+      ['Residents and visitors', 'Train in Cala Galdana whether you live in Menorca or are here on holiday.'],
+    ],
+    classAlt: 'A technical Jiu-Jitsu class on the mat',
+    purposeBadge: 'Technique<br />with purpose',
+    aboutTitle: 'What is Monkey Menorca Jiu-Jitsu?',
+    aboutCopy: 'Monkey Menorca Jiu-Jitsu is a Brazilian Jiu-Jitsu club where we teach much more than a sport. In a friendly environment, we share values such as respect, discipline and personal growth, helping every student develop on and off the mat.',
+    aboutItems: ['Small gym with personal attention', 'Groups organised by level', 'A method inspired by Claudio Calasans', 'Qualified coaches and guest instructors', 'A current community of 5 students'],
+    trainingAction: 'Discover how we train',
+    modalitiesTitle: 'Training options',
+    modalitiesCopy: 'Gi BJJ, No-Gi BJJ, Grappling, private classes and open training sessions.',
+    modalities: [
+      ['Gi BJJ', 'Technique, control and submissions using strategy and leverage over strength.'],
+      ['No-Gi · Grappling', 'Takedowns, controls and submissions without strikes in a dynamic no-gi format.'],
+      ['Private classes', 'Sessions for one or two people, with schedule and content adapted to their needs.'],
+      ['Open Mat', 'Open training on Saturdays from 14:00 to 15:00.'],
+    ],
+    startTitle: 'How to start',
+    startCopy: 'Simply message us and come along for a free trial class. We will tell you when to come and what to bring.',
+    startSteps: [
+      ['Message us on WhatsApp', 'Tell us you would like to try a class. Booking is not required, but we recommend letting us know before coming.'],
+      ['Come and try it', 'Bring comfortable clothes, flip-flops and good hygiene. The trial class is free and comes with no commitment.'],
+    ],
+    tryShort: 'Try a free class',
+    scheduleTitle: 'Current schedule',
+    scheduleCopy: 'Classes run from 08:00 to 09:00 and from 14:00 to 15:00. Open Mat is on Saturday from 14:00 to 15:00.',
+    scheduleNote: 'Times may change in summer. Confirm before coming.',
+    confirmAction: 'Confirm on WhatsApp',
+    confirmMessage: 'Hi, I would like to confirm the time of the next class.',
+    coachesTitle: 'Coaches',
+    coachRole: 'Coach',
+    coachAlt: (name: string) => `${name}, coach at Monkey Menorca Jiu-Jitsu`,
+    coachesAction: 'Meet the coaches',
+    facilitiesTitle: 'Facilities',
+    facilities: ['Mat area', 'Changing room', 'Showers', 'Strength and conditioning area', 'Air conditioning', 'Ventilation', 'Waiting area for families', 'Shop and equipment sales'],
+    communityTitle: 'Community',
+    communityCopy: 'A friendly, family community where respect, camaraderie and mutual support matter more than competition.',
+    communityAlt: 'Jiu-Jitsu teammates sharing a moment after training',
+    communityAction: 'Discover the community',
+    faqTitle: 'Frequently asked questions',
+    faqCopy: 'Answers based on information provided by the gym.',
+    faqs: [
+      ['Can I start with no experience?', 'Yes. No previous experience is required: you can start from scratch.'],
+      ['Is there a minimum age?', 'There is no set minimum age. Groups are organised by level.'],
+      ['Do I need to be fit?', 'No. The aim is for anyone to take the first step with confidence in a friendly, safe and welcoming environment.'],
+      ['What should I wear?', 'Bring flip-flops, suitable training clothes and arrive clean.'],
+      ['Can I try a class?', 'Yes. The trial class is free and comes with no conditions.'],
+      ['How much does it cost?', 'Prices are not published online. Contact us by WhatsApp or phone for information.'],
+      ['Do I need to buy a gi?', 'Loan equipment for the first class depends on availability. Ask us before coming.'],
+      ['Are there classes for children?', 'Monkey Menorca Jiu-Jitsu welcomes children and teenagers. Groups are organised by level.'],
+      ['Are there classes for women?', 'Yes. The gym is open to everyone and aims to make Jiu-Jitsu accessible to all.'],
+      ['Can I train while on holiday?', 'Yes. Visitors and tourists are among the people the gym welcomes.'],
+      ['Can I attend if I train at another gym?', 'Ask us by WhatsApp or phone before coming, especially if you would like to attend Open Mat.'],
+    ],
+    ctaTitle: 'Try a free class in Cala Galdana',
+    ctaAction: 'Message us on WhatsApp',
+  },
+}[locale];
 
-const facilities = ['Tatami amplio', 'Vestuario', 'Duchas', 'Preparación física', 'Aire acondicionado', 'Ventilación', 'Zona de espera', 'Material de entrenamiento'];
+const modalityAnchors = ['bjj-kimono', 'nogi', 'privadas', 'open-mat'];
+const modalities = content.modalities.map(([title, copy], index) => ({
+  n: String(index + 1).padStart(2, '0'),
+  title,
+  copy,
+  href: `${localizedPath('/clases', locale)}#${modalityAnchors[index]}`,
+}));
+const wa = (message?: string) => whatsappUrl(message, locale);
 ---
 
 <BaseLayout>
@@ -49,60 +272,50 @@ const facilities = ['Tatami amplio', 'Vestuario', 'Duchas', 'Preparación físic
     <div class="hero__grid" aria-hidden="true"></div>
     <div class="shell hero__inner">
       <div class="hero__content">
-        <p class="eyebrow">Cala Galdana · Menorca</p>
-        <h1>Jiu-Jitsu<br />brasileño<br /><em>en la isla.</em></h1>
-        <p class="hero__lead">
-          Empieza desde cero, entrena en un ambiente cercano y aprende técnica real sin necesidad de experiencia previa.
-        </p>
+        <h1 set:html={content.heroTitle} />
+        <p class="hero__lead">{content.heroLead}</p>
         <div class="button-row">
-          <a class="btn btn--lime" href={whatsappUrl()} target="_blank" rel="noreferrer">
-            <Icon name="whatsapp" /> Probar una clase gratis
+          <a class="btn btn--lime" href={wa()} target="_blank" rel="noreferrer">
+            <Icon name="whatsapp" /> {content.tryAction}
           </a>
           <a class="btn btn--outline" href="#horarios">
-            Ver horarios <Icon name="arrow" />
+            {content.scheduleAction} <Icon name="arrow" />
           </a>
-        </div>
-      </div>
-      <div class="hero__meta">
-        <span class="hero__scroll">Desliza para descubrir <Icon name="arrow" /></span>
-        <div>
-          <strong>01</strong>
-          <p>Club pequeño.<br />Técnica grande.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="trust-strip" aria-label="Valores del club">
+  <section class="trust-strip" aria-label={content.trustLabel}>
     <div class="trust-strip__track">
-      <span>Respeto</span><i>✦</i><span>Disciplina</span><i>✦</i><span>Técnica</span><i>✦</i>
-      <span>Salud</span><i>✦</i><span>Comunidad</span><i>✦</i><span>Superación</span><i>✦</i>
+      <div class="trust-strip__group">
+        {content.trust.map((item) => <><span>{item}</span><i>✦</i></>)}
+      </div>
+      <div class="trust-strip__group trust-strip__group--repeat" aria-hidden="true">
+        {content.trust.map((item) => <><span>{item}</span><i>✦</i></>)}
+      </div>
     </div>
   </section>
 
   <section class="section section--cream">
     <div class="shell">
       <SectionHeading
-        eyebrow="Aquí hay sitio para ti"
-        title="¿Para quién es <em>Monkey?</em>"
-        copy="Para quien quiere aprender, moverse mejor, sentirse más seguro y formar parte de algo cercano. No importa desde dónde empiezas."
+        eyebrow={content.audienceTitle}
+        title={content.audienceTitle}
+        copy={content.audienceCopy}
       />
       <div class="audience-grid">
-        {audiences.map(([title, copy], index) => (
-          <article>
-            <span>{String(index + 1).padStart(2, '0')}</span>
-            <h3>{title}</h3>
-            <p>{copy}</p>
+        {content.audiences.map(([title, copy], index) => (
+          <article style={`--audience-bg: url('${audienceImages[index].src}')`}>
+            <div class="audience-card__shade"></div>
+            <div class="audience-card__content">
+              <span>{String(index + 1).padStart(2, '0')}</span>
+              <h3>{title}</h3>
+              <p>{copy}</p>
+            </div>
           </article>
         ))}
       </div>
-      <ul class="pill-list audience-pills">
-        <li>Defensa personal</li>
-        <li>Forma física</li>
-        <li>Confianza</li>
-        <li>Competición</li>
-        <li>Visitantes de la isla</li>
-      </ul>
     </div>
   </section>
 
@@ -111,28 +324,26 @@ const facilities = ['Tatami amplio', 'Vestuario', 'Duchas', 'Preparación físic
       <div class="image-frame class-photo">
         <Image
           src={classImage}
-          alt="Una clase técnica de Jiu-Jitsu en un tatami"
+          alt={content.classAlt}
           widths={[480, 720, 960]}
           sizes="(max-width: 900px) 100vw, 50vw"
           format="webp"
           quality={82}
           loading="lazy"
         />
-        <span class="image-badge">Técnica<br />con propósito</span>
+        <span class="image-badge" set:html={content.purposeBadge} />
       </div>
       <div>
-        <p class="eyebrow">Qué es Monkey Menorca</p>
-        <p class="prose-lead">Un club pequeño, cercano y técnico donde cada persona cuenta.</p>
-        <p class="body-copy">
-          Entrenamos con respeto y atención al detalle. El Jiu-Jitsu es nuestra herramienta para aprender disciplina, cuidar la salud y superar límites dentro y fuera del tatami.
-        </p>
+        <h2 class="prose-lead">{content.aboutTitle}</h2>
+        <p class="body-copy">{content.aboutCopy}</p>
         <ul class="check-list">
-          <li>Grupos cercanos y atención real</li>
-          <li>Progresión técnica, segura y gradual</li>
-          <li>Ambiente abierto para todos los niveles</li>
-          <li>Respeto por el compañero, siempre</li>
+          <li>{content.aboutItems[0]}</li>
+          <li>{content.aboutItems[1]}</li>
+          <li>{content.aboutItems[2]}</li>
+          <li>{content.aboutItems[3]}</li>
+          <li>{content.aboutItems[4]}</li>
         </ul>
-        <a class="text-link" href="/comunidad">Conoce nuestra forma de entrenar <Icon name="arrow" /></a>
+        <a class="text-link" href={localizedPath('/comunidad', locale)}>{content.trainingAction} <Icon name="arrow" /></a>
       </div>
     </div>
   </section>
@@ -140,9 +351,9 @@ const facilities = ['Tatami amplio', 'Vestuario', 'Duchas', 'Preparación físic
   <section class="section section--dark">
     <div class="shell">
       <SectionHeading
-        eyebrow="Modalidades"
-        title="Una misma base.<br /><em>Cuatro formas</em> de crecer."
-        copy="Elige tu puerta de entrada. Nosotros te ayudamos a encontrar la clase que mejor encaja contigo."
+        eyebrow={content.modalitiesTitle}
+        title={content.modalitiesTitle}
+        copy={content.modalitiesCopy}
         light
       />
       <div class="modalities">
@@ -157,30 +368,32 @@ const facilities = ['Tatami amplio', 'Vestuario', 'Duchas', 'Preparación físic
     </div>
   </section>
 
-  <section class="section section--lime">
+  <section class="section section--lime start-section">
     <div class="shell start-grid">
-      <div>
-        <p class="eyebrow">Cómo empezar</p>
-        <h2>Dos pasos.<br />Cero excusas.</h2>
+      <div class="start-intro">
+        <h2>{content.startTitle}</h2>
+        <p>{content.startCopy}</p>
       </div>
       <div class="start-steps">
         <article>
           <span>01</span>
           <div>
-            <h3>Escríbenos</h3>
-            <p>Cuéntanos tu edad, nivel y qué horario te viene mejor. Te respondemos por WhatsApp.</p>
+            <h3>{content.startSteps[0][0]}</h3>
+            <p>{content.startSteps[0][1]}</p>
           </div>
         </article>
         <article>
           <span>02</span>
           <div>
-            <h3>Ven a probar</h3>
-            <p>Solo trae ropa cómoda, agua y ganas de aprender. Tu primera clase es gratis.</p>
+            <h3>{content.startSteps[1][0]}</h3>
+            <p>{content.startSteps[1][1]}</p>
           </div>
         </article>
-        <a class="btn btn--dark" href={whatsappUrl()} target="_blank" rel="noreferrer">
-          Empezar ahora <Icon name="arrow" />
-        </a>
+        <div class="start-action">
+          <a class="btn btn--white" href={wa()} target="_blank" rel="noreferrer">
+            {content.tryShort} <Icon name="whatsapp" />
+          </a>
+        </div>
       </div>
     </div>
   </section>
@@ -188,16 +401,15 @@ const facilities = ['Tatami amplio', 'Vestuario', 'Duchas', 'Preparación físic
   <section class="section section--paper" id="horarios">
     <div class="shell">
       <SectionHeading
-        eyebrow="Horario actual"
-        title="Encuentra tu <em>momento.</em>"
-        copy="Sesiones de mañana y mediodía para que el entrenamiento encaje en tu día."
+        eyebrow={content.scheduleTitle}
+        title={content.scheduleTitle}
+        copy={content.scheduleCopy}
       />
       <Schedule />
-      <p class="note"><Icon name="clock" size={17} /> Horarios sujetos a cambios en verano. Confirma antes de venir.</p>
+      <p class="note"><Icon name="clock" size={17} /> {content.scheduleNote}</p>
       <div class="schedule-actions">
-        <a class="btn btn--dark" href="/horarios">Ver horarios y ubicación <Icon name="arrow" /></a>
-        <a class="text-link" href={whatsappUrl('Hola, quiero confirmar el horario de la próxima clase.')} target="_blank" rel="noreferrer">
-          Confirmar por WhatsApp <Icon name="whatsapp" />
+        <a class="btn btn--dark" href={wa(content.confirmMessage)} target="_blank" rel="noreferrer">
+          {content.confirmAction} <Icon name="whatsapp" />
         </a>
       </div>
     </div>
@@ -206,43 +418,42 @@ const facilities = ['Tatami amplio', 'Vestuario', 'Duchas', 'Preparación físic
   <section class="section section--cream">
     <div class="shell">
       <SectionHeading
-        eyebrow="Entrenadores"
-        title="Cerca para guiarte.<br /><em>Exigentes</em> para hacerte crecer."
+        eyebrow={content.coachesTitle}
+        title={content.coachesTitle}
       />
       <div class="coach-grid">
         <article>
           <div class="coach-grid__image">
-            <Image src={fernandoImage} alt="Retrato editorial de Fernando, entrenador" widths={[420, 680]} sizes="(max-width: 700px) 100vw, 50vw" format="webp" quality={84} />
+            <Image src={fernandoImage} alt={content.coachAlt('Fernando')} widths={[420, 680]} sizes="(max-width: 700px) 100vw, 50vw" format="webp" quality={84} />
             <span>01</span>
           </div>
           <div class="coach-grid__info">
-            <div><h3>Fernando</h3><p>Jiu-Jitsu · Fundamentos · Progresión</p></div>
+            <div><h3>Fernando</h3><p>{content.coachRole}</p></div>
             <Icon name="arrow" size={28} />
           </div>
         </article>
         <article>
           <div class="coach-grid__image">
-            <Image src={erikImage} alt="Retrato editorial de Erik, entrenador" widths={[420, 680]} sizes="(max-width: 700px) 100vw, 50vw" format="webp" quality={84} />
+            <Image src={erikImage} alt={content.coachAlt('Erik')} widths={[420, 680]} sizes="(max-width: 700px) 100vw, 50vw" format="webp" quality={84} />
             <span>02</span>
           </div>
           <div class="coach-grid__info">
-            <div><h3>Erik</h3><p>No-Gi · Grappling · Movimiento</p></div>
+            <div><h3>Erik</h3><p>{content.coachRole}</p></div>
             <Icon name="arrow" size={28} />
           </div>
         </article>
       </div>
-      <a class="btn btn--dark coaches-cta" href="/entrenadores">Conoce a los entrenadores <Icon name="arrow" /></a>
+      <a class="btn btn--dark coaches-cta" href={localizedPath('/entrenadores', locale)}>{content.coachesAction} <Icon name="arrow" /></a>
     </div>
   </section>
 
   <section class="section facilities">
     <div class="shell facilities__grid">
       <div>
-        <p class="eyebrow">Nuestro espacio</p>
-        <h2>Todo lo que necesitas para <em>entrenar bien.</em></h2>
+        <h2>{content.facilitiesTitle}</h2>
       </div>
       <ul>
-        {facilities.map((item, index) => (
+        {content.facilities.map((item, index) => (
           <li><span>{String(index + 1).padStart(2, '0')}</span>{item}<Icon name="check" /></li>
         ))}
       </ul>
@@ -252,7 +463,7 @@ const facilities = ['Tatami amplio', 'Vestuario', 'Duchas', 'Preparación físic
   <section class="community-feature">
     <Image
       src={communityImage}
-      alt="Compañeros de Jiu-Jitsu compartiendo un momento después de entrenar"
+      alt={content.communityAlt}
       widths={[720, 1100, 1600]}
       sizes="100vw"
       format="webp"
@@ -261,40 +472,35 @@ const facilities = ['Tatami amplio', 'Vestuario', 'Duchas', 'Preparación físic
     />
     <div class="community-feature__overlay"></div>
     <div class="shell community-feature__content">
-      <p class="eyebrow">Comunidad Monkey</p>
-      <h2>Entrenamos<br />juntos.<br /><em>Crecemos juntos.</em></h2>
-      <p>Ambiente familiar, compañerismo, seminarios, campus, viajes e intercambio con la escuela Calasans.</p>
-      <a class="btn btn--lime" href="/comunidad">Conocer la comunidad <Icon name="arrow" /></a>
+      <h2>{content.communityTitle}</h2>
+      <p>{content.communityCopy}</p>
+      <a class="btn btn--lime" href={localizedPath('/comunidad', locale)}>{content.communityAction} <Icon name="arrow" /></a>
     </div>
   </section>
 
   <section class="section section--paper">
     <div class="shell">
       <SectionHeading
-        eyebrow="Preguntas frecuentes"
-        title="Tu primera clase,<br /><em>sin dudas.</em>"
-        copy="Lo importante es venir con ganas de aprender. Del resto nos ocupamos contigo."
+        eyebrow={content.faqTitle}
+        title={content.faqTitle}
+        copy={content.faqCopy}
       />
       <div class="faq-list">
-        {faqs.map((faq, index) => (
+        {content.faqs.map(([question, answer], index) => (
           <details>
-            <summary><span>{String(index + 1).padStart(2, '0')}</span><span>{faq.q}</span></summary>
-            <p>{faq.a}</p>
+            <summary><span>{String(index + 1).padStart(2, '0')}</span><span>{question}</span></summary>
+            <p>{answer}</p>
           </details>
         ))}
       </div>
     </div>
   </section>
 
-  <section class="map-home">
-    <Map />
-  </section>
-
   <section class="cta-band">
     <div class="shell cta-band__inner">
-      <h2>Ven a probar una clase gratis en Cala Galdana.</h2>
-      <a class="btn btn--dark" href={whatsappUrl()} target="_blank" rel="noreferrer">
-        Escribir por WhatsApp <Icon name="whatsapp" />
+      <h2>{content.ctaTitle}</h2>
+      <a class="btn btn--dark" href={wa()} target="_blank" rel="noreferrer">
+        {content.ctaAction} <Icon name="whatsapp" />
       </a>
     </div>
   </section>
@@ -312,43 +518,46 @@ const facilities = ['Tatami amplio', 'Vestuario', 'Duchas', 'Preparación físic
   :global(.hero__image) { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
   .hero__veil { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(10,10,9,.95) 0%, rgba(10,10,9,.7) 42%, rgba(10,10,9,.05) 78%), linear-gradient(0deg, rgba(10,10,9,.62) 0%, transparent 50%); }
   .hero__grid { position: absolute; inset: 0; opacity: .08; background-image: linear-gradient(rgba(255,255,255,.4) 1px, transparent 1px),linear-gradient(90deg,rgba(255,255,255,.4) 1px,transparent 1px); background-size: 6rem 6rem; }
-  .hero__inner { position: relative; z-index: 1; display: grid; grid-template-columns: 1fr auto; width: 100%; align-items: end; gap: 3rem; padding-block: clamp(5rem, 10vh, 8rem) 3rem; }
+  .hero__inner { position: relative; z-index: 1; display: grid; grid-template-columns: 1fr; align-items: center; gap: 3rem; padding-block: clamp(3rem, 8vh, 6rem); }
   .hero__content { max-width: 61rem; }
-  h1 { margin: 1.25rem 0 1.75rem; font-family: var(--font-display); font-size: clamp(5.2rem, 11vw, 11rem); font-weight: 900; letter-spacing: -.045em; line-height: .72; text-transform: uppercase; }
+  h1 { margin: 1.25rem 0 1.75rem; font-family: var(--font-display); font-size: clamp(4.8rem, 10vw, 10rem); font-weight: 400; letter-spacing: 0; line-height: .84; text-transform: uppercase; }
   h1 em { color: var(--lime); font-style: normal; }
   .hero__lead { max-width: 42rem; margin: 0 0 2rem; color: rgba(255,255,255,.76); font-size: clamp(1rem, 1.5vw, 1.22rem); line-height: 1.65; }
   .hero .btn--outline { color: white; }
-  .hero__meta { display: flex; height: 100%; flex-direction: column; justify-content: space-between; align-items: end; padding-top: 1rem; text-align: right; }
-  .hero__scroll { writing-mode: vertical-rl; display: flex; align-items: center; gap: .75rem; color: rgba(255,255,255,.55); font-size: .6rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
-  .hero__scroll :global(svg) { transform: rotate(90deg); }
-  .hero__meta strong { color: var(--lime); font-family: var(--font-display); font-size: 4.5rem; font-weight: 300; }
-  .hero__meta p { margin: 0; font-family: var(--font-display); font-size: 1.5rem; font-weight: 700; line-height: 1; text-transform: uppercase; }
   .trust-strip { overflow: hidden; background: var(--lime); padding: .85rem 0; color: var(--ink); }
-  .trust-strip__track { display: flex; width: max-content; align-items: center; gap: 1.2rem; padding-inline: 1rem; font-family: var(--font-display); font-size: clamp(1.2rem, 2vw, 1.75rem); font-weight: 800; letter-spacing: .04em; text-transform: uppercase; }
+  .trust-strip__track { display: flex; width: 100%; max-width: 100%; align-items: center; justify-content: center; margin-inline: auto; padding-inline: 1rem; overflow: hidden; font-family: var(--font-display); font-size: clamp(1.2rem, 2vw, 1.75rem); font-weight: 400; letter-spacing: .04em; text-transform: uppercase; }
+  .trust-strip__group { display: flex; min-width: 0; align-items: center; justify-content: center; gap: 1.2rem; white-space: nowrap; }
+  .trust-strip__group--repeat { display: none !important; }
   .trust-strip i { font-style: normal; font-size: .7rem; }
   .audience-grid { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
-  .audience-grid article { min-height: 17rem; padding: clamp(1.4rem, 3vw, 2.5rem); border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
-  .audience-grid span { color: var(--lime-dark); font-size: .65rem; font-weight: 900; letter-spacing: .12em; }
-  .audience-grid h3 { margin: 4.5rem 0 .75rem; font-family: var(--font-display); font-size: clamp(2rem, 3vw, 3rem); line-height: .9; text-transform: uppercase; }
+  .audience-grid article { position: relative; min-height: 19rem; overflow: hidden; padding: clamp(1.4rem, 3vw, 2.5rem); border-right: 1px solid rgba(255,255,255,.18); border-bottom: 1px solid rgba(255,255,255,.18); background-color: var(--ink); background-image: var(--audience-bg); background-position: center; background-size: cover; color: white; isolation: isolate; }
+  .audience-grid article::before { content: ''; position: absolute; inset: 0; z-index: -2; background: inherit; filter: saturate(.92) contrast(1.05); transform: scale(1.02); transition: transform .55s ease; }
+  .audience-grid article:hover::before { transform: scale(1.08); }
+  .audience-card__shade { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(5,5,4,.68) 0%, rgba(5,5,4,.42) 42%, rgba(5,5,4,.9) 100%), linear-gradient(90deg, rgba(176,0,0,.55), rgba(0,0,0,.08)); }
+  .audience-card__content { position: relative; z-index: 1; min-height: calc(19rem - clamp(2.8rem, 6vw, 5rem)); display: flex; flex-direction: column; justify-content: flex-end; }
+  .audience-grid span { color: var(--lime); font-size: .65rem; font-weight: 900; letter-spacing: .12em; }
+  .audience-grid h3 { margin: 4.5rem 0 .75rem; font-family: var(--font-display); font-size: clamp(2rem, 3vw, 3rem); line-height: .9; text-transform: uppercase; text-shadow: 0 2px 18px rgba(0,0,0,.5); }
   .audience-grid p, .body-copy { color: var(--muted); font-size: .92rem; line-height: 1.7; }
-  .audience-pills { margin-top: 1.5rem; }
+  .audience-grid p { max-width: 27rem; color: rgba(255,255,255,.82); text-shadow: 0 1px 10px rgba(0,0,0,.38); }
   .class-photo :global(img) { position: absolute; inset: 0; }
   .body-copy { margin: 1.75rem 0 0; }
   .modalities { border-top: 1px solid rgba(255,255,255,.16); }
   .modalities a { display: grid; grid-template-columns: 4rem 1fr auto; align-items: center; gap: 2rem; padding: clamp(1.5rem, 3vw, 2.3rem) 0; border-bottom: 1px solid rgba(255,255,255,.16); color: inherit; text-decoration: none; transition: color .2s ease, padding .2s ease; }
   .modalities a:hover { color: var(--lime); padding-left: .75rem; }
   .modalities > a > span { color: var(--lime); font-size: .65rem; font-weight: 900; letter-spacing: .1em; }
-  .modalities h3 { margin: 0 0 .5rem; font-family: var(--font-display); font-size: clamp(2rem, 4vw, 4.25rem); font-weight: 800; line-height: .9; text-transform: uppercase; }
+  .modalities h3 { margin: 0 0 .5rem; font-family: var(--font-display); font-size: clamp(2rem, 4vw, 4.25rem); font-weight: 400; line-height: .9; text-transform: uppercase; }
   .modalities p { margin: 0; color: rgba(255,255,255,.52); font-size: .86rem; }
-  .start-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(3rem, 7vw, 9rem); }
-  .start-grid h2 { margin: 1.2rem 0 0; font-family: var(--font-display); font-size: clamp(4.5rem, 8vw, 8rem); font-weight: 900; line-height: .78; letter-spacing: -.035em; text-transform: uppercase; }
-  .start-steps { display: grid; }
-  .start-steps article { display: grid; grid-template-columns: 5rem 1fr; gap: 1.5rem; padding: 2rem 0; border-bottom: 1px solid rgba(17,17,15,.25); }
-  .start-steps article > span { font-family: var(--font-display); font-size: 3.5rem; font-weight: 300; }
-  .start-steps h3 { margin: 0 0 .55rem; font-family: var(--font-display); font-size: 2.3rem; text-transform: uppercase; }
-  .start-steps p { margin: 0; font-size: .9rem; line-height: 1.65; }
-  .start-steps .btn { justify-self: start; margin-top: 1.5rem; }
-  .schedule-actions { display: flex; justify-content: space-between; align-items: center; gap: 2rem; margin-top: 2rem; }
+  .start-section { border-block: 1px solid rgba(17,17,15,.18); }
+  .start-grid { display: grid; grid-template-columns: minmax(18rem, .8fr) 1.2fr; align-items: start; gap: clamp(2rem, 6vw, 6rem); }
+  .start-grid h2 { margin: 0; font-family: var(--font-display); font-size: clamp(4rem, 7vw, 7rem); font-weight: 400; line-height: .84; letter-spacing: 0; text-transform: uppercase; }
+  .start-intro p { max-width: 32rem; margin: 1.25rem 0 0; color: rgba(17,17,15,.82); font-size: clamp(1rem, 1.2vw, 1.12rem); font-weight: 700; line-height: 1.65; }
+  .start-steps { display: grid; gap: 1rem; }
+  .start-steps article { display: grid; grid-template-columns: 4rem 1fr; gap: 1.25rem; align-items: start; padding: clamp(1.25rem, 2vw, 1.75rem); border: 1px solid rgba(17,17,15,.16); background: var(--cream); }
+  .start-steps article > span { color: var(--lime-dark); font-family: var(--font-display); font-size: 2.6rem; font-weight: 600; line-height: .9; }
+  .start-steps h3 { margin: 0 0 .45rem; font-family: var(--font-display); font-size: clamp(1.9rem, 3vw, 2.6rem); font-weight: 500; line-height: .95; text-transform: uppercase; }
+  .start-steps p { max-width: 42rem; margin: 0; color: var(--muted); font-size: 1rem; line-height: 1.65; }
+  .start-action { display: flex; justify-content: flex-start; margin-top: .5rem; }
+  .schedule-actions { display: flex; align-items: center; gap: 2rem; margin-top: 2rem; }
   .coach-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
   .coach-grid__image { position: relative; aspect-ratio: 4/5; overflow: hidden; background: var(--ink-soft); }
   .coach-grid__image :global(img) { width: 100%; height: 100%; object-fit: cover; filter: saturate(.86); transition: transform .5s ease; }
@@ -360,35 +569,123 @@ const facilities = ['Tatami amplio', 'Vestuario', 'Duchas', 'Preparación físic
   .coaches-cta { margin-top: 2rem; }
   .facilities { background: var(--sand); }
   .facilities__grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(3rem, 7vw, 8rem); }
-  .facilities h2 { margin: 1.2rem 0 0; font-family: var(--font-display); font-size: clamp(4rem, 7vw, 7.5rem); font-weight: 900; line-height: .8; letter-spacing: -.035em; text-transform: uppercase; }
-  .facilities h2 em { font-style: normal; color: #3f5100; }
+  .facilities h2 { margin: 1.2rem 0 0; font-family: var(--font-display); font-size: clamp(4rem, 7vw, 7.5rem); font-weight: 400; line-height: .8; letter-spacing: 0; text-transform: uppercase; }
+  .facilities h2 em { font-style: normal; color: #870000; }
   .facilities ul { margin: 0; padding: 0; list-style: none; border-top: 1px solid rgba(17,17,15,.22); }
   .facilities li { display: grid; grid-template-columns: 2.5rem 1fr auto; align-items: center; gap: 1rem; padding: 1rem 0; border-bottom: 1px solid rgba(17,17,15,.22); font-family: var(--font-display); font-size: clamp(1.35rem, 2.5vw, 2.2rem); font-weight: 700; text-transform: uppercase; }
-  .facilities li span { color: #3f5100; font-family: var(--font-body); font-size: .6rem; }
+  .facilities li span { color: #870000; font-family: var(--font-body); font-size: .6rem; }
   .community-feature { position: relative; min-height: 48rem; display: flex; align-items: center; overflow: hidden; background: var(--ink); color: white; }
   .community-feature :global(> img) { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
   .community-feature__overlay { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(10,10,9,.94) 0%, rgba(10,10,9,.62) 48%, rgba(10,10,9,.08) 85%), linear-gradient(0deg,rgba(0,0,0,.45),transparent); }
   .community-feature__content { position: relative; z-index: 1; }
-  .community-feature h2 { margin: 1.25rem 0; font-family: var(--font-display); font-size: clamp(4.4rem, 9vw, 9rem); font-weight: 900; line-height: .78; letter-spacing: -.04em; text-transform: uppercase; }
+  .community-feature h2 { margin: 1.25rem 0; font-family: var(--font-display); font-size: clamp(4.4rem, 9vw, 9rem); font-weight: 400; line-height: .78; letter-spacing: 0; text-transform: uppercase; }
   .community-feature h2 em { color: var(--lime); font-style: normal; }
   .community-feature__content > p:not(.eyebrow) { max-width: 34rem; margin-bottom: 2rem; color: rgba(255,255,255,.72); line-height: 1.7; }
-  .map-home { border-top: 1px solid var(--line); }
   @media (max-width: 900px) {
     .audience-grid { grid-template-columns: 1fr 1fr; }
     .start-grid, .facilities__grid { grid-template-columns: 1fr; }
-    .hero__meta { display: none; }
+    .start-intro { min-height: auto; padding-right: 0; }
     .hero__inner { grid-template-columns: 1fr; }
     .hero__veil { background: linear-gradient(90deg,rgba(10,10,9,.92),rgba(10,10,9,.38)),linear-gradient(0deg,rgba(10,10,9,.72),transparent); }
   }
   @media (max-width: 600px) {
-    .hero { min-height: calc(100svh - 5.15rem); }
-    h1 { font-size: clamp(4.5rem, 21vw, 7rem); }
-    .audience-grid, .coach-grid { grid-template-columns: 1fr; }
-    .audience-grid article { min-height: 14rem; }
-    .modalities a { grid-template-columns: 2rem 1fr auto; gap: .75rem; }
+    .hero { min-height: calc(100svh - var(--header-height)); align-items: flex-end; }
+    .hero__inner { align-items: end; padding-block: 3.25rem; }
+    .hero__content { width: 100%; }
+    h1 { margin: 0 0 1.25rem; font-size: clamp(4.05rem, 18.5vw, 5.4rem); line-height: .82; }
+    .hero__lead { margin-bottom: 1.5rem; font-size: .9rem; line-height: 1.58; }
+    .trust-strip { padding-block: .68rem; }
+    .trust-strip__track {
+      width: max-content;
+      max-width: none;
+      justify-content: flex-start;
+      margin: 0;
+      padding: 0;
+      overflow: visible;
+      font-size: 1.2rem;
+      animation: trust-marquee 22s linear infinite;
+      will-change: transform;
+    }
+    .trust-strip__group { flex: 0 0 auto; min-width: max-content; justify-content: flex-start; padding-right: 1.6rem; }
+    .trust-strip__group--repeat { display: flex !important; }
+    .audience-grid {
+      margin-right: -1rem;
+      grid-template-columns: none;
+      grid-auto-flow: column;
+      grid-auto-columns: min(82vw, 20rem);
+      gap: .75rem;
+      padding-right: 1rem;
+      border: 0;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+    }
+    .audience-grid article {
+      min-height: 21rem;
+      border: 0;
+      scroll-snap-align: start;
+    }
+    .audience-card__content { min-height: calc(21rem - 2.8rem); }
+    .audience-grid h3 { font-size: 2.35rem; }
+    .audience-grid p { font-size: .82rem; line-height: 1.6; }
+    .split { gap: 2.25rem; }
+    .class-photo { min-height: 21rem; }
+    .body-copy { margin-top: 1.25rem; font-size: .86rem; line-height: 1.65; }
+    .modalities a {
+      grid-template-columns: 1.5rem minmax(0, 1fr) auto;
+      gap: .75rem;
+      padding-block: 1.2rem;
+    }
+    .modalities h3 { margin: 0; font-size: 1.85rem; }
     .modalities p { display: none; }
     .schedule-actions { align-items: stretch; flex-direction: column; }
-    .start-steps article { grid-template-columns: 3.5rem 1fr; }
-    .community-feature { min-height: 42rem; }
+    .start-grid { gap: 2rem; }
+    .start-grid h2 { font-size: 3.8rem; }
+    .start-intro p { margin-top: .8rem; font-size: .88rem; line-height: 1.55; }
+    .start-steps { gap: .75rem; }
+    .start-steps article { grid-template-columns: 2.35rem 1fr; gap: .8rem; padding: 1.1rem; }
+    .start-steps article > span { font-size: 2rem; }
+    .start-steps h3 { font-size: 1.65rem; }
+    .start-steps p { font-size: .82rem; line-height: 1.55; }
+    .start-action { justify-content: stretch; }
+    .start-action .btn { width: 100%; }
+    .coach-grid {
+      margin-right: -1rem;
+      grid-template-columns: none;
+      grid-auto-flow: column;
+      grid-auto-columns: min(79vw, 19rem);
+      gap: .85rem;
+      padding-right: 1rem;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+    }
+    .coach-grid article { scroll-snap-align: start; }
+    .coach-grid h3 { font-size: 3rem; }
+    .coaches-cta { width: 100%; }
+    .facilities__grid { gap: 2rem; }
+    .facilities h2 { margin: 0; font-size: 3.9rem; }
+    .facilities ul {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border-left: 1px solid rgba(17,17,15,.22);
+    }
+    .facilities li {
+      min-height: 7.5rem;
+      grid-template-columns: 1fr auto;
+      align-content: space-between;
+      gap: .55rem;
+      padding: .9rem;
+      border-right: 1px solid rgba(17,17,15,.22);
+      font-size: 1.25rem;
+      line-height: .92;
+    }
+    .facilities li span { grid-column: 1; }
+    .facilities li :global(svg) { grid-column: 2; grid-row: 1 / span 2; }
+    .community-feature { min-height: 34rem; align-items: flex-end; padding-block: 3.5rem; }
+    .community-feature h2 { font-size: 4.25rem; }
+    .community-feature__content > p:not(.eyebrow) { font-size: .88rem; line-height: 1.6; }
+    .community-feature .btn { width: 100%; }
+  }
+  @keyframes trust-marquee {
+    to { transform: translate3d(-50%, 0, 0); }
   }
 </style>

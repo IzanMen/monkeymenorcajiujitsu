@@ -6,11 +6,10 @@ interface Props {
   light?: boolean;
   align?: 'left' | 'center';
 }
-const { eyebrow, title, copy, light = false, align = 'left' } = Astro.props;
+const { title, copy, light = false, align = 'left' } = Astro.props;
 ---
 
 <header class:list={['section-heading', `section-heading--${align}`, { 'section-heading--light': light }]}>
-  {eyebrow && <p class="eyebrow">{eyebrow}</p>}
   <h2 set:html={title} />
   {copy && <p class="section-heading__copy">{copy}</p>}
 </header>
@@ -18,15 +17,14 @@ const { eyebrow, title, copy, light = false, align = 'left' } = Astro.props;
 <style>
   .section-heading { max-width: 62rem; margin-bottom: clamp(2.5rem, 5vw, 5rem); }
   .section-heading--center { text-align: center; margin-inline: auto; }
-  .eyebrow { margin-bottom: 1.15rem; }
   h2 {
     margin: 0;
     color: var(--ink);
     font-family: var(--font-display);
     font-size: clamp(3.6rem, 8vw, 8.3rem);
-    font-weight: 900;
-    line-height: .82;
-    letter-spacing: -.035em;
+    font-weight: 400;
+    line-height: .88;
+    letter-spacing: 0;
     text-transform: uppercase;
     text-wrap: balance;
   }
@@ -42,4 +40,9 @@ const { eyebrow, title, copy, light = false, align = 'left' } = Astro.props;
   }
   .section-heading--center .section-heading__copy { margin-inline: auto; }
   .section-heading--light .section-heading__copy { color: rgba(255,255,255,.65); }
+  @media (max-width: 580px) {
+    .section-heading { margin-bottom: 2.4rem; }
+    h2 { font-size: clamp(3.15rem, 15.5vw, 4.25rem); line-height: .86; }
+    .section-heading__copy { margin-top: 1rem; font-size: .9rem; line-height: 1.6; }
+  }
 </style>

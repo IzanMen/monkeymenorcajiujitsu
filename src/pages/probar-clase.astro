@@ -4,61 +4,176 @@ import PageHero from '../components/PageHero.astro';
 import SectionHeading from '../components/SectionHeading.astro';
 import Icon from '../components/Icon.astro';
 import { whatsappUrl } from '../data/site';
+import { getLocale } from '../i18n';
+import heroImage from '../assets/photos/pexels-8612498.jpg';
+import beginnersImage from '../assets/photos/pexels-7045603.jpg';
+import fitnessImage from '../assets/photos/pexels-20182272.jpg';
+import safetyImage from '../assets/photos/pexels-35029376.jpg';
+import sandalsImage from '../assets/photos/pexels-9510812.jpg';
+import clothingImage from '../assets/photos/pexels-11391978.jpg';
+import hygieneImage from '../assets/photos/pexels-8611941.jpg';
+import gearImage from '../assets/photos/pexels-8611381.jpg';
+import trialImage from '../assets/photos/pexels-8612042.jpg';
+import bookingImage from '../assets/photos/pexels-12087743.jpg';
 
-const bring = [
-  ['Ropa cómoda', 'Camiseta deportiva ajustada y pantalón sin bolsillos ni cremalleras.'],
-  ['Agua', 'Una botella para hidratarte durante la sesión.'],
-  ['Chanclas', 'Para moverte fuera del tatami manteniendo la zona limpia.'],
-  ['Ganas de aprender', 'No necesitas kimono, experiencia ni una forma física concreta.'],
-];
+const bringImages = [sandalsImage, clothingImage, hygieneImage, gearImage];
+const stepImages = [beginnersImage, safetyImage, trialImage, fitnessImage];
 
-const steps = [
-  ['Llegas y nos conocemos', 'Te enseñamos el espacio, resolvemos dudas y te presentamos al grupo.'],
-  ['Activamos el cuerpo', 'Movilidad y ejercicios sencillos para entrar en calor sin exigirte de más.'],
-  ['Aprendes una técnica', 'El entrenador explica paso a paso y practica contigo a un ritmo cómodo.'],
-  ['Pruebas con control', 'Si te apetece, hacemos una situación adaptada. Nada se fuerza.'],
-];
+const locale = getLocale(Astro.url);
+const content = {
+  es: {
+    metaTitle: 'Probar una clase gratuita',
+    metaDescription: 'Prueba gratis una clase de Jiu-Jitsu en Cala Galdana. Puedes empezar desde cero y no necesitas estar en forma.',
+    heroEyebrow: 'Tu primera clase',
+    heroTitle: 'Probar clase gratuita',
+    heroCopy: 'No necesitas experiencia previa ni estar en buena forma. La prueba es gratuita, sin condiciones y no es necesario reservar.',
+    heroAlt: 'Dos practicantes descubriendo una posición básica de Jiu-Jitsu',
+    promises: [
+      ['Puedes empezar desde cero', 'No es necesario tener experiencia previa. Algunas clases son adecuadas para principiantes y los grupos se organizan por nivel.'],
+      ['No necesitas estar en forma', 'El gimnasio quiere acercar el Jiu-Jitsu especialmente a quienes nunca lo han practicado, en un ambiente cercano, seguro y acogedor.'],
+    ],
+    safetyTitle: 'Cómo se cuida la seguridad',
+    safetyCopy: 'La enseñanza se adapta a un entorno cercano y personalizado. Al ser un gimnasio pequeño, el equipo puede prestar especial atención a cada alumno y cuidar los detalles.',
+    safetyItems: ['Grupos organizados por nivel', 'Atención personalizada', 'Ambiente cercano, seguro y acogedor', 'La higiene es una norma importante'],
+    bringTitle: 'Qué llevar a la primera clase',
+    bring: [
+      ['Chanclas', 'Tráelas para desplazarte fuera del tatami.'],
+      ['Ropa adecuada', 'Ven con ropa apropiada para entrenar.'],
+      ['Higiene', 'Es importante venir aseado y cuidar la limpieza.'],
+      ['Kimono o material', 'El préstamo durante la primera clase depende de la disponibilidad. Consúltalo antes de venir.'],
+    ],
+    trialEyebrow: 'Durante la prueba',
+    trialTitle: 'Qué pasa durante la clase de prueba',
+    trialCopy: 'La prueba se integra en una enseñanza cercana y en grupos organizados por nivel.',
+    steps: [
+      ['Una prueba sin condiciones', 'La clase de prueba es gratuita y no tiene ninguna condición.'],
+      ['Un grupo por nivel', 'Los grupos se organizan por nivel y algunas clases son adecuadas para principiantes.'],
+      ['Jiu-Jitsu desde cero', 'Trabajarás técnica, control y sumisiones sin necesidad de experiencia previa.'],
+      ['Si quieres continuar', 'La inscripción se completa por WhatsApp y no existe permanencia.'],
+    ],
+    bookingTitle: '¿Necesito reservar?',
+    bookingCopy: 'No es necesario reservar. Aun así, puedes escribir por WhatsApp o llamar para confirmar el horario, especialmente en verano.',
+    whatsappAction: 'Escribir por WhatsApp',
+    ctaTitle: 'Clase gratuita',
+    ctaAction: 'Probar gratis',
+  },
+  ca: {
+    metaTitle: 'Provar una classe gratuïta',
+    metaDescription: 'Prova gratis una classe de Jiu-Jitsu a Cala Galdana. Pots començar des de zero i no necessites estar en forma.',
+    heroEyebrow: 'La teva primera classe',
+    heroTitle: 'Prova una classe gratis',
+    heroCopy: 'No necessites experiència prèvia ni estar en bona forma. La prova és gratuïta, sense condicions i no cal reservar.',
+    heroAlt: 'Dos practicants descobrint una posició bàsica de Jiu-Jitsu',
+    promises: [
+      ['Pots començar des de zero', 'No cal tenir experiència prèvia. Algunes classes són adequades per a principiants i els grups s’organitzen per nivell.'],
+      ['No necessites estar en forma', 'El gimnàs vol apropar el Jiu-Jitsu especialment a qui no l’ha practicat mai, en un ambient proper, segur i acollidor.'],
+    ],
+    safetyTitle: 'Com cuidem la seguretat',
+    safetyCopy: 'L’ensenyament s’adapta a un entorn proper i personalitzat. Com que és un gimnàs petit, l’equip pot prestar una atenció especial a cada alumne i cuidar els detalls.',
+    safetyItems: ['Grups organitzats per nivell', 'Atenció personalitzada', 'Ambient proper, segur i acollidor', 'La higiene és una norma important'],
+    bringTitle: 'Què dur a la primera classe',
+    bring: [
+      ['Xancletes', 'Porta-les per desplaçar-te fora del tatami.'],
+      ['Roba adequada', 'Vine amb roba apropiada per entrenar.'],
+      ['Higiene', 'És important venir net i tenir cura de la higiene.'],
+      ['Quimono o material', 'El préstec durant la primera classe depèn de la disponibilitat. Consulta-ho abans de venir.'],
+    ],
+    trialEyebrow: 'Durant la prova',
+    trialTitle: 'Què passa durant la classe de prova',
+    trialCopy: 'La prova s’integra en un ensenyament proper i en grups organitzats per nivell.',
+    steps: [
+      ['Una prova sense condicions', 'La classe de prova és gratuïta i no té cap condició.'],
+      ['Un grup per nivell', 'Els grups s’organitzen per nivell i algunes classes són adequades per a principiants.'],
+      ['Jiu-Jitsu des de zero', 'Treballaràs tècnica, control i submissions sense necessitat d’experiència prèvia.'],
+      ['Si vols continuar', 'La inscripció es completa per WhatsApp i no hi ha permanència.'],
+    ],
+    bookingTitle: 'He de reservar?',
+    bookingCopy: 'No cal reservar. Tot i així, pots escriure per WhatsApp o telefonar per confirmar l’horari, especialment a l’estiu.',
+    whatsappAction: 'Escriure per WhatsApp',
+    ctaTitle: 'Classe gratuïta',
+    ctaAction: 'Provar gratis',
+  },
+  en: {
+    metaTitle: 'Try a free class',
+    metaDescription: 'Try a Jiu-Jitsu class for free in Cala Galdana. You can start from scratch and do not need to be fit.',
+    heroEyebrow: 'Your first class',
+    heroTitle: 'Try a free class',
+    heroCopy: 'You do not need previous experience or a high level of fitness. The trial is free, with no commitment, and booking is not required.',
+    heroAlt: 'Two practitioners learning a basic Jiu-Jitsu position',
+    promises: [
+      ['You can start from scratch', 'No previous experience is required. Some classes are suitable for beginners and groups are organised by level.'],
+      ['You do not need to be fit', 'The gym aims to make Jiu-Jitsu accessible especially to people who have never tried it, in a friendly, safe and welcoming environment.'],
+    ],
+    safetyTitle: 'How we keep training safe',
+    safetyCopy: 'Teaching is adapted to a friendly, personal environment. As a small gym, the team can pay close attention to every student and take care of the details.',
+    safetyItems: ['Groups organised by level', 'Personal attention', 'Friendly, safe and welcoming environment', 'Hygiene is an important rule'],
+    bringTitle: 'What to bring to your first class',
+    bring: [
+      ['Flip-flops', 'Bring them for walking outside the mat.'],
+      ['Suitable clothing', 'Wear comfortable clothes that are suitable for training.'],
+      ['Hygiene', 'Please arrive clean and help us maintain good hygiene.'],
+      ['Gi or equipment', 'Loan equipment for the first class depends on availability. Ask us before coming.'],
+    ],
+    trialEyebrow: 'During the trial',
+    trialTitle: 'What happens during the trial class',
+    trialCopy: 'Your trial takes place within a friendly teaching environment and a group organised by level.',
+    steps: [
+      ['A no-commitment trial', 'The trial class is free and has no conditions attached.'],
+      ['A group for your level', 'Groups are organised by level and some classes are suitable for beginners.'],
+      ['Jiu-Jitsu from scratch', 'You will work on technique, control and submissions with no previous experience required.'],
+      ['If you want to continue', 'Registration is completed via WhatsApp and there is no minimum commitment.'],
+    ],
+    bookingTitle: 'Do I need to book?',
+    bookingCopy: 'Booking is not required. You can still message us on WhatsApp or call to confirm the schedule, especially in summer.',
+    whatsappAction: 'Message us on WhatsApp',
+    ctaTitle: 'Free class',
+    ctaAction: 'Try it for free',
+  },
+}[locale];
+const wa = () => whatsappUrl(undefined, locale);
 ---
 
 <BaseLayout
-  title="Probar una clase gratuita"
-  description="Prueba gratis una clase de Jiu-Jitsu en Cala Galdana. Puedes empezar desde cero y no necesitas estar en forma."
+  title={content.metaTitle}
+  description={content.metaDescription}
 >
   <PageHero
-    eyebrow="Tu primera clase"
-    title="Empieza desde<br /><em>cero.</em> De verdad."
-    copy="No necesitas experiencia, kimono ni estar en forma. Solo reservar una hora para descubrir algo nuevo."
+    eyebrow={content.heroEyebrow}
+    title={content.heroTitle}
+    copy={content.heroCopy}
     number="03"
+    image={heroImage}
+    imageAlt={content.heroAlt}
   />
 
   <section class="section section--cream">
     <div class="shell promise-grid">
-      <article>
+      <article style={`--card-bg: url('${beginnersImage.src}')`}>
+        <div class="card-shade"></div>
         <span>01</span>
-        <h2>Puedes empezar desde cero</h2>
-        <p>Te explicamos todo: cómo colocarte, cómo moverte y cómo entrenar con seguridad. Nadie espera que ya sepas.</p>
+        <h2>{content.promises[0][0]}</h2>
+        <p>{content.promises[0][1]}</p>
       </article>
-      <article>
+      <article style={`--card-bg: url('${fitnessImage.src}')`}>
+        <div class="card-shade"></div>
         <span>02</span>
-        <h2>No necesitas estar en forma</h2>
-        <p>La resistencia, movilidad y confianza se construyen poco a poco. Adaptamos la intensidad a ti.</p>
+        <h2>{content.promises[1][0]}</h2>
+        <p>{content.promises[1][1]}</p>
       </article>
     </div>
   </section>
 
-  <section class="section section--dark">
+  <section class="section section--dark safety-section">
+    <img src={safetyImage.src} alt="" aria-hidden="true" loading="lazy" />
+    <div class="safety-section__overlay"></div>
     <div class="shell safety">
       <div>
-        <p class="eyebrow">Seguridad primero</p>
-        <p class="statement">Aquí se entrena con <em>control,</em> no con ego.</p>
+        <h2 class="statement">{content.safetyTitle}</h2>
       </div>
       <div>
-        <p>Aprenderás a reconocer una posición, comunicarte con tu compañero y parar en cualquier momento. Emparejamos por nivel y tamaño siempre que es posible.</p>
+        <p>{content.safetyCopy}</p>
         <ul class="check-list safety__list">
-          <li>Técnicas explicadas de forma progresiva</li>
-          <li>Supervisión cercana del entrenador</li>
-          <li>Intensidad adaptada a tu experiencia</li>
-          <li>Higiene y cuidado del tatami</li>
+          {content.safetyItems.map((item) => <li>{item}</li>)}
         </ul>
       </div>
     </div>
@@ -66,10 +181,11 @@ const steps = [
 
   <section class="section section--paper">
     <div class="shell">
-      <SectionHeading eyebrow="Qué llevar" title="Ligero de equipaje.<br /><em>Abierto de mente.</em>" />
+      <SectionHeading eyebrow={content.bringTitle} title={content.bringTitle} />
       <div class="bring-grid">
-        {bring.map(([title, copy], index) => (
-          <article>
+        {content.bring.map(([title, copy], index) => (
+          <article style={`--card-bg: url('${bringImages[index].src}')`}>
+            <div class="card-shade"></div>
             <span>{String(index + 1).padStart(2, '0')}</span>
             <div><h3>{title}</h3><p>{copy}</p></div>
           </article>
@@ -78,16 +194,17 @@ const steps = [
     </div>
   </section>
 
-  <section class="section section--lime">
+  <section class="section section--lime trial-section">
     <div class="shell">
       <SectionHeading
-        eyebrow="Durante la prueba"
-        title="Una hora para<br />cambiar el chip."
-        copy="Sabrás en todo momento qué estamos haciendo y por qué."
+        eyebrow={content.trialEyebrow}
+        title={content.trialTitle}
+        copy={content.trialCopy}
       />
       <div class="trial-steps">
-        {steps.map(([title, copy], index) => (
-          <article>
+        {content.steps.map(([title, copy], index) => (
+          <article style={`--card-bg: url('${stepImages[index].src}')`}>
+            <div class="card-shade"></div>
             <span>{String(index + 1).padStart(2, '0')}</span>
             <h3>{title}</h3>
             <p>{copy}</p>
@@ -99,69 +216,182 @@ const steps = [
 
   <section class="section section--cream">
     <div class="shell practical-grid">
-      <article>
-        <p class="eyebrow">¿Necesito reservar?</p>
-        <h2>No, pero te recomendamos escribir.</h2>
-        <p>Así confirmamos que el horario no ha cambiado, te recomendamos la clase adecuada y estamos preparados para recibirte.</p>
-        <a class="btn btn--dark" href={whatsappUrl()} target="_blank" rel="noreferrer">
-          Reservar por WhatsApp <Icon name="whatsapp" />
-        </a>
-      </article>
-      <article class="price-card">
-        <span>Precios</span>
-        <h2>Tu primera clase es gratis.</h2>
-        <p>Después, te informamos por WhatsApp según tu caso: frecuencia, modalidad, edad o si estás de visita.</p>
-        <a class="text-link" href={whatsappUrl('Hola, quiero información sobre precios después de la clase de prueba.')} target="_blank" rel="noreferrer">
-          Consultar precios <Icon name="arrow" />
+      <article style={`--card-bg: url('${bookingImage.src}')`}>
+        <div class="card-shade"></div>
+        <h2>{content.bookingTitle}</h2>
+        <p>{content.bookingCopy}</p>
+        <a class="btn btn--dark" href={wa()} target="_blank" rel="noreferrer">
+          {content.whatsappAction} <Icon name="whatsapp" />
         </a>
       </article>
     </div>
   </section>
 
-  <section class="cta-band">
+  <section class="cta-band trial-cta" style={`--card-bg: url('${trialImage.src}')`}>
+    <div class="trial-cta__overlay"></div>
     <div class="shell cta-band__inner">
-      <h2>Tu primera clase empieza con un mensaje.</h2>
-      <a class="btn btn--dark" href={whatsappUrl()} target="_blank" rel="noreferrer">
-        Probar gratis <Icon name="whatsapp" />
+      <h2>{content.ctaTitle}</h2>
+      <a class="btn btn--dark" href={wa()} target="_blank" rel="noreferrer">
+        {content.ctaAction} <Icon name="whatsapp" />
       </a>
     </div>
   </section>
 </BaseLayout>
 
 <style>
+  .card-shade {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background:
+      linear-gradient(180deg, rgba(7,7,6,.48) 0%, rgba(7,7,6,.3) 42%, rgba(7,7,6,.88) 100%),
+      linear-gradient(90deg, rgba(176,0,0,.32), rgba(0,0,0,.08));
+  }
   .promise-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--line); border: 1px solid var(--line); }
-  .promise-grid article { padding: clamp(2rem, 5vw, 5rem); background: var(--cream); }
-  .promise-grid span, .bring-grid span { color: var(--lime-dark); font-size: .68rem; font-weight: 900; letter-spacing: .12em; }
-  .promise-grid h2 { margin: clamp(4rem, 8vw, 8rem) 0 1rem; font-family: var(--font-display); font-size: clamp(3.2rem, 6vw, 6rem); font-weight: 900; line-height: .82; text-transform: uppercase; }
-  .promise-grid p, .safety > div > p, .practical-grid article > p { color: var(--muted); line-height: 1.75; }
-  .safety { display: grid; grid-template-columns: 1.2fr .7fr; gap: clamp(3rem, 8vw, 9rem); align-items: end; }
+  .promise-grid article {
+    position: relative;
+    min-height: clamp(28rem, 45vw, 42rem);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    overflow: hidden;
+    padding: clamp(2rem, 5vw, 5rem);
+    background-color: var(--ink);
+    background-image: var(--card-bg);
+    background-position: center;
+    background-size: cover;
+    color: white;
+  }
+  .promise-grid article > *:not(.card-shade),
+  .bring-grid article > *:not(.card-shade),
+  .trial-steps article > *:not(.card-shade),
+  .practical-grid > article > *:not(.card-shade) { position: relative; z-index: 1; }
+  .promise-grid span, .bring-grid span { color: var(--lime); font-size: .68rem; font-weight: 900; letter-spacing: .12em; }
+  .promise-grid h2 { margin: clamp(4rem, 8vw, 8rem) 0 1rem; font-family: var(--font-display); font-size: clamp(3.2rem, 6vw, 6rem); font-weight: 400; line-height: .82; text-transform: uppercase; }
+  .promise-grid p, .safety > div > p, .practical-grid article > p { color: rgba(255,255,255,.78); line-height: 1.75; }
+  .safety-section { position: relative; overflow: hidden; }
+  .safety-section > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: .55; }
+  .safety-section__overlay { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(10,10,9,.96), rgba(10,10,9,.62)), linear-gradient(0deg, rgba(10,10,9,.82), rgba(10,10,9,.15)); }
+  .safety { position: relative; z-index: 1; display: grid; grid-template-columns: 1.2fr .7fr; gap: clamp(3rem, 8vw, 9rem); align-items: end; }
   .safety > div > p { color: rgba(255,255,255,.62); }
   .safety__list { border-color: rgba(255,255,255,.15); }
   .safety__list li { border-color: rgba(255,255,255,.15); }
-  .bring-grid { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid var(--line); }
-  .bring-grid article { display: grid; grid-template-columns: 3rem 1fr; gap: 1.5rem; padding: 2rem 0; border-bottom: 1px solid var(--line); }
-  .bring-grid article:nth-child(odd) { padding-right: 2rem; border-right: 1px solid var(--line); }
-  .bring-grid article:nth-child(even) { padding-left: 2rem; }
+  .bring-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--line); border: 1px solid var(--line); }
+  .bring-grid article {
+    position: relative;
+    min-height: 20rem;
+    display: grid;
+    grid-template-columns: 3rem 1fr;
+    align-content: end;
+    gap: 1.5rem;
+    overflow: hidden;
+    padding: clamp(1.5rem, 3vw, 2.2rem);
+    background-color: var(--ink);
+    background-image: var(--card-bg);
+    background-position: center;
+    background-size: cover;
+    color: white;
+  }
   .bring-grid h3 { margin: 0 0 .5rem; font-family: var(--font-display); font-size: 2.2rem; text-transform: uppercase; }
-  .bring-grid p { margin: 0; color: var(--muted); font-size: .88rem; line-height: 1.65; }
+  .bring-grid p { margin: 0; color: rgba(255,255,255,.78); font-size: .88rem; line-height: 1.65; }
   .trial-steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: rgba(17,17,15,.25); border: 1px solid rgba(17,17,15,.25); }
-  .trial-steps article { min-height: 23rem; display: flex; flex-direction: column; padding: 2rem; background: var(--lime); }
-  .trial-steps span { font-family: var(--font-display); font-size: 3rem; font-weight: 300; }
+  .trial-section :global(.section-heading__copy) {
+    color: #000 !important;
+    font-weight: 700;
+    opacity: 1 !important;
+  }
+  .trial-steps article {
+    position: relative;
+    min-height: 27rem;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    padding: 2rem;
+    background-color: var(--ink);
+    background-image: var(--card-bg);
+    background-position: center;
+    background-size: cover;
+    color: white;
+  }
+  .trial-steps span { color: var(--lime); font-family: var(--font-display); font-size: 3rem; font-weight: 300; }
   .trial-steps h3 { margin: auto 0 .75rem; font-family: var(--font-display); font-size: 2.25rem; line-height: .95; text-transform: uppercase; }
-  .trial-steps p { margin: 0; font-size: .82rem; line-height: 1.65; }
-  .practical-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
-  .practical-grid > article { min-height: 33rem; display: flex; flex-direction: column; justify-content: flex-end; padding: clamp(2rem, 5vw, 4.5rem); background: var(--paper); }
-  .practical-grid h2 { margin: 1.2rem 0; font-family: var(--font-display); font-size: clamp(3.2rem, 6vw, 6rem); font-weight: 900; line-height: .82; text-transform: uppercase; }
+  .trial-steps p { margin: 0; color: rgba(255,255,255,.78); font-size: .82rem; line-height: 1.65; }
+  .practical-grid { display: grid; grid-template-columns: 1fr; gap: 1.2rem; }
+  .practical-grid > article {
+    position: relative;
+    min-height: 36rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    overflow: hidden;
+    padding: clamp(2rem, 5vw, 4.5rem);
+    background-color: var(--ink);
+    background-image: var(--card-bg);
+    background-position: center;
+    background-size: cover;
+    color: white;
+  }
+  .practical-grid h2 { margin: 1.2rem 0; font-family: var(--font-display); font-size: clamp(3.2rem, 6vw, 6rem); font-weight: 400; line-height: .82; text-transform: uppercase; }
   .practical-grid .btn, .practical-grid .text-link { align-self: flex-start; margin-top: 1.2rem; }
-  .price-card { background: var(--ink) !important; color: white; }
-  .price-card > span { color: var(--lime); font-size: .68rem; font-weight: 900; letter-spacing: .14em; text-transform: uppercase; }
-  .price-card > p { color: rgba(255,255,255,.6) !important; }
+  .trial-cta { background-color: var(--ink); background-image: var(--card-bg); background-position: center; background-size: cover; color: white; }
+  .trial-cta::after { color: rgba(255,255,255,.08); }
+  .trial-cta__overlay { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(10,10,9,.94), rgba(10,10,9,.54)), linear-gradient(0deg, rgba(10,10,9,.8), rgba(10,10,9,.18)); }
   @media (max-width: 850px) {
     .promise-grid, .safety, .practical-grid { grid-template-columns: 1fr; }
     .trial-steps { grid-template-columns: 1fr 1fr; }
   }
-  @media (max-width: 560px) {
-    .bring-grid, .trial-steps { grid-template-columns: 1fr; }
-    .bring-grid article:nth-child(odd), .bring-grid article:nth-child(even) { padding-inline: 0; border-right: 0; }
+  @media (max-width: 580px) {
+    .promise-grid,
+    .bring-grid,
+    .trial-steps {
+      margin-right: -1rem;
+      grid-template-columns: none;
+      grid-auto-flow: column;
+      gap: .75rem;
+      padding: 0 1rem .15rem 0;
+      border: 0;
+      background: transparent;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+    }
+    .promise-grid { grid-auto-columns: min(82vw, 20rem); }
+    .promise-grid {
+      width: calc(100% - 1rem);
+      margin-right: 0;
+      margin-left: 1rem;
+    }
+    .promise-grid article {
+      min-height: 25rem;
+      padding: 1.5rem;
+      scroll-snap-align: start;
+    }
+    .promise-grid h2 { margin: auto 0 .85rem; font-size: 3.15rem; }
+    .promise-grid p { font-size: .82rem; line-height: 1.6; }
+    .safety { gap: 1.75rem; }
+    .safety > div > p { font-size: .86rem; line-height: 1.6; }
+    .bring-grid { grid-auto-columns: min(78vw, 18.5rem); }
+    .bring-grid article {
+      min-height: 19rem;
+      grid-template-columns: 2rem 1fr;
+      gap: .75rem;
+      padding: 1.25rem;
+      scroll-snap-align: start;
+    }
+    .bring-grid h3 { font-size: 2rem; line-height: .9; }
+    .bring-grid p { font-size: .78rem; line-height: 1.55; }
+    .trial-steps { grid-auto-columns: min(80vw, 19rem); }
+    .trial-steps article {
+      min-height: 23rem;
+      padding: 1.4rem;
+      scroll-snap-align: start;
+    }
+    .trial-steps span { font-size: 2.4rem; }
+    .trial-steps h3 { font-size: 2.1rem; }
+    .trial-steps p { font-size: .78rem; line-height: 1.55; }
+    .practical-grid > article { min-height: 25rem; padding: 1.5rem; }
+    .practical-grid h2 { font-size: 3.5rem; }
+    .practical-grid article > p { font-size: .84rem; line-height: 1.6; }
+    .practical-grid .btn { width: 100%; }
+    .trial-cta { min-height: 27rem; display: flex; align-items: flex-end; }
   }
 </style>

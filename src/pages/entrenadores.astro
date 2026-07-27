@@ -2,73 +2,157 @@
 import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
-import SectionHeading from '../components/SectionHeading.astro';
 import Icon from '../components/Icon.astro';
 import { whatsappUrl } from '../data/site';
-import fernandoImage from '../assets/fernando-coach.png';
-import erikImage from '../assets/erik-coach.png';
-import classImage from '../assets/class-technique.png';
+import { getLocale, localizedPath } from '../i18n';
+import heroImage from '../assets/photos/pexels-28945401.jpg';
+import fernandoImage from '../assets/photos/fernando-temp-coach.jpg';
+import erikImage from '../assets/photos/erik-temp-coach.avif';
+import classImage from '../assets/photos/pexels-35029376.jpg';
+import calasansImage from '../assets/photos/claudio-calasans.webp';
 
-const method = [
-  ['Ver', 'Una demostración clara, desde varios ángulos y con el porqué de cada detalle.'],
-  ['Entender', 'Conectamos la técnica con posiciones que ya conoces para que tenga sentido.'],
-  ['Practicar', 'Repeticiones de calidad, correcciones cercanas y ritmo adaptado.'],
-  ['Aplicar', 'Situaciones progresivas para probar la técnica con resistencia real y segura.'],
-];
+const locale = getLocale(Astro.url);
+const content = {
+  es: {
+    metaTitle: 'Entrenadores',
+    metaDescription: 'Conoce a Fernando y Erik, el equipo de entrenadores de Monkey Menorca Jiu-Jitsu, su método y la influencia Calasans.',
+    heroTitle: 'Entrenadores',
+    heroCopy: 'Fernando y Erik forman el equipo de entrenadores de Monkey Menorca Jiu-Jitsu.',
+    heroAlt: 'Clase de artes marciales siguiendo una explicación técnica',
+    coachAlt: (name: string) => `${name}, entrenador de Monkey Menorca Jiu-Jitsu`,
+    methodTitle: 'Método de enseñanza',
+    methodIntro: 'Una enseñanza basada en la línea de Claudio Calasans, adaptada a un entorno más cercano y personalizado.',
+    method: [
+      ['Línea Calasans', 'El método sigue la línea de trabajo de Claudio Calasans.'],
+      ['Atención personalizada', 'El tamaño reducido del gimnasio permite prestar especial atención a cada alumno.'],
+      ['Técnica al detalle', 'La enseñanza cuida los detalles y profundiza en la técnica.'],
+      ['Aprendizaje continuo', 'Instructores de referencia aportan diferentes estilos en seminarios y entrenamientos especiales.'],
+    ],
+    influenceTitle: 'Influencia Calasans',
+    influenceCopy: ['Monkey Menorca Jiu-Jitsu nace de la inspiración y el apoyo de Albert Ros, de Vallès Jiu-Jitsu, y de las enseñanzas de Claudio Calasans.', 'El proyecto busca crear un intercambio cultural y deportivo con la escuela matriz, fomentando las visitas de alumnos e instructores entre ambos gimnasios.'],
+    communityAction: 'Conocer la comunidad',
+    seminarsTitle: 'Seminarios e instructores invitados',
+    seminarsCopy: 'El gimnasio invita regularmente a instructores de referencia para impartir seminarios y entrenamientos especiales. Así, los alumnos pueden aprender de diferentes estilos y seguir evolucionando.',
+    seminarsAction: 'Preguntar por próximos eventos',
+    seminarsMessage: 'Hola, quiero información sobre próximos seminarios o campus.',
+    seminarsAlt: 'Instructor invitado mostrando una técnica durante un seminario',
+    learningBadge: 'Siempre<br />aprendiendo',
+    ctaTitle: 'Entrenar con el equipo',
+    ctaAction: 'Entrenar con el equipo',
+    ctaMessage: 'Hola, me gustaría entrenar con el equipo y probar una clase.',
+  },
+  ca: {
+    metaTitle: 'Entrenadors',
+    metaDescription: 'Coneix en Fernando i l’Erik, l’equip d’entrenadors de Monkey Menorca Jiu-Jitsu, el seu mètode i la influència Calasans.',
+    heroTitle: 'Entrenadors',
+    heroCopy: 'En Fernando i l’Erik formen l’equip d’entrenadors de Monkey Menorca Jiu-Jitsu.',
+    heroAlt: 'Classe d’arts marcials seguint una explicació tècnica',
+    coachAlt: (name: string) => `${name}, entrenador de Monkey Menorca Jiu-Jitsu`,
+    methodTitle: 'Mètode d’ensenyament',
+    methodIntro: 'Un ensenyament basat en la línia de Claudio Calasans, adaptat a un entorn més proper i personalitzat.',
+    method: [
+      ['Línia Calasans', 'El mètode segueix la línia de treball de Claudio Calasans.'],
+      ['Atenció personalitzada', 'La mida reduïda del gimnàs permet prestar una atenció especial a cada alumne.'],
+      ['Tècnica al detall', 'L’ensenyament cuida els detalls i aprofundeix en la tècnica.'],
+      ['Aprenentatge continu', 'Instructors de referència aporten estils diferents en seminaris i entrenaments especials.'],
+    ],
+    influenceTitle: 'Influència Calasans',
+    influenceCopy: ['Monkey Menorca Jiu-Jitsu neix de la inspiració i el suport d’Albert Ros, de Vallès Jiu-Jitsu, i dels ensenyaments de Claudio Calasans.', 'El projecte vol crear un intercanvi cultural i esportiu amb l’escola matriu, fomentant les visites d’alumnes i instructors entre tots dos gimnasos.'],
+    communityAction: 'Conèixer la comunitat',
+    seminarsTitle: 'Seminaris i instructors convidats',
+    seminarsCopy: 'El gimnàs convida regularment instructors de referència per impartir seminaris i entrenaments especials. Així, els alumnes poden aprendre estils diferents i continuar evolucionant.',
+    seminarsAction: 'Preguntar pels pròxims esdeveniments',
+    seminarsMessage: 'Hola, vull informació sobre els pròxims seminaris o campus.',
+    seminarsAlt: 'Instructor convidat mostrant una tècnica durant un seminari',
+    learningBadge: 'Sempre<br />aprenent',
+    ctaTitle: 'Entrenar amb l’equip',
+    ctaAction: 'Entrenar amb l’equip',
+    ctaMessage: 'Hola, m’agradaria entrenar amb l’equip i provar una classe.',
+  },
+  en: {
+    metaTitle: 'Coaches',
+    metaDescription: 'Meet Fernando and Erik, the coaching team at Monkey Menorca Jiu-Jitsu, their method and the Calasans influence.',
+    heroTitle: 'Coaches',
+    heroCopy: 'Fernando and Erik are the coaching team at Monkey Menorca Jiu-Jitsu.',
+    heroAlt: 'Martial arts class following a technical explanation',
+    coachAlt: (name: string) => `${name}, coach at Monkey Menorca Jiu-Jitsu`,
+    methodTitle: 'Teaching method',
+    methodIntro: 'Teaching based on Claudio Calasans’ approach, adapted to a friendlier and more personal environment.',
+    method: [
+      ['Calasans lineage', 'The method follows Claudio Calasans’ approach to training.'],
+      ['Personal attention', 'The gym’s small size allows each student to receive close attention.'],
+      ['Detailed technique', 'Teaching focuses on details and develops a deeper understanding of technique.'],
+      ['Continuous learning', 'Leading guest instructors bring different styles to seminars and special training sessions.'],
+    ],
+    influenceTitle: 'The Calasans influence',
+    influenceCopy: ['Monkey Menorca Jiu-Jitsu was born from the inspiration and support of Albert Ros from Vallès Jiu-Jitsu, and the teachings of Claudio Calasans.', 'The project aims to create a cultural and sporting exchange with the parent school, encouraging visits by students and instructors between both gyms.'],
+    communityAction: 'Discover the community',
+    seminarsTitle: 'Seminars and guest instructors',
+    seminarsCopy: 'The gym regularly invites leading instructors to teach seminars and special training sessions. This gives students the chance to learn different styles and keep developing.',
+    seminarsAction: 'Ask about upcoming events',
+    seminarsMessage: 'Hi, I would like information about upcoming seminars or camps.',
+    seminarsAlt: 'Guest instructor demonstrating a technique during a seminar',
+    learningBadge: 'Always<br />learning',
+    ctaTitle: 'Train with the team',
+    ctaAction: 'Train with the team',
+    ctaMessage: 'Hi, I would like to train with the team and try a class.',
+  },
+}[locale];
+const wa = (message: string) => whatsappUrl(message, locale);
 ---
 
 <BaseLayout
-  title="Entrenadores"
-  description="Conoce a Fernando y Erik, el equipo de entrenadores de Monkey Menorca Jiu-Jitsu, su método y la influencia Calasans."
+  title={content.metaTitle}
+  description={content.metaDescription}
 >
   <PageHero
-    eyebrow="Entrenadores"
-    title="Enseñar es<br /><em>estar cerca.</em>"
-    copy="Dos formas de mirar el Jiu-Jitsu. Un mismo compromiso con tu aprendizaje, tu seguridad y tu progreso."
+    eyebrow={content.heroTitle}
+    title={content.heroTitle}
+    copy={content.heroCopy}
     number="05"
+    image={heroImage}
+    imageAlt={content.heroAlt}
   />
 
-  <section class="coach-profile section section--cream">
-    <div class="shell coach-profile__grid">
-      <div class="coach-profile__image">
-        <Image src={fernandoImage} alt="Retrato editorial de Fernando, entrenador" widths={[520, 820, 1100]} sizes="(max-width: 850px) 100vw, 50vw" format="webp" quality={85} />
-        <span>01</span>
-      </div>
-      <div class="coach-profile__copy">
-        <p class="eyebrow">Entrenador · Fundamentos y técnica</p>
+  <section class="coach-list section section--cream">
+    <div class="shell coach-list__grid">
+      <article>
+        <div class="coach-list__image">
+          <Image src={fernandoImage} alt={content.coachAlt('Fernando')} widths={[520, 820, 1100]} sizes="(max-width: 850px) 100vw, 50vw" format="webp" quality={85} />
+        </div>
         <h2>Fernando</h2>
-        <p class="quote">“Una buena base te da libertad para crear tu propio Jiu-Jitsu.”</p>
-        <p>Su enfoque prioriza la comprensión de las posiciones, la calma bajo presión y una progresión que convierte los fundamentos en herramientas reales.</p>
-        <ul class="pill-list"><li>Fundamentos</li><li>BJJ con kimono</li><li>Estrategia</li><li>Progresión</li></ul>
-      </div>
-    </div>
-  </section>
-
-  <section class="coach-profile coach-profile--reverse section section--paper">
-    <div class="shell coach-profile__grid">
-      <div class="coach-profile__image">
-        <Image src={erikImage} alt="Retrato editorial de Erik, entrenador" widths={[520, 820, 1100]} sizes="(max-width: 850px) 100vw, 50vw" format="webp" quality={85} />
-        <span>02</span>
-      </div>
-      <div class="coach-profile__copy">
-        <p class="eyebrow">Entrenador · No-Gi y movimiento</p>
+      </article>
+      <article>
+        <div class="coach-list__image">
+          <Image src={erikImage} alt={content.coachAlt('Erik')} widths={[520, 820, 1100]} sizes="(max-width: 850px) 100vw, 50vw" format="webp" quality={85} />
+        </div>
         <h2>Erik</h2>
-        <p class="quote">“Entender el movimiento vale más que memorizar cien técnicas.”</p>
-        <p>Trabaja el grappling como un sistema vivo: control, reacción, ritmo y decisiones. Sus clases conectan el detalle técnico con situaciones reales.</p>
-        <ul class="pill-list"><li>No-Gi</li><li>Grappling</li><li>Movimiento</li><li>Transiciones</li></ul>
-      </div>
+      </article>
     </div>
   </section>
 
-  <section class="section section--lime">
+  <section class="section section--lime method-section">
     <div class="shell">
-      <SectionHeading
-        eyebrow="Método de enseñanza"
-        title="Menos ruido.<br />Más comprensión."
-        copy="Cada clase sigue un recorrido pensado para que la técnica no se quede en la demostración."
-      />
+      <header class="method-heading">
+        <div>
+          <h2>{content.methodTitle}</h2>
+          <p>{content.methodIntro}</p>
+        </div>
+        <figure class="method-heading__portrait">
+          <Image
+            src={calasansImage}
+            alt="Claudio Calasans"
+            width={136}
+            height={136}
+            format="webp"
+            quality={90}
+            loading="lazy"
+          />
+          <figcaption>Claudio Calasans</figcaption>
+        </figure>
+      </header>
       <div class="method-grid">
-        {method.map(([title, copy], index) => (
+        {content.method.map(([title, copy], index) => (
           <article>
             <span>{String(index + 1).padStart(2, '0')}</span>
             <h3>{title}</h3>
@@ -81,14 +165,24 @@ const method = [
 
   <section class="section section--dark">
     <div class="shell affiliation">
-      <div>
-        <p class="eyebrow">Escuela · Afiliación</p>
-        <h2>La influencia<br /><em>Calasans.</em></h2>
+      <figure class="affiliation__portrait">
+        <Image
+          src={calasansImage}
+          alt="Claudio Calasans con kimono"
+          widths={[312, 624]}
+          sizes="(max-width: 850px) 100vw, 28vw"
+          format="webp"
+          quality={92}
+          loading="lazy"
+        />
+        <figcaption>Claudio Calasans</figcaption>
+      </figure>
+      <div class="affiliation__title">
+        <h2>{content.influenceTitle}</h2>
       </div>
-      <div>
-        <p>Monkey Menorca crece conectado a una escuela y a una forma de entender el Jiu-Jitsu: compartir conocimiento, cuidar la técnica y mantener la mente abierta.</p>
-        <p>La relación con Calasans alimenta nuestro método a través del intercambio, el estudio y la posibilidad de entrenar con una comunidad más amplia.</p>
-        <a class="text-link" href="/comunidad">Conocer la comunidad <Icon name="arrow" /></a>
+      <div class="affiliation__copy">
+        {content.influenceCopy.map((item) => <p>{item}</p>)}
+        <a class="text-link" href={localizedPath('/comunidad', locale)}>{content.communityAction} <Icon name="arrow" /></a>
       </div>
     </div>
   </section>
@@ -96,57 +190,117 @@ const method = [
   <section class="section section--paper">
     <div class="shell split">
       <div>
-        <p class="eyebrow">Seminarios e invitados</p>
-        <p class="prose-lead">Abrir la puerta para seguir aprendiendo.</p>
-        <p class="seminars-copy">Organizamos seminarios, campus y sesiones con instructores invitados. Nuevas miradas, detalles distintos y una oportunidad de conectar la isla con el Jiu-Jitsu de fuera.</p>
-        <a class="btn btn--dark" href={whatsappUrl('Hola, quiero información sobre próximos seminarios o campus.')} target="_blank" rel="noreferrer">
-          Preguntar por próximos eventos <Icon name="whatsapp" />
+        <h2 class="prose-lead">{content.seminarsTitle}</h2>
+        <p class="seminars-copy">{content.seminarsCopy}</p>
+        <a class="btn btn--dark" href={wa(content.seminarsMessage)} target="_blank" rel="noreferrer">
+          {content.seminarsAction} <Icon name="whatsapp" />
         </a>
       </div>
       <div class="image-frame">
-        <Image src={classImage} alt="Instructor invitado mostrando una técnica durante un seminario" widths={[520, 800, 1100]} sizes="(max-width: 900px) 100vw, 50vw" format="webp" quality={84} />
-        <span class="image-badge">Siempre<br />aprendiendo</span>
+        <Image src={classImage} alt={content.seminarsAlt} widths={[520, 800, 1100]} sizes="(max-width: 900px) 100vw, 50vw" format="webp" quality={84} />
+        <span class="image-badge" set:html={content.learningBadge} />
       </div>
     </div>
   </section>
 
   <section class="cta-band">
     <div class="shell cta-band__inner">
-      <h2>Ven a entrenar con el equipo.</h2>
-      <a class="btn btn--dark" href={whatsappUrl('Hola, me gustaría entrenar con el equipo y probar una clase.')} target="_blank" rel="noreferrer">
-        Entrenar con el equipo <Icon name="arrow" />
+      <h2>{content.ctaTitle}</h2>
+      <a class="btn btn--dark" href={wa(content.ctaMessage)} target="_blank" rel="noreferrer">
+        {content.ctaAction} <Icon name="arrow" />
       </a>
     </div>
   </section>
 </BaseLayout>
 
 <style>
-  .coach-profile__grid { display: grid; grid-template-columns: .9fr 1fr; gap: clamp(3rem, 8vw, 9rem); align-items: center; }
-  .coach-profile--reverse .coach-profile__image { order: 2; }
-  .coach-profile__image { position: relative; min-height: 44rem; overflow: hidden; background: var(--ink); }
-  .coach-profile__image :global(img) { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-  .coach-profile__image > span { position: absolute; top: 1rem; right: 1rem; display: grid; place-items: center; width: 3.4rem; height: 3.4rem; border-radius: 50%; background: var(--lime); font-size: .7rem; font-weight: 900; }
-  .coach-profile__copy h2 { margin: 1rem 0 2rem; font-family: var(--font-display); font-size: clamp(6rem, 12vw, 12rem); font-weight: 900; line-height: .7; letter-spacing: -.05em; text-transform: uppercase; }
-  .coach-profile__copy > p:not(.eyebrow):not(.quote) { color: var(--muted); line-height: 1.75; }
+  .coach-list__grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(1.25rem, 4vw, 3rem); }
+  .coach-list article { margin: 0; }
+  .coach-list__image { position: relative; aspect-ratio: 4 / 5; overflow: hidden; background: var(--ink); }
+  .coach-list__image :global(img) { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .coach-list h2 { margin: 1.2rem 0 0; font-family: var(--font-display); font-size: clamp(4rem, 9vw, 9rem); font-weight: 400; line-height: .76; letter-spacing: 0; text-transform: uppercase; }
   .method-grid { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid rgba(17,17,15,.25); }
   .method-grid article { min-height: 22rem; display: flex; flex-direction: column; padding: 2rem; border-right: 1px solid rgba(17,17,15,.25); border-bottom: 1px solid rgba(17,17,15,.25); }
   .method-grid article:first-child { border-left: 1px solid rgba(17,17,15,.25); }
+  .method-heading { max-width: 72rem; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: clamp(2rem, 5vw, 5rem); align-items: end; margin-bottom: clamp(2.5rem, 5vw, 5rem); }
+  .method-heading h2 { margin: 0; color: var(--ink); font-family: var(--font-display); font-size: clamp(3.6rem, 8vw, 8.3rem); font-weight: 400; line-height: .88; letter-spacing: 0; text-transform: uppercase; text-wrap: balance; }
+  .method-heading p { max-width: 44rem; margin: 1.6rem 0 0; color: #000; font-size: clamp(1rem, 1.6vw, 1.25rem); font-weight: 700; line-height: 1.65; }
+  .method-heading__portrait { width: 8.5rem; margin: 0; }
+  .method-heading__portrait :global(img) { display: block; width: 8.5rem; height: 8.5rem; border: 3px solid var(--ink); border-radius: 50%; object-fit: cover; }
+  .method-heading__portrait figcaption { margin-top: .65rem; color: var(--ink); font-size: .63rem; font-weight: 900; letter-spacing: .1em; text-align: center; text-transform: uppercase; }
   .method-grid span { font-family: var(--font-display); font-size: 3rem; font-weight: 300; }
   .method-grid h3 { margin: auto 0 .7rem; font-family: var(--font-display); font-size: 3.2rem; line-height: .8; text-transform: uppercase; }
   .method-grid p { margin: 0; font-size: .82rem; line-height: 1.65; }
-  .affiliation { display: grid; grid-template-columns: 1.2fr .65fr; gap: clamp(3rem, 8vw, 9rem); align-items: end; }
-  .affiliation h2 { margin: 1rem 0 0; font-family: var(--font-display); font-size: clamp(5rem, 10vw, 10rem); font-weight: 900; line-height: .75; letter-spacing: -.04em; text-transform: uppercase; }
+  .affiliation { display: grid; grid-template-columns: minmax(14rem, .52fr) 1.05fr .72fr; gap: clamp(2rem, 5vw, 5rem); align-items: end; }
+  .affiliation__portrait { position: relative; aspect-ratio: 1; margin: 0; overflow: hidden; background: #d3d3d3; }
+  .affiliation__portrait :global(img) { width: 100%; height: 100%; object-fit: cover; }
+  .affiliation__portrait figcaption { position: absolute; right: 0; bottom: 0; left: 0; padding: .85rem 1rem; background: var(--lime); color: var(--ink); font-size: .68rem; font-weight: 900; letter-spacing: .1em; text-transform: uppercase; }
+  .affiliation h2 { margin: 1rem 0 0; font-family: var(--font-display); font-size: clamp(5rem, 10vw, 10rem); font-weight: 400; line-height: .75; letter-spacing: 0; text-transform: uppercase; }
   .affiliation h2 em { color: var(--lime); font-style: normal; }
-  .affiliation > div:last-child > p { color: rgba(255,255,255,.62); line-height: 1.75; }
+  .affiliation__copy > p { color: rgba(255,255,255,.72); line-height: 1.75; }
   .seminars-copy { margin: 1.5rem 0 2rem; color: var(--muted); line-height: 1.75; }
   .image-frame :global(img) { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
   @media (max-width: 850px) {
-    .coach-profile__grid, .affiliation { grid-template-columns: 1fr; }
-    .coach-profile--reverse .coach-profile__image { order: initial; }
+    .coach-list__grid, .affiliation { grid-template-columns: 1fr; }
+    .method-heading { grid-template-columns: 1fr; }
+    .method-heading__portrait { width: 7rem; }
+    .method-heading__portrait :global(img) { width: 7rem; height: 7rem; }
+    .affiliation__portrait { max-width: 24rem; }
     .method-grid { grid-template-columns: 1fr 1fr; }
   }
-  @media (max-width: 520px) {
-    .method-grid { grid-template-columns: 1fr; }
-    .coach-profile__image { min-height: 34rem; }
+  @media (max-width: 580px) {
+    .coach-list__grid {
+      width: calc(100% - 1rem);
+      margin-right: 0;
+      margin-left: 1rem;
+      grid-template-columns: none;
+      grid-auto-flow: column;
+      grid-auto-columns: min(79vw, 19rem);
+      gap: .85rem;
+      padding-right: 1rem;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+    }
+    .coach-list article { scroll-snap-align: start; }
+    .coach-list h2 { margin-top: .8rem; font-size: 3.45rem; }
+    .method-heading {
+      grid-template-columns: minmax(0, 1fr) 5.4rem;
+      gap: 1rem;
+      align-items: start;
+      margin-bottom: 2.25rem;
+    }
+    .method-heading h2 { font-size: clamp(3.05rem, 14.5vw, 3.8rem); line-height: .84; }
+    .method-heading p { margin-top: 1rem; font-size: .86rem; line-height: 1.58; }
+    .method-heading__portrait { width: 5.4rem; }
+    .method-heading__portrait :global(img) { width: 5.4rem; height: 5.4rem; border-width: 2px; }
+    .method-heading__portrait figcaption { font-size: .5rem; letter-spacing: .06em; }
+    .method-grid {
+      margin-right: -1rem;
+      grid-template-columns: none;
+      grid-auto-flow: column;
+      grid-auto-columns: min(84vw, 19rem);
+      gap: .75rem;
+      padding: 0 1rem .15rem 0;
+      border: 0;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+    }
+    .method-grid article {
+      min-height: 18rem;
+      padding: 1.4rem;
+      border: 1px solid rgba(17,17,15,.25);
+      scroll-snap-align: start;
+    }
+    .method-grid article:first-child { border-left: 1px solid rgba(17,17,15,.25); }
+    .method-grid span { font-size: 2.25rem; }
+    .method-grid h3 { font-size: 2.2rem; }
+    .affiliation { gap: 1.75rem; }
+    .affiliation__portrait { max-width: none; aspect-ratio: 4 / 3; }
+    .affiliation__portrait :global(img) { object-position: center 28%; }
+    .affiliation h2 { margin: 0; font-size: clamp(3.7rem, 17vw, 4.6rem); line-height: .8; }
+    .affiliation__copy > p, .seminars-copy { font-size: .86rem; line-height: 1.65; }
+    .section--paper .split { gap: 2rem; }
+    .section--paper .split > .image-frame { grid-row: 1; }
+    .section--paper .btn { width: 100%; }
   }
 </style>

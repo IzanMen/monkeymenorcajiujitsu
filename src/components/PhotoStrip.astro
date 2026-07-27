@@ -1,0 +1,107 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+interface Photo {
+  src: ImageMetadata;
+  alt: string;
+  caption?: string;
+}
+
+interface Props {
+  photos: Photo[];
+  dark?: boolean;
+}
+
+const { photos, dark = false } = Astro.props;
+---
+
+<section class:list={['photo-strip', { 'photo-strip--dark': dark }]} aria-label="Momentos de entrenamiento">
+  <div class="shell photo-strip__grid">
+    {photos.map((photo, index) => (
+      <figure class:list={{ 'photo-strip__wide': index === 0 }}>
+        <Image
+          src={photo.src}
+          alt={photo.alt}
+          widths={[480, 760, 1100]}
+          sizes={index === 0 ? '(max-width: 760px) 100vw, 50vw' : '(max-width: 760px) 100vw, 25vw'}
+          format="webp"
+          quality={82}
+          loading="lazy"
+        />
+        {photo.caption && <figcaption>{photo.caption}</figcaption>}
+      </figure>
+    ))}
+  </div>
+</section>
+
+<style>
+  .photo-strip {
+    padding-block: clamp(1rem, 2vw, 2rem);
+    background: var(--cream);
+  }
+  .photo-strip--dark { background: var(--ink); color: white; }
+  .photo-strip__grid {
+    display: grid;
+    grid-template-columns: 1.45fr 1fr 1fr;
+    grid-auto-rows: clamp(18rem, 32vw, 30rem);
+    gap: clamp(.6rem, 1.2vw, 1rem);
+  }
+  figure {
+    position: relative;
+    min-width: 0;
+    margin: 0;
+    overflow: hidden;
+    background: var(--ink-soft);
+  }
+  figure::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(0deg, rgba(0,0,0,.7), transparent 42%);
+    pointer-events: none;
+  }
+  :global(.photo-strip img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform .55s ease;
+  }
+  figure:hover :global(img) { transform: scale(1.035); }
+  figcaption {
+    position: absolute;
+    z-index: 1;
+    left: 1rem;
+    right: 1rem;
+    bottom: 1rem;
+    color: white;
+    font-size: .68rem;
+    font-weight: 800;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+  @media (max-width: 760px) {
+    .photo-strip__grid {
+      grid-template-columns: 1fr 1fr;
+      grid-auto-rows: 18rem;
+    }
+    .photo-strip__wide { grid-column: 1 / -1; }
+  }
+  @media (max-width: 480px) {
+    .photo-strip { padding-block: .85rem; }
+    .photo-strip__grid {
+      width: auto;
+      margin-left: 1rem;
+      grid-template-columns: none;
+      grid-auto-flow: column;
+      grid-auto-columns: min(82vw, 20rem);
+      grid-auto-rows: 19rem;
+      gap: .75rem;
+      padding-right: 1rem;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+    }
+    .photo-strip__grid figure { scroll-snap-align: start; }
+    .photo-strip__wide { grid-column: auto; }
+  }
+</style>

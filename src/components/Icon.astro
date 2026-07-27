@@ -1,4 +1,6 @@
 ---
+import whatsappLogo from '../assets/whatsapp-logo-cropped.webp';
+
 interface Props {
   name: 'arrow' | 'whatsapp' | 'clock' | 'pin' | 'check' | 'instagram' | 'mail' | 'phone';
   size?: number;
@@ -19,15 +21,47 @@ const paths = {
 };
 ---
 
-<svg
-  width={size}
-  height={size}
-  viewBox="0 0 24 24"
-  fill="none"
-  stroke="currentColor"
-  stroke-width="1.8"
-  stroke-linecap="round"
-  stroke-linejoin="round"
-  aria-hidden="true"
-  set:html={paths[name]}
-/>
+{name === 'whatsapp' ? (
+  <img
+    class="icon icon--whatsapp"
+    src={whatsappLogo.src}
+    width={size}
+    height={size}
+    style={`--icon-size: ${size}px`}
+    alt=""
+    aria-hidden="true"
+    loading="lazy"
+    decoding="async"
+  />
+) : (
+  <svg
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="1.8"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    aria-hidden="true"
+    set:html={paths[name]}
+  />
+)}
+
+<style>
+  .icon {
+    display: inline-block;
+    flex: 0 0 auto;
+  }
+
+  .icon--whatsapp {
+    object-fit: contain;
+    width: calc(var(--icon-size) * 1.18);
+    height: calc(var(--icon-size) * 1.18);
+    min-width: calc(var(--icon-size) * 1.18);
+    min-height: calc(var(--icon-size) * 1.18);
+    filter:
+      drop-shadow(0 0 1px rgba(255,255,255,.85))
+      drop-shadow(0 1px 2px rgba(0,0,0,.22));
+  }
+</style>

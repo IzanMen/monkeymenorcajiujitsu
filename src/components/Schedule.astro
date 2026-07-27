@@ -1,6 +1,7 @@
 ---
-import Icon from './Icon.astro';
-import { schedules } from '../data/site';
+import { getLocale, ui } from '../i18n';
+
+const schedules = ui[getLocale(Astro.url)].schedules.map(([days, time, type]) => ({ days, time, type }));
 ---
 
 <div class="schedule">
@@ -12,7 +13,6 @@ import { schedules } from '../data/site';
         <strong>{item.type}</strong>
       </div>
       <time>{item.time}</time>
-      <Icon name="arrow" size={24} />
     </article>
   ))}
 </div>
@@ -21,7 +21,7 @@ import { schedules } from '../data/site';
   .schedule { border-top: 1px solid var(--line); }
   .schedule__row {
     display: grid;
-    grid-template-columns: 3rem 1fr auto 2rem;
+    grid-template-columns: 3rem 1fr auto;
     align-items: center;
     gap: clamp(1rem, 3vw, 3rem);
     padding: clamp(1.4rem, 3vw, 2.25rem) 0;
@@ -32,18 +32,27 @@ import { schedules } from '../data/site';
   strong {
     font-family: var(--font-display);
     font-size: clamp(1.4rem, 2.5vw, 2.35rem);
-    font-weight: 800;
+    font-weight: 600;
+    font-synthesis-weight: none;
     text-transform: uppercase;
   }
   time {
     font-family: var(--font-display);
     font-size: clamp(1.8rem, 3.5vw, 3.75rem);
-    font-weight: 900;
-    letter-spacing: -.02em;
+    font-weight: 800;
+    font-synthesis-weight: none;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0;
   }
   @media (max-width: 560px) {
-    .schedule__row { grid-template-columns: 2rem 1fr auto; }
-    .schedule__row > svg { display: none; }
-    time { font-size: 1.65rem; }
+    .schedule__row {
+      grid-template-columns: 1.4rem minmax(0, 1fr) auto;
+      gap: .65rem;
+      padding-block: 1.15rem;
+    }
+    .schedule__number { font-size: .6rem; }
+    p { font-size: .67rem; }
+    strong { font-size: 1.25rem; line-height: .95; }
+    time { font-size: 1.45rem; }
   }
 </style>
