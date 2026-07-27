@@ -1,0 +1,41 @@
+---
+import Icon from './Icon.astro';
+import { whatsappUrl } from '../data/site';
+---
+
+<a
+  class="wa-float"
+  href={whatsappUrl()}
+  target="_blank"
+  rel="noreferrer"
+  aria-label="Probar una clase gratis por WhatsApp"
+>
+  <Icon name="whatsapp" size={24} />
+  <span>Clase gratis</span>
+</a>
+
+<style>
+  .wa-float {
+    position: fixed;
+    right: 1rem;
+    bottom: 1rem;
+    z-index: 45;
+    display: inline-flex;
+    align-items: center;
+    gap: .55rem;
+    padding: .85rem 1.05rem;
+    border: 1px solid rgba(255,255,255,.25);
+    border-radius: 999px;
+    background: #1dc86a;
+    color: #07170d;
+    box-shadow: 0 12px 35px rgba(0,0,0,.28);
+    font-size: .72rem;
+    font-weight: 900;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: transform .2s ease;
+  }
+  .wa-float:hover { transform: translateY(-3px); }
+  @media (max-width: 480px) { .wa-float span { display: none; } .wa-float { padding: .9rem; } }
+</style>

@@ -1,0 +1,77 @@
+---
+import Logo from './Logo.astro';
+import Icon from './Icon.astro';
+import { nav, site, whatsappUrl } from '../data/site';
+---
+
+<footer class="footer">
+  <div class="footer__top shell">
+    <div class="footer__intro">
+      <Logo light />
+      <h2>Nos vemos<br />en el tatami.</h2>
+      <a class="btn btn--lime" href={whatsappUrl()} target="_blank" rel="noreferrer">
+        Probar una clase gratis <Icon name="arrow" />
+      </a>
+    </div>
+    <div class="footer__nav">
+      <p class="eyebrow">Explora</p>
+      {nav.map((item) => <a href={item.href}>{item.label}</a>)}
+    </div>
+    <div class="footer__contact">
+      <p class="eyebrow">Encuéntranos</p>
+      <address>{site.address}</address>
+      <a href={site.phoneHref}>{site.phone}</a>
+      <a href={`mailto:${site.email}`}>{site.email}</a>
+      <a href={site.instagram} target="_blank" rel="noreferrer">
+        <Icon name="instagram" size={18} /> Instagram
+      </a>
+    </div>
+  </div>
+  <div class="footer__bottom shell">
+    <span>© {new Date().getFullYear()} Monkey Menorca Jiu-Jitsu</span>
+    <span>Cala Galdana · Menorca</span>
+    <span>Respeto · Técnica · Comunidad</span>
+  </div>
+</footer>
+
+<style>
+  .footer { background: var(--ink); color: var(--cream); padding: clamp(4rem, 8vw, 8rem) 0 1.5rem; }
+  .footer__top {
+    display: grid;
+    grid-template-columns: 1.5fr .7fr .8fr;
+    gap: clamp(3rem, 7vw, 8rem);
+  }
+  h2 {
+    margin: 3rem 0;
+    font-family: var(--font-display);
+    font-size: clamp(4rem, 8vw, 8.5rem);
+    font-weight: 900;
+    line-height: .76;
+    letter-spacing: -.035em;
+    text-transform: uppercase;
+  }
+  .footer__nav, .footer__contact { display: flex; flex-direction: column; align-items: flex-start; gap: .85rem; }
+  .eyebrow { color: var(--lime); margin-bottom: .8rem; }
+  a, address { color: inherit; font-size: .94rem; font-style: normal; line-height: 1.6; text-decoration: none; }
+  .footer .btn--lime { color: var(--ink); }
+  .footer__contact a:last-child { display: flex; align-items: center; gap: .5rem; margin-top: .4rem; }
+  .footer__nav a:hover, .footer__contact a:hover { color: var(--lime); }
+  .footer__bottom {
+    display: flex;
+    justify-content: space-between;
+    gap: 1.5rem;
+    margin-top: 6rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid rgba(255,255,255,.14);
+    color: rgba(255,255,255,.5);
+    font-size: .68rem;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+  @media (max-width: 800px) {
+    .footer__top { grid-template-columns: 1fr; }
+    .footer__bottom { flex-direction: column; }
+    h2 { font-size: clamp(3.8rem, 20vw, 6rem); }
+  }
+</style>

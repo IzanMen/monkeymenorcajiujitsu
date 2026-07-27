@@ -1,0 +1,394 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from '../components/Icon.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import Schedule from '../components/Schedule.astro';
+import Map from '../components/Map.astro';
+import { faqs, whatsappUrl } from '../data/site';
+import heroImage from '../assets/hero-bjj-menorca.png';
+import classImage from '../assets/class-technique.png';
+import communityImage from '../assets/community-team.png';
+import fernandoImage from '../assets/fernando-coach.png';
+import erikImage from '../assets/erik-coach.png';
+
+const audiences = [
+  ['Niños y adolescentes', 'Confianza, disciplina y aprendizaje en un entorno cuidado.'],
+  ['Adultos principiantes', 'Empieza desde cero. Te guiamos paso a paso y sin presión.'],
+  ['Con experiencia', 'Técnica, rounds y compañeros con ganas de seguir creciendo.'],
+  ['Familias', 'Un espacio cercano para compartir deporte y buenos hábitos.'],
+  ['Competidores', 'Preparación específica, estrategia y trabajo técnico de detalle.'],
+  ['Visitantes de Menorca', 'Entrena durante tus vacaciones y mantén tu ritmo en la isla.'],
+];
+
+const modalities = [
+  { n: '01', title: 'BJJ con kimono', copy: 'Agarres, control, precisión y una base técnica que siempre sigue creciendo.', href: '/clases#bjj-kimono' },
+  { n: '02', title: 'No-Gi · Grappling', copy: 'Un entrenamiento dinámico, sin kimono, centrado en movilidad y control.', href: '/clases#nogi' },
+  { n: '03', title: 'Clases privadas', copy: 'Atención individual para acelerar tu aprendizaje o trabajar objetivos concretos.', href: '/clases#privadas' },
+  { n: '04', title: 'Open Mat', copy: 'Entrenamiento libre, intercambio técnico y rounds con la comunidad.', href: '/clases#open-mat' },
+];
+
+const facilities = ['Tatami amplio', 'Vestuario', 'Duchas', 'Preparación física', 'Aire acondicionado', 'Ventilación', 'Zona de espera', 'Material de entrenamiento'];
+---
+
+<BaseLayout>
+  <section class="hero">
+    <Image
+      class="hero__image"
+      src={heroImage}
+      alt=""
+      width={1919}
+      height={853}
+      format="webp"
+      quality={88}
+      priority
+      loading="eager"
+      fetchpriority="high"
+    />
+    <div class="hero__veil"></div>
+    <div class="hero__grid" aria-hidden="true"></div>
+    <div class="shell hero__inner">
+      <div class="hero__content">
+        <p class="eyebrow">Cala Galdana · Menorca</p>
+        <h1>Jiu-Jitsu<br />brasileño<br /><em>en la isla.</em></h1>
+        <p class="hero__lead">
+          Empieza desde cero, entrena en un ambiente cercano y aprende técnica real sin necesidad de experiencia previa.
+        </p>
+        <div class="button-row">
+          <a class="btn btn--lime" href={whatsappUrl()} target="_blank" rel="noreferrer">
+            <Icon name="whatsapp" /> Probar una clase gratis
+          </a>
+          <a class="btn btn--outline" href="#horarios">
+            Ver horarios <Icon name="arrow" />
+          </a>
+        </div>
+      </div>
+      <div class="hero__meta">
+        <span class="hero__scroll">Desliza para descubrir <Icon name="arrow" /></span>
+        <div>
+          <strong>01</strong>
+          <p>Club pequeño.<br />Técnica grande.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="trust-strip" aria-label="Valores del club">
+    <div class="trust-strip__track">
+      <span>Respeto</span><i>✦</i><span>Disciplina</span><i>✦</i><span>Técnica</span><i>✦</i>
+      <span>Salud</span><i>✦</i><span>Comunidad</span><i>✦</i><span>Superación</span><i>✦</i>
+    </div>
+  </section>
+
+  <section class="section section--cream">
+    <div class="shell">
+      <SectionHeading
+        eyebrow="Aquí hay sitio para ti"
+        title="¿Para quién es <em>Monkey?</em>"
+        copy="Para quien quiere aprender, moverse mejor, sentirse más seguro y formar parte de algo cercano. No importa desde dónde empiezas."
+      />
+      <div class="audience-grid">
+        {audiences.map(([title, copy], index) => (
+          <article>
+            <span>{String(index + 1).padStart(2, '0')}</span>
+            <h3>{title}</h3>
+            <p>{copy}</p>
+          </article>
+        ))}
+      </div>
+      <ul class="pill-list audience-pills">
+        <li>Defensa personal</li>
+        <li>Forma física</li>
+        <li>Confianza</li>
+        <li>Competición</li>
+        <li>Visitantes de la isla</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section section--paper">
+    <div class="shell split">
+      <div class="image-frame class-photo">
+        <Image
+          src={classImage}
+          alt="Una clase técnica de Jiu-Jitsu en un tatami"
+          widths={[480, 720, 960]}
+          sizes="(max-width: 900px) 100vw, 50vw"
+          format="webp"
+          quality={82}
+          loading="lazy"
+        />
+        <span class="image-badge">Técnica<br />con propósito</span>
+      </div>
+      <div>
+        <p class="eyebrow">Qué es Monkey Menorca</p>
+        <p class="prose-lead">Un club pequeño, cercano y técnico donde cada persona cuenta.</p>
+        <p class="body-copy">
+          Entrenamos con respeto y atención al detalle. El Jiu-Jitsu es nuestra herramienta para aprender disciplina, cuidar la salud y superar límites dentro y fuera del tatami.
+        </p>
+        <ul class="check-list">
+          <li>Grupos cercanos y atención real</li>
+          <li>Progresión técnica, segura y gradual</li>
+          <li>Ambiente abierto para todos los niveles</li>
+          <li>Respeto por el compañero, siempre</li>
+        </ul>
+        <a class="text-link" href="/comunidad">Conoce nuestra forma de entrenar <Icon name="arrow" /></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--dark">
+    <div class="shell">
+      <SectionHeading
+        eyebrow="Modalidades"
+        title="Una misma base.<br /><em>Cuatro formas</em> de crecer."
+        copy="Elige tu puerta de entrada. Nosotros te ayudamos a encontrar la clase que mejor encaja contigo."
+        light
+      />
+      <div class="modalities">
+        {modalities.map((item) => (
+          <a href={item.href}>
+            <span>{item.n}</span>
+            <div><h3>{item.title}</h3><p>{item.copy}</p></div>
+            <Icon name="arrow" size={28} />
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--lime">
+    <div class="shell start-grid">
+      <div>
+        <p class="eyebrow">Cómo empezar</p>
+        <h2>Dos pasos.<br />Cero excusas.</h2>
+      </div>
+      <div class="start-steps">
+        <article>
+          <span>01</span>
+          <div>
+            <h3>Escríbenos</h3>
+            <p>Cuéntanos tu edad, nivel y qué horario te viene mejor. Te respondemos por WhatsApp.</p>
+          </div>
+        </article>
+        <article>
+          <span>02</span>
+          <div>
+            <h3>Ven a probar</h3>
+            <p>Solo trae ropa cómoda, agua y ganas de aprender. Tu primera clase es gratis.</p>
+          </div>
+        </article>
+        <a class="btn btn--dark" href={whatsappUrl()} target="_blank" rel="noreferrer">
+          Empezar ahora <Icon name="arrow" />
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--paper" id="horarios">
+    <div class="shell">
+      <SectionHeading
+        eyebrow="Horario actual"
+        title="Encuentra tu <em>momento.</em>"
+        copy="Sesiones de mañana y mediodía para que el entrenamiento encaje en tu día."
+      />
+      <Schedule />
+      <p class="note"><Icon name="clock" size={17} /> Horarios sujetos a cambios en verano. Confirma antes de venir.</p>
+      <div class="schedule-actions">
+        <a class="btn btn--dark" href="/horarios">Ver horarios y ubicación <Icon name="arrow" /></a>
+        <a class="text-link" href={whatsappUrl('Hola, quiero confirmar el horario de la próxima clase.')} target="_blank" rel="noreferrer">
+          Confirmar por WhatsApp <Icon name="whatsapp" />
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--cream">
+    <div class="shell">
+      <SectionHeading
+        eyebrow="Entrenadores"
+        title="Cerca para guiarte.<br /><em>Exigentes</em> para hacerte crecer."
+      />
+      <div class="coach-grid">
+        <article>
+          <div class="coach-grid__image">
+            <Image src={fernandoImage} alt="Retrato editorial de Fernando, entrenador" widths={[420, 680]} sizes="(max-width: 700px) 100vw, 50vw" format="webp" quality={84} />
+            <span>01</span>
+          </div>
+          <div class="coach-grid__info">
+            <div><h3>Fernando</h3><p>Jiu-Jitsu · Fundamentos · Progresión</p></div>
+            <Icon name="arrow" size={28} />
+          </div>
+        </article>
+        <article>
+          <div class="coach-grid__image">
+            <Image src={erikImage} alt="Retrato editorial de Erik, entrenador" widths={[420, 680]} sizes="(max-width: 700px) 100vw, 50vw" format="webp" quality={84} />
+            <span>02</span>
+          </div>
+          <div class="coach-grid__info">
+            <div><h3>Erik</h3><p>No-Gi · Grappling · Movimiento</p></div>
+            <Icon name="arrow" size={28} />
+          </div>
+        </article>
+      </div>
+      <a class="btn btn--dark coaches-cta" href="/entrenadores">Conoce a los entrenadores <Icon name="arrow" /></a>
+    </div>
+  </section>
+
+  <section class="section facilities">
+    <div class="shell facilities__grid">
+      <div>
+        <p class="eyebrow">Nuestro espacio</p>
+        <h2>Todo lo que necesitas para <em>entrenar bien.</em></h2>
+      </div>
+      <ul>
+        {facilities.map((item, index) => (
+          <li><span>{String(index + 1).padStart(2, '0')}</span>{item}<Icon name="check" /></li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="community-feature">
+    <Image
+      src={communityImage}
+      alt="Compañeros de Jiu-Jitsu compartiendo un momento después de entrenar"
+      widths={[720, 1100, 1600]}
+      sizes="100vw"
+      format="webp"
+      quality={84}
+      loading="lazy"
+    />
+    <div class="community-feature__overlay"></div>
+    <div class="shell community-feature__content">
+      <p class="eyebrow">Comunidad Monkey</p>
+      <h2>Entrenamos<br />juntos.<br /><em>Crecemos juntos.</em></h2>
+      <p>Ambiente familiar, compañerismo, seminarios, campus, viajes e intercambio con la escuela Calasans.</p>
+      <a class="btn btn--lime" href="/comunidad">Conocer la comunidad <Icon name="arrow" /></a>
+    </div>
+  </section>
+
+  <section class="section section--paper">
+    <div class="shell">
+      <SectionHeading
+        eyebrow="Preguntas frecuentes"
+        title="Tu primera clase,<br /><em>sin dudas.</em>"
+        copy="Lo importante es venir con ganas de aprender. Del resto nos ocupamos contigo."
+      />
+      <div class="faq-list">
+        {faqs.map((faq, index) => (
+          <details>
+            <summary><span>{String(index + 1).padStart(2, '0')}</span><span>{faq.q}</span></summary>
+            <p>{faq.a}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="map-home">
+    <Map />
+  </section>
+
+  <section class="cta-band">
+    <div class="shell cta-band__inner">
+      <h2>Ven a probar una clase gratis en Cala Galdana.</h2>
+      <a class="btn btn--dark" href={whatsappUrl()} target="_blank" rel="noreferrer">
+        Escribir por WhatsApp <Icon name="whatsapp" />
+      </a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .hero {
+    position: relative;
+    min-height: calc(100svh - 5.15rem);
+    overflow: hidden;
+    display: flex;
+    background: var(--ink);
+    color: var(--cream);
+  }
+  :global(.hero__image) { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .hero__veil { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(10,10,9,.95) 0%, rgba(10,10,9,.7) 42%, rgba(10,10,9,.05) 78%), linear-gradient(0deg, rgba(10,10,9,.62) 0%, transparent 50%); }
+  .hero__grid { position: absolute; inset: 0; opacity: .08; background-image: linear-gradient(rgba(255,255,255,.4) 1px, transparent 1px),linear-gradient(90deg,rgba(255,255,255,.4) 1px,transparent 1px); background-size: 6rem 6rem; }
+  .hero__inner { position: relative; z-index: 1; display: grid; grid-template-columns: 1fr auto; width: 100%; align-items: end; gap: 3rem; padding-block: clamp(5rem, 10vh, 8rem) 3rem; }
+  .hero__content { max-width: 61rem; }
+  h1 { margin: 1.25rem 0 1.75rem; font-family: var(--font-display); font-size: clamp(5.2rem, 11vw, 11rem); font-weight: 900; letter-spacing: -.045em; line-height: .72; text-transform: uppercase; }
+  h1 em { color: var(--lime); font-style: normal; }
+  .hero__lead { max-width: 42rem; margin: 0 0 2rem; color: rgba(255,255,255,.76); font-size: clamp(1rem, 1.5vw, 1.22rem); line-height: 1.65; }
+  .hero .btn--outline { color: white; }
+  .hero__meta { display: flex; height: 100%; flex-direction: column; justify-content: space-between; align-items: end; padding-top: 1rem; text-align: right; }
+  .hero__scroll { writing-mode: vertical-rl; display: flex; align-items: center; gap: .75rem; color: rgba(255,255,255,.55); font-size: .6rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+  .hero__scroll :global(svg) { transform: rotate(90deg); }
+  .hero__meta strong { color: var(--lime); font-family: var(--font-display); font-size: 4.5rem; font-weight: 300; }
+  .hero__meta p { margin: 0; font-family: var(--font-display); font-size: 1.5rem; font-weight: 700; line-height: 1; text-transform: uppercase; }
+  .trust-strip { overflow: hidden; background: var(--lime); padding: .85rem 0; color: var(--ink); }
+  .trust-strip__track { display: flex; width: max-content; align-items: center; gap: 1.2rem; padding-inline: 1rem; font-family: var(--font-display); font-size: clamp(1.2rem, 2vw, 1.75rem); font-weight: 800; letter-spacing: .04em; text-transform: uppercase; }
+  .trust-strip i { font-style: normal; font-size: .7rem; }
+  .audience-grid { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
+  .audience-grid article { min-height: 17rem; padding: clamp(1.4rem, 3vw, 2.5rem); border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .audience-grid span { color: var(--lime-dark); font-size: .65rem; font-weight: 900; letter-spacing: .12em; }
+  .audience-grid h3 { margin: 4.5rem 0 .75rem; font-family: var(--font-display); font-size: clamp(2rem, 3vw, 3rem); line-height: .9; text-transform: uppercase; }
+  .audience-grid p, .body-copy { color: var(--muted); font-size: .92rem; line-height: 1.7; }
+  .audience-pills { margin-top: 1.5rem; }
+  .class-photo :global(img) { position: absolute; inset: 0; }
+  .body-copy { margin: 1.75rem 0 0; }
+  .modalities { border-top: 1px solid rgba(255,255,255,.16); }
+  .modalities a { display: grid; grid-template-columns: 4rem 1fr auto; align-items: center; gap: 2rem; padding: clamp(1.5rem, 3vw, 2.3rem) 0; border-bottom: 1px solid rgba(255,255,255,.16); color: inherit; text-decoration: none; transition: color .2s ease, padding .2s ease; }
+  .modalities a:hover { color: var(--lime); padding-left: .75rem; }
+  .modalities > a > span { color: var(--lime); font-size: .65rem; font-weight: 900; letter-spacing: .1em; }
+  .modalities h3 { margin: 0 0 .5rem; font-family: var(--font-display); font-size: clamp(2rem, 4vw, 4.25rem); font-weight: 800; line-height: .9; text-transform: uppercase; }
+  .modalities p { margin: 0; color: rgba(255,255,255,.52); font-size: .86rem; }
+  .start-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(3rem, 7vw, 9rem); }
+  .start-grid h2 { margin: 1.2rem 0 0; font-family: var(--font-display); font-size: clamp(4.5rem, 8vw, 8rem); font-weight: 900; line-height: .78; letter-spacing: -.035em; text-transform: uppercase; }
+  .start-steps { display: grid; }
+  .start-steps article { display: grid; grid-template-columns: 5rem 1fr; gap: 1.5rem; padding: 2rem 0; border-bottom: 1px solid rgba(17,17,15,.25); }
+  .start-steps article > span { font-family: var(--font-display); font-size: 3.5rem; font-weight: 300; }
+  .start-steps h3 { margin: 0 0 .55rem; font-family: var(--font-display); font-size: 2.3rem; text-transform: uppercase; }
+  .start-steps p { margin: 0; font-size: .9rem; line-height: 1.65; }
+  .start-steps .btn { justify-self: start; margin-top: 1.5rem; }
+  .schedule-actions { display: flex; justify-content: space-between; align-items: center; gap: 2rem; margin-top: 2rem; }
+  .coach-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+  .coach-grid__image { position: relative; aspect-ratio: 4/5; overflow: hidden; background: var(--ink-soft); }
+  .coach-grid__image :global(img) { width: 100%; height: 100%; object-fit: cover; filter: saturate(.86); transition: transform .5s ease; }
+  .coach-grid article:hover .coach-grid__image :global(img) { transform: scale(1.025); }
+  .coach-grid__image span { position: absolute; right: 1rem; top: 1rem; display: grid; place-items: center; width: 3rem; height: 3rem; border-radius: 50%; background: var(--lime); font-size: .7rem; font-weight: 900; }
+  .coach-grid__info { display: flex; justify-content: space-between; align-items: center; padding: 1.25rem 0; border-bottom: 1px solid var(--line); }
+  .coach-grid h3 { margin: 0; font-family: var(--font-display); font-size: clamp(2.5rem, 5vw, 5rem); line-height: .85; text-transform: uppercase; }
+  .coach-grid p { margin: .6rem 0 0; color: var(--muted); font-size: .72rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+  .coaches-cta { margin-top: 2rem; }
+  .facilities { background: var(--sand); }
+  .facilities__grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(3rem, 7vw, 8rem); }
+  .facilities h2 { margin: 1.2rem 0 0; font-family: var(--font-display); font-size: clamp(4rem, 7vw, 7.5rem); font-weight: 900; line-height: .8; letter-spacing: -.035em; text-transform: uppercase; }
+  .facilities h2 em { font-style: normal; color: #3f5100; }
+  .facilities ul { margin: 0; padding: 0; list-style: none; border-top: 1px solid rgba(17,17,15,.22); }
+  .facilities li { display: grid; grid-template-columns: 2.5rem 1fr auto; align-items: center; gap: 1rem; padding: 1rem 0; border-bottom: 1px solid rgba(17,17,15,.22); font-family: var(--font-display); font-size: clamp(1.35rem, 2.5vw, 2.2rem); font-weight: 700; text-transform: uppercase; }
+  .facilities li span { color: #3f5100; font-family: var(--font-body); font-size: .6rem; }
+  .community-feature { position: relative; min-height: 48rem; display: flex; align-items: center; overflow: hidden; background: var(--ink); color: white; }
+  .community-feature :global(> img) { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .community-feature__overlay { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(10,10,9,.94) 0%, rgba(10,10,9,.62) 48%, rgba(10,10,9,.08) 85%), linear-gradient(0deg,rgba(0,0,0,.45),transparent); }
+  .community-feature__content { position: relative; z-index: 1; }
+  .community-feature h2 { margin: 1.25rem 0; font-family: var(--font-display); font-size: clamp(4.4rem, 9vw, 9rem); font-weight: 900; line-height: .78; letter-spacing: -.04em; text-transform: uppercase; }
+  .community-feature h2 em { color: var(--lime); font-style: normal; }
+  .community-feature__content > p:not(.eyebrow) { max-width: 34rem; margin-bottom: 2rem; color: rgba(255,255,255,.72); line-height: 1.7; }
+  .map-home { border-top: 1px solid var(--line); }
+  @media (max-width: 900px) {
+    .audience-grid { grid-template-columns: 1fr 1fr; }
+    .start-grid, .facilities__grid { grid-template-columns: 1fr; }
+    .hero__meta { display: none; }
+    .hero__inner { grid-template-columns: 1fr; }
+    .hero__veil { background: linear-gradient(90deg,rgba(10,10,9,.92),rgba(10,10,9,.38)),linear-gradient(0deg,rgba(10,10,9,.72),transparent); }
+  }
+  @media (max-width: 600px) {
+    .hero { min-height: calc(100svh - 5.15rem); }
+    h1 { font-size: clamp(4.5rem, 21vw, 7rem); }
+    .audience-grid, .coach-grid { grid-template-columns: 1fr; }
+    .audience-grid article { min-height: 14rem; }
+    .modalities a { grid-template-columns: 2rem 1fr auto; gap: .75rem; }
+    .modalities p { display: none; }
+    .schedule-actions { align-items: stretch; flex-direction: column; }
+    .start-steps article { grid-template-columns: 3.5rem 1fr; }
+    .community-feature { min-height: 42rem; }
+  }
+</style>

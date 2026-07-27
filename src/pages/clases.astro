@@ -1,0 +1,149 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import Icon from '../components/Icon.astro';
+import { whatsappUrl } from '../data/site';
+import classImage from '../assets/class-technique.png';
+
+const classes = [
+  {
+    id: 'bjj-kimono',
+    n: '01',
+    title: 'BJJ con kimono',
+    tagline: 'Precisión, paciencia y control.',
+    copy: 'El kimono multiplica las opciones de agarre y convierte cada posición en un ejercicio de estrategia. Construimos una base sólida: escapes, controles, pases y finalizaciones con progresión técnica.',
+    suitable: ['Principiantes', 'Técnica de detalle', 'Competición'],
+  },
+  {
+    id: 'nogi',
+    n: '02',
+    title: 'BJJ No-Gi · Grappling',
+    tagline: 'Movimiento, reacción y fluidez.',
+    copy: 'Sin kimono, el ritmo cambia. Trabajamos control corporal, derribos, transiciones y sumisiones con una metodología segura, adaptable y dinámica.',
+    suitable: ['Todos los niveles', 'Forma física', 'Defensa personal'],
+  },
+  {
+    id: 'privadas',
+    n: '03',
+    title: 'Clases privadas',
+    tagline: 'Tu objetivo. Tu ritmo.',
+    copy: 'Una sesión individual o en grupo reducido para resolver dudas, acelerar tu progreso, preparar una competición o descubrir el Jiu-Jitsu con atención exclusiva.',
+    suitable: ['Atención individual', 'Objetivos concretos', 'Horario flexible'],
+  },
+  {
+    id: 'open-mat',
+    n: '04',
+    title: 'Open Mat',
+    tagline: 'El tatami está abierto.',
+    copy: 'Una sesión libre para rodar, practicar y compartir conocimiento. Recibimos a alumnos de otros gimnasios con respeto y aviso previo.',
+    suitable: ['Intercambio', 'Rounds libres', 'Visitantes'],
+  },
+];
+---
+
+<BaseLayout
+  title="Clases de BJJ y Grappling"
+  description="BJJ con kimono, No-Gi, Grappling, clases privadas y Open Mat en Cala Galdana, Menorca."
+>
+  <PageHero
+    eyebrow="Clases"
+    title="Elige cómo<br /><em>quieres crecer.</em>"
+    copy="Elige la forma de entrenar que encaja contigo. Si no lo tienes claro, te ayudamos a encontrar tu punto de partida."
+    number="02"
+  />
+
+  <section class="section section--cream">
+    <div class="shell classes-intro">
+      <div>
+        <p class="eyebrow">Un sistema, varios caminos</p>
+        <p class="statement">No necesitas elegir perfecto. Solo necesitas <em>empezar.</em></p>
+      </div>
+      <div>
+        <p>Cada modalidad comparte la misma filosofía: técnica antes que fuerza, seguridad antes que ego y progreso constante.</p>
+        <a class="btn btn--dark" href={whatsappUrl('Hola, no sé qué clase encaja conmigo. ¿Me podéis orientar?')} target="_blank" rel="noreferrer">
+          Preguntar qué clase encaja conmigo <Icon name="whatsapp" />
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="class-catalog">
+    {classes.map((item, index) => (
+      <article id={item.id} class:list={['class-item', { 'class-item--dark': index % 2 === 0 }]}>
+        <div class="shell class-item__grid">
+          <span class="class-item__number">{item.n}</span>
+          <div>
+            <p class="eyebrow">{item.tagline}</p>
+            <h2>{item.title}</h2>
+          </div>
+          <div class="class-item__copy">
+            <p>{item.copy}</p>
+            <ul>
+              {item.suitable.map((tag) => <li>{tag}</li>)}
+            </ul>
+            <a class="text-link" href={whatsappUrl(`Hola, me interesa ${item.title}. ¿Puedo probar una clase?`)} target="_blank" rel="noreferrer">
+              Consultar esta clase <Icon name="arrow" />
+            </a>
+          </div>
+        </div>
+      </article>
+    ))}
+  </section>
+
+  <section class="section section--paper">
+    <div class="shell split">
+      <div class="image-frame">
+        <Image
+          src={classImage}
+          alt="Instructor mostrando una técnica de Jiu-Jitsu durante una clase"
+          widths={[520, 800, 1100]}
+          sizes="(max-width: 900px) 100vw, 50vw"
+          format="webp"
+          quality={84}
+        />
+        <span class="image-badge">Aprender.<br />Practicar.<br />Integrar.</span>
+      </div>
+      <div>
+        <p class="eyebrow">Así enseñamos</p>
+        <p class="prose-lead">Entender primero. Repetir después. Aplicar con control.</p>
+        <ul class="check-list">
+          <li>Activación y movilidad</li>
+          <li>Explicación técnica paso a paso</li>
+          <li>Práctica guiada con compañero</li>
+          <li>Situaciones y rounds adaptados</li>
+          <li>Vuelta a la calma y preguntas</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-band">
+    <div class="shell cta-band__inner">
+      <h2>¿Cuál es tu clase? Vamos a descubrirlo.</h2>
+      <a class="btn btn--dark" href={whatsappUrl('Hola, quiero saber qué clase encaja mejor conmigo.')} target="_blank" rel="noreferrer">
+        Preguntar por WhatsApp <Icon name="whatsapp" />
+      </a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .classes-intro { display: grid; grid-template-columns: 1.5fr .65fr; gap: clamp(3rem, 8vw, 9rem); align-items: end; }
+  .classes-intro > div:last-child > p { margin: 0 0 2rem; color: var(--muted); line-height: 1.75; }
+  .class-item { padding-block: clamp(4rem, 7vw, 7rem); background: var(--sand); scroll-margin-top: 5.2rem; }
+  .class-item--dark { background: var(--ink); color: var(--cream); }
+  .class-item__grid { display: grid; grid-template-columns: 4rem 1.1fr .75fr; gap: clamp(1.5rem, 5vw, 6rem); align-items: start; }
+  .class-item__number { color: var(--lime-dark); font-family: var(--font-display); font-size: 3.5rem; font-weight: 300; line-height: 1; }
+  .class-item--dark .class-item__number { color: var(--lime); }
+  .class-item h2 { max-width: 45rem; margin: 1.5rem 0 0; font-family: var(--font-display); font-size: clamp(4rem, 8vw, 8rem); font-weight: 900; line-height: .78; letter-spacing: -.04em; text-transform: uppercase; }
+  .class-item__copy > p { margin: 0 0 2rem; color: #535149; line-height: 1.75; }
+  .class-item--dark .class-item__copy > p { color: rgba(255,255,255,.62); }
+  .class-item__copy ul { display: flex; flex-wrap: wrap; gap: .5rem; margin: 0 0 2rem; padding: 0; list-style: none; }
+  .class-item__copy li { padding: .6rem .8rem; border: 1px solid currentColor; border-radius: 999px; font-size: .65rem; font-weight: 900; letter-spacing: .08em; text-transform: uppercase; }
+  .image-frame :global(img) { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  @media (max-width: 850px) {
+    .classes-intro, .class-item__grid { grid-template-columns: 1fr; }
+    .class-item__number { font-size: 2.5rem; }
+  }
+</style>

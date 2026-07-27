@@ -1,0 +1,175 @@
+---
+import Logo from './Logo.astro';
+import Icon from './Icon.astro';
+import { nav, whatsappUrl } from '../data/site';
+
+const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+const isActive = (href: string) => href === '/' ? path === '/' : path.startsWith(href);
+---
+
+<header class="header" data-header>
+  <div class="header__inner">
+    <Logo />
+    <nav class="desktop-nav" aria-label="Navegación principal">
+      {nav.map((item) => (
+        <a class:list={{ active: isActive(item.href) }} href={item.href}>{item.label}</a>
+      ))}
+    </nav>
+    <a class="header__cta" href={whatsappUrl()} target="_blank" rel="noreferrer">
+      <Icon name="whatsapp" size={18} /> Clase gratis
+    </a>
+    <button class="menu-toggle" type="button" aria-label="Abrir menú" aria-expanded="false" data-menu-toggle>
+      <span></span><span></span>
+    </button>
+  </div>
+  <div class="mobile-menu" data-mobile-menu>
+    <nav aria-label="Navegación móvil">
+      {nav.map((item, index) => (
+        <a class:list={{ active: isActive(item.href) }} href={item.href}>
+          <span>{String(index + 1).padStart(2, '0')}</span>{item.label}
+        </a>
+      ))}
+    </nav>
+    <a class="btn btn--lime" href={whatsappUrl()} target="_blank" rel="noreferrer">
+      Probar una clase gratis <Icon name="arrow" />
+    </a>
+  </div>
+</header>
+
+<script>
+  const button = document.querySelector('[data-menu-toggle]');
+  const menu = document.querySelector('[data-mobile-menu]');
+  button?.addEventListener('click', () => {
+    const open = button.getAttribute('aria-expanded') === 'true';
+    button.setAttribute('aria-expanded', String(!open));
+    button.setAttribute('aria-label', open ? 'Abrir menú' : 'Cerrar menú');
+    menu?.classList.toggle('is-open', !open);
+    document.body.classList.toggle('menu-open', !open);
+  });
+</script>
+
+<style>
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: color-mix(in srgb, var(--cream) 94%, transparent);
+    border-bottom: 1px solid rgba(20, 20, 18, 0.12);
+    backdrop-filter: blur(18px);
+  }
+  .header__inner {
+    width: min(100% - 2rem, 92rem);
+    height: 5.15rem;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    gap: clamp(1rem, 2vw, 2.5rem);
+  }
+  .desktop-nav {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: clamp(0.85rem, 1.45vw, 1.75rem);
+  }
+  .desktop-nav a {
+    position: relative;
+    color: var(--ink);
+    font-size: 0.72rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.065em;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .desktop-nav a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -0.45rem;
+    width: 100%;
+    height: 2px;
+    background: var(--lime);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform .25s ease;
+  }
+  .desktop-nav a:hover::after,
+  .desktop-nav a.active::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+  .header__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.8rem 1rem;
+    border-radius: 999px;
+    background: var(--ink);
+    color: white;
+    font-size: 0.72rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .menu-toggle {
+    display: none;
+    margin-left: auto;
+    width: 3rem;
+    height: 3rem;
+    border: 0;
+    border-radius: 50%;
+    background: var(--ink);
+    place-items: center;
+    cursor: pointer;
+  }
+  .menu-toggle span {
+    position: absolute;
+    display: block;
+    width: 1.25rem;
+    height: 2px;
+    background: var(--lime);
+    transition: transform .25s ease;
+  }
+  .menu-toggle span:first-child { transform: translateY(-4px); }
+  .menu-toggle span:last-child { transform: translateY(4px); }
+  .menu-toggle[aria-expanded="true"] span:first-child { transform: rotate(45deg); }
+  .menu-toggle[aria-expanded="true"] span:last-child { transform: rotate(-45deg); }
+  .mobile-menu {
+    display: none;
+    position: fixed;
+    inset: 5.15rem 0 auto;
+    min-height: calc(100dvh - 5.15rem);
+    padding: 2rem 1rem 7rem;
+    background: var(--ink);
+    overflow-y: auto;
+  }
+  .mobile-menu nav { display: grid; }
+  .mobile-menu nav a {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    padding: .85rem 0;
+    border-bottom: 1px solid rgba(255,255,255,.1);
+    color: var(--cream);
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 8vw, 3rem);
+    font-weight: 800;
+    line-height: 1;
+    text-transform: uppercase;
+    text-decoration: none;
+  }
+  .mobile-menu nav a span {
+    color: var(--lime);
+    font-family: var(--font-body);
+    font-size: .68rem;
+    letter-spacing: .1em;
+  }
+  .mobile-menu .btn { margin-top: 2rem; width: 100%; }
+  @media (max-width: 1200px) {
+    .desktop-nav, .header__cta { display: none; }
+    .menu-toggle { display: grid; }
+    .mobile-menu.is-open { display: block; }
+  }
+</style>

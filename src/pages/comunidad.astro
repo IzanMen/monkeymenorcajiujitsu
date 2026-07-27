@@ -1,0 +1,202 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import Icon from '../components/Icon.astro';
+import { whatsappUrl } from '../data/site';
+import communityImage from '../assets/community-team.png';
+import classImage from '../assets/class-technique.png';
+import heroImage from '../assets/hero-bjj-menorca.png';
+
+const values = [
+  ['Respeto', 'Cuidamos al compañero, escuchamos y dejamos el ego fuera del tatami.'],
+  ['Compañerismo', 'Cada progreso individual mejora el nivel y la energía de todo el grupo.'],
+  ['Aprendizaje', 'Preguntar, probar y equivocarse forma parte de entrenar bien.'],
+];
+
+const events = [
+  ['Campus', 'Días intensivos para profundizar, convivir y volver al tatami con nuevas ideas.'],
+  ['Viajes', 'Entrenamos fuera, visitamos otras escuelas y ampliamos nuestra forma de ver el Jiu-Jitsu.'],
+  ['Seminarios', 'Invitamos a instructores que aportan experiencia, detalle y perspectivas nuevas.'],
+  ['Intercambio Calasans', 'Conexión con una comunidad técnica más grande sin perder el carácter cercano del club.'],
+];
+
+const testimonials = [
+  ['“Llegué sin saber nada y desde el primer día sentí que podía aprender a mi ritmo.”', 'Alumno principiante'],
+  ['“Entrenar aquí durante mis vacaciones fue fácil: buen nivel, cero ego y un ambiente increíble.”', 'Visitante de la isla'],
+  ['“Lo mejor es ver cómo la disciplina del tatami se traduce en confianza fuera de él.”', 'Familia Monkey'],
+];
+---
+
+<BaseLayout
+  title="Comunidad"
+  description="Descubre la comunidad familiar de Monkey Menorca: compañerismo, seminarios, campus, viajes e intercambio Calasans."
+>
+  <PageHero
+    eyebrow="Comunidad"
+    title="Pequeña en tamaño.<br /><em>Grande en energía.</em>"
+    copy="Una escuela familiar donde se entrena en serio, se comparte lo aprendido y cada persona suma."
+    number="06"
+  />
+
+  <section class="community-lead">
+    <Image
+      src={communityImage}
+      alt="El equipo de Monkey Menorca compartiendo un momento en el tatami"
+      widths={[720, 1100, 1600]}
+      sizes="100vw"
+      format="webp"
+      quality={86}
+      priority
+    />
+    <div class="community-lead__shade"></div>
+    <div class="shell community-lead__content">
+      <p class="eyebrow">Una escuela pequeña y familiar</p>
+      <p class="statement">El compañero de hoy es parte de tu progreso de <em>mañana.</em></p>
+    </div>
+  </section>
+
+  <section class="section section--cream">
+    <div class="shell">
+      <SectionHeading
+        eyebrow="Nuestra manera de estar"
+        title="Tres valores.<br /><em>Un solo equipo.</em>"
+        copy="La técnica importa. La forma en que llegamos a ella, todavía más."
+      />
+      <div class="values-grid">
+        {values.map(([title, copy], index) => (
+          <article>
+            <span>{String(index + 1).padStart(2, '0')}</span>
+            <h3>{title}</h3>
+            <p>{copy}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section lifestyle">
+    <div class="shell lifestyle__grid">
+      <div>
+        <p class="eyebrow">Entrenar en Cala Galdana</p>
+        <h2>Deporte.<br />Naturaleza.<br /><em>Calidad de vida.</em></h2>
+      </div>
+      <div>
+        <p class="quote">“El tatami te activa. La isla te devuelve la calma.”</p>
+        <p>Entrenar en Menorca tiene otro ritmo. Puedes empezar el día moviéndote, trabajar, ir a la cala y volver al día siguiente con la cabeza limpia.</p>
+        <ul class="pill-list"><li>Mar</li><li>Naturaleza</li><li>Movimiento</li><li>Equilibrio</li></ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--dark">
+    <div class="shell">
+      <SectionHeading
+        eyebrow="Más allá de la clase"
+        title="Campus, viajes<br />y <em>seminarios.</em>"
+        copy="El aprendizaje crece cuando salimos de la rutina y dejamos entrar ideas nuevas."
+        light
+      />
+      <div class="events-list">
+        {events.map(([title, copy], index) => (
+          <article>
+            <span>{String(index + 1).padStart(2, '0')}</span>
+            <h3>{title}</h3>
+            <p>{copy}</p>
+            <Icon name="arrow" size={26} />
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--paper">
+    <div class="shell">
+      <SectionHeading eyebrow="Voces del tatami" title="Lo que se siente<br /><em>desde dentro.</em>" />
+      <div class="testimonials">
+        {testimonials.map(([quote, role], index) => (
+          <blockquote>
+            <span>0{index + 1}</span>
+            <p>{quote}</p>
+            <cite>{role}</cite>
+          </blockquote>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="gallery section--cream">
+    <div class="shell">
+      <SectionHeading eyebrow="Galería" title="Esto también<br /><em>es Monkey.</em>" />
+      <div class="gallery-grid">
+        <figure class="gallery-grid__wide">
+          <Image src={classImage} alt="Clase técnica de Jiu-Jitsu" widths={[720, 1200]} sizes="(max-width: 800px) 100vw, 66vw" format="webp" quality={82} />
+        </figure>
+        <figure class="gallery-grid__portrait">
+          <Image src={heroImage} alt="Practicantes entrenando grappling" widths={[400, 680]} sizes="(max-width: 800px) 100vw, 33vw" format="webp" quality={82} />
+        </figure>
+        <figure class="gallery-grid__portrait">
+          <Image src={communityImage} alt="Compañeros de equipo después de entrenar" widths={[400, 680]} sizes="(max-width: 800px) 100vw, 33vw" format="webp" quality={82} />
+        </figure>
+        <figure class="gallery-grid__wide">
+          <Image src={heroImage} alt="Entrenamiento de No-Gi en Cala Galdana" widths={[720, 1200]} sizes="(max-width: 800px) 100vw, 66vw" format="webp" quality={82} />
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-band">
+    <div class="shell cta-band__inner">
+      <h2>El ambiente se entiende cuando lo vives.</h2>
+      <a class="btn btn--dark" href={whatsappUrl('Hola, me gustaría conocer el ambiente en una clase gratuita.')} target="_blank" rel="noreferrer">
+        Conocer el ambiente <Icon name="whatsapp" />
+      </a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .community-lead { position: relative; min-height: 50rem; display: flex; align-items: end; overflow: hidden; background: var(--ink); color: white; padding-bottom: clamp(4rem, 8vw, 8rem); }
+  .community-lead :global(> img) { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .community-lead__shade { position: absolute; inset: 0; background: linear-gradient(0deg,rgba(10,10,9,.94),rgba(10,10,9,.05) 72%); }
+  .community-lead__content { position: relative; z-index: 1; }
+  .community-lead .statement { max-width: 75rem; margin-top: 1.5rem; }
+  .community-lead .statement em { color: var(--lime); }
+  .values-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); }
+  .values-grid article { min-height: 27rem; display: flex; flex-direction: column; padding: clamp(2rem, 4vw, 3.5rem); background: var(--cream); }
+  .values-grid span { color: var(--lime-dark); font-size: .68rem; font-weight: 900; letter-spacing: .12em; }
+  .values-grid h3 { margin: auto 0 .7rem; font-family: var(--font-display); font-size: clamp(3rem, 5vw, 5rem); line-height: .8; text-transform: uppercase; }
+  .values-grid p { margin: 0; color: var(--muted); font-size: .88rem; line-height: 1.7; }
+  .lifestyle { background: var(--sand); }
+  .lifestyle__grid { display: grid; grid-template-columns: 1.2fr .7fr; gap: clamp(3rem, 8vw, 9rem); align-items: end; }
+  .lifestyle h2 { margin: 1.2rem 0 0; font-family: var(--font-display); font-size: clamp(5rem, 9vw, 9rem); font-weight: 900; line-height: .75; letter-spacing: -.04em; text-transform: uppercase; }
+  .lifestyle h2 em { color: #3f5100; font-style: normal; }
+  .lifestyle__grid > div:last-child > p:not(.quote) { line-height: 1.75; }
+  .events-list { border-top: 1px solid rgba(255,255,255,.16); }
+  .events-list article { display: grid; grid-template-columns: 3rem .7fr 1fr auto; align-items: center; gap: clamp(1rem, 4vw, 4rem); padding: 2rem 0; border-bottom: 1px solid rgba(255,255,255,.16); }
+  .events-list span { color: var(--lime); font-size: .65rem; font-weight: 900; }
+  .events-list h3 { margin: 0; font-family: var(--font-display); font-size: clamp(2rem, 4vw, 4rem); line-height: .9; text-transform: uppercase; }
+  .events-list p { margin: 0; color: rgba(255,255,255,.55); font-size: .85rem; line-height: 1.65; }
+  .testimonials { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); }
+  blockquote { min-height: 30rem; display: flex; flex-direction: column; margin: 0; padding: clamp(2rem, 4vw, 3.5rem); background: var(--paper); }
+  blockquote > span { color: var(--lime-dark); font-size: .68rem; font-weight: 900; }
+  blockquote p { margin: auto 0 2rem; font-family: var(--font-display); font-size: clamp(2rem, 3.5vw, 3.6rem); line-height: 1; }
+  blockquote cite { font-size: .7rem; font-style: normal; font-weight: 900; letter-spacing: .1em; text-transform: uppercase; }
+  .gallery { padding-block: var(--section-space); }
+  .gallery-grid { display: grid; grid-template-columns: 2fr 1fr; grid-auto-rows: 26rem; gap: 1rem; }
+  .gallery-grid figure { margin: 0; overflow: hidden; background: var(--ink); }
+  .gallery-grid figure :global(img) { width: 100%; height: 100%; object-fit: cover; transition: transform .5s ease; }
+  .gallery-grid figure:hover :global(img) { transform: scale(1.025); }
+  .gallery-grid__portrait :global(img) { object-position: 70% center; }
+  @media (max-width: 850px) {
+    .values-grid, .testimonials { grid-template-columns: 1fr; }
+    .lifestyle__grid { grid-template-columns: 1fr; }
+    .values-grid article, blockquote { min-height: 20rem; }
+    .events-list article { grid-template-columns: 2rem 1fr auto; }
+    .events-list p { grid-column: 2; }
+  }
+  @media (max-width: 600px) {
+    .gallery-grid { grid-template-columns: 1fr; grid-auto-rows: 22rem; }
+  }
+</style>

@@ -1,0 +1,167 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import Icon from '../components/Icon.astro';
+import { whatsappUrl } from '../data/site';
+
+const bring = [
+  ['Ropa cómoda', 'Camiseta deportiva ajustada y pantalón sin bolsillos ni cremalleras.'],
+  ['Agua', 'Una botella para hidratarte durante la sesión.'],
+  ['Chanclas', 'Para moverte fuera del tatami manteniendo la zona limpia.'],
+  ['Ganas de aprender', 'No necesitas kimono, experiencia ni una forma física concreta.'],
+];
+
+const steps = [
+  ['Llegas y nos conocemos', 'Te enseñamos el espacio, resolvemos dudas y te presentamos al grupo.'],
+  ['Activamos el cuerpo', 'Movilidad y ejercicios sencillos para entrar en calor sin exigirte de más.'],
+  ['Aprendes una técnica', 'El entrenador explica paso a paso y practica contigo a un ritmo cómodo.'],
+  ['Pruebas con control', 'Si te apetece, hacemos una situación adaptada. Nada se fuerza.'],
+];
+---
+
+<BaseLayout
+  title="Probar una clase gratuita"
+  description="Prueba gratis una clase de Jiu-Jitsu en Cala Galdana. Puedes empezar desde cero y no necesitas estar en forma."
+>
+  <PageHero
+    eyebrow="Tu primera clase"
+    title="Empieza desde<br /><em>cero.</em> De verdad."
+    copy="No necesitas experiencia, kimono ni estar en forma. Solo reservar una hora para descubrir algo nuevo."
+    number="03"
+  />
+
+  <section class="section section--cream">
+    <div class="shell promise-grid">
+      <article>
+        <span>01</span>
+        <h2>Puedes empezar desde cero</h2>
+        <p>Te explicamos todo: cómo colocarte, cómo moverte y cómo entrenar con seguridad. Nadie espera que ya sepas.</p>
+      </article>
+      <article>
+        <span>02</span>
+        <h2>No necesitas estar en forma</h2>
+        <p>La resistencia, movilidad y confianza se construyen poco a poco. Adaptamos la intensidad a ti.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section section--dark">
+    <div class="shell safety">
+      <div>
+        <p class="eyebrow">Seguridad primero</p>
+        <p class="statement">Aquí se entrena con <em>control,</em> no con ego.</p>
+      </div>
+      <div>
+        <p>Aprenderás a reconocer una posición, comunicarte con tu compañero y parar en cualquier momento. Emparejamos por nivel y tamaño siempre que es posible.</p>
+        <ul class="check-list safety__list">
+          <li>Técnicas explicadas de forma progresiva</li>
+          <li>Supervisión cercana del entrenador</li>
+          <li>Intensidad adaptada a tu experiencia</li>
+          <li>Higiene y cuidado del tatami</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--paper">
+    <div class="shell">
+      <SectionHeading eyebrow="Qué llevar" title="Ligero de equipaje.<br /><em>Abierto de mente.</em>" />
+      <div class="bring-grid">
+        {bring.map(([title, copy], index) => (
+          <article>
+            <span>{String(index + 1).padStart(2, '0')}</span>
+            <div><h3>{title}</h3><p>{copy}</p></div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--lime">
+    <div class="shell">
+      <SectionHeading
+        eyebrow="Durante la prueba"
+        title="Una hora para<br />cambiar el chip."
+        copy="Sabrás en todo momento qué estamos haciendo y por qué."
+      />
+      <div class="trial-steps">
+        {steps.map(([title, copy], index) => (
+          <article>
+            <span>{String(index + 1).padStart(2, '0')}</span>
+            <h3>{title}</h3>
+            <p>{copy}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--cream">
+    <div class="shell practical-grid">
+      <article>
+        <p class="eyebrow">¿Necesito reservar?</p>
+        <h2>No, pero te recomendamos escribir.</h2>
+        <p>Así confirmamos que el horario no ha cambiado, te recomendamos la clase adecuada y estamos preparados para recibirte.</p>
+        <a class="btn btn--dark" href={whatsappUrl()} target="_blank" rel="noreferrer">
+          Reservar por WhatsApp <Icon name="whatsapp" />
+        </a>
+      </article>
+      <article class="price-card">
+        <span>Precios</span>
+        <h2>Tu primera clase es gratis.</h2>
+        <p>Después, te informamos por WhatsApp según tu caso: frecuencia, modalidad, edad o si estás de visita.</p>
+        <a class="text-link" href={whatsappUrl('Hola, quiero información sobre precios después de la clase de prueba.')} target="_blank" rel="noreferrer">
+          Consultar precios <Icon name="arrow" />
+        </a>
+      </article>
+    </div>
+  </section>
+
+  <section class="cta-band">
+    <div class="shell cta-band__inner">
+      <h2>Tu primera clase empieza con un mensaje.</h2>
+      <a class="btn btn--dark" href={whatsappUrl()} target="_blank" rel="noreferrer">
+        Probar gratis <Icon name="whatsapp" />
+      </a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .promise-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--line); border: 1px solid var(--line); }
+  .promise-grid article { padding: clamp(2rem, 5vw, 5rem); background: var(--cream); }
+  .promise-grid span, .bring-grid span { color: var(--lime-dark); font-size: .68rem; font-weight: 900; letter-spacing: .12em; }
+  .promise-grid h2 { margin: clamp(4rem, 8vw, 8rem) 0 1rem; font-family: var(--font-display); font-size: clamp(3.2rem, 6vw, 6rem); font-weight: 900; line-height: .82; text-transform: uppercase; }
+  .promise-grid p, .safety > div > p, .practical-grid article > p { color: var(--muted); line-height: 1.75; }
+  .safety { display: grid; grid-template-columns: 1.2fr .7fr; gap: clamp(3rem, 8vw, 9rem); align-items: end; }
+  .safety > div > p { color: rgba(255,255,255,.62); }
+  .safety__list { border-color: rgba(255,255,255,.15); }
+  .safety__list li { border-color: rgba(255,255,255,.15); }
+  .bring-grid { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid var(--line); }
+  .bring-grid article { display: grid; grid-template-columns: 3rem 1fr; gap: 1.5rem; padding: 2rem 0; border-bottom: 1px solid var(--line); }
+  .bring-grid article:nth-child(odd) { padding-right: 2rem; border-right: 1px solid var(--line); }
+  .bring-grid article:nth-child(even) { padding-left: 2rem; }
+  .bring-grid h3 { margin: 0 0 .5rem; font-family: var(--font-display); font-size: 2.2rem; text-transform: uppercase; }
+  .bring-grid p { margin: 0; color: var(--muted); font-size: .88rem; line-height: 1.65; }
+  .trial-steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: rgba(17,17,15,.25); border: 1px solid rgba(17,17,15,.25); }
+  .trial-steps article { min-height: 23rem; display: flex; flex-direction: column; padding: 2rem; background: var(--lime); }
+  .trial-steps span { font-family: var(--font-display); font-size: 3rem; font-weight: 300; }
+  .trial-steps h3 { margin: auto 0 .75rem; font-family: var(--font-display); font-size: 2.25rem; line-height: .95; text-transform: uppercase; }
+  .trial-steps p { margin: 0; font-size: .82rem; line-height: 1.65; }
+  .practical-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+  .practical-grid > article { min-height: 33rem; display: flex; flex-direction: column; justify-content: flex-end; padding: clamp(2rem, 5vw, 4.5rem); background: var(--paper); }
+  .practical-grid h2 { margin: 1.2rem 0; font-family: var(--font-display); font-size: clamp(3.2rem, 6vw, 6rem); font-weight: 900; line-height: .82; text-transform: uppercase; }
+  .practical-grid .btn, .practical-grid .text-link { align-self: flex-start; margin-top: 1.2rem; }
+  .price-card { background: var(--ink) !important; color: white; }
+  .price-card > span { color: var(--lime); font-size: .68rem; font-weight: 900; letter-spacing: .14em; text-transform: uppercase; }
+  .price-card > p { color: rgba(255,255,255,.6) !important; }
+  @media (max-width: 850px) {
+    .promise-grid, .safety, .practical-grid { grid-template-columns: 1fr; }
+    .trial-steps { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 560px) {
+    .bring-grid, .trial-steps { grid-template-columns: 1fr; }
+    .bring-grid article:nth-child(odd), .bring-grid article:nth-child(even) { padding-inline: 0; border-right: 0; }
+  }
+</style>

@@ -1,0 +1,91 @@
+---
+interface Props {
+  eyebrow: string;
+  title: string;
+  copy: string;
+  number?: string;
+}
+const { eyebrow, title, copy, number = '01' } = Astro.props;
+---
+
+<section class="page-hero">
+  <div class="page-hero__grid" aria-hidden="true"></div>
+  <div class="shell page-hero__inner">
+    <div>
+      <p class="eyebrow">{eyebrow}</p>
+      <h1 set:html={title} />
+    </div>
+    <div class="page-hero__aside">
+      <span>{number}</span>
+      <p>{copy}</p>
+    </div>
+  </div>
+  <div class="ticker" aria-hidden="true">
+    <div>DISCIPLINA · TÉCNICA · RESPETO · COMUNIDAD · CALA GALDANA · MENORCA · DISCIPLINA · TÉCNICA · RESPETO · COMUNIDAD · </div>
+  </div>
+</section>
+
+<style>
+  .page-hero {
+    position: relative;
+    overflow: hidden;
+    padding: clamp(5rem, 10vw, 9rem) 0 0;
+    background: var(--ink);
+    color: var(--cream);
+  }
+  .page-hero::after {
+    content: '';
+    position: absolute;
+    width: 34vw;
+    aspect-ratio: 1;
+    right: -8vw;
+    top: -10vw;
+    border: 1px solid rgba(200,255,43,.25);
+    border-radius: 50%;
+    box-shadow: 0 0 0 8vw rgba(200,255,43,.025), 0 0 0 16vw rgba(200,255,43,.02);
+  }
+  .page-hero__grid {
+    position: absolute;
+    inset: 0;
+    opacity: .07;
+    background-image: linear-gradient(rgba(255,255,255,.5) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.5) 1px, transparent 1px);
+    background-size: 5rem 5rem;
+  }
+  .page-hero__inner {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 1fr minmax(16rem, 25rem);
+    align-items: end;
+    gap: 3rem;
+    padding-bottom: clamp(4rem, 8vw, 7rem);
+  }
+  h1 {
+    max-width: 70rem;
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: clamp(5rem, 12vw, 12rem);
+    font-weight: 900;
+    line-height: .73;
+    letter-spacing: -.04em;
+    text-transform: uppercase;
+  }
+  :global(h1 em) { color: var(--lime); font-style: normal; }
+  .page-hero__aside {
+    padding-left: 1.5rem;
+    border-left: 1px solid rgba(255,255,255,.24);
+  }
+  .page-hero__aside span {
+    color: var(--lime);
+    font-family: var(--font-display);
+    font-size: 4rem;
+    font-weight: 300;
+  }
+  .page-hero__aside p { margin: 1.2rem 0 0; color: rgba(255,255,255,.68); line-height: 1.65; }
+  .ticker { position: relative; z-index: 1; overflow: hidden; background: var(--lime); color: var(--ink); padding: .72rem 0; white-space: nowrap; }
+  .ticker div { width: max-content; font-size: .68rem; font-weight: 900; letter-spacing: .15em; }
+  @media (max-width: 720px) {
+    .page-hero__inner { grid-template-columns: 1fr; }
+    h1 { font-size: clamp(4.3rem, 21vw, 7rem); }
+  }
+</style>

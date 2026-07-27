@@ -1,0 +1,152 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import Icon from '../components/Icon.astro';
+import { whatsappUrl } from '../data/site';
+import fernandoImage from '../assets/fernando-coach.png';
+import erikImage from '../assets/erik-coach.png';
+import classImage from '../assets/class-technique.png';
+
+const method = [
+  ['Ver', 'Una demostración clara, desde varios ángulos y con el porqué de cada detalle.'],
+  ['Entender', 'Conectamos la técnica con posiciones que ya conoces para que tenga sentido.'],
+  ['Practicar', 'Repeticiones de calidad, correcciones cercanas y ritmo adaptado.'],
+  ['Aplicar', 'Situaciones progresivas para probar la técnica con resistencia real y segura.'],
+];
+---
+
+<BaseLayout
+  title="Entrenadores"
+  description="Conoce a Fernando y Erik, el equipo de entrenadores de Monkey Menorca Jiu-Jitsu, su método y la influencia Calasans."
+>
+  <PageHero
+    eyebrow="Entrenadores"
+    title="Enseñar es<br /><em>estar cerca.</em>"
+    copy="Dos formas de mirar el Jiu-Jitsu. Un mismo compromiso con tu aprendizaje, tu seguridad y tu progreso."
+    number="05"
+  />
+
+  <section class="coach-profile section section--cream">
+    <div class="shell coach-profile__grid">
+      <div class="coach-profile__image">
+        <Image src={fernandoImage} alt="Retrato editorial de Fernando, entrenador" widths={[520, 820, 1100]} sizes="(max-width: 850px) 100vw, 50vw" format="webp" quality={85} />
+        <span>01</span>
+      </div>
+      <div class="coach-profile__copy">
+        <p class="eyebrow">Entrenador · Fundamentos y técnica</p>
+        <h2>Fernando</h2>
+        <p class="quote">“Una buena base te da libertad para crear tu propio Jiu-Jitsu.”</p>
+        <p>Su enfoque prioriza la comprensión de las posiciones, la calma bajo presión y una progresión que convierte los fundamentos en herramientas reales.</p>
+        <ul class="pill-list"><li>Fundamentos</li><li>BJJ con kimono</li><li>Estrategia</li><li>Progresión</li></ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="coach-profile coach-profile--reverse section section--paper">
+    <div class="shell coach-profile__grid">
+      <div class="coach-profile__image">
+        <Image src={erikImage} alt="Retrato editorial de Erik, entrenador" widths={[520, 820, 1100]} sizes="(max-width: 850px) 100vw, 50vw" format="webp" quality={85} />
+        <span>02</span>
+      </div>
+      <div class="coach-profile__copy">
+        <p class="eyebrow">Entrenador · No-Gi y movimiento</p>
+        <h2>Erik</h2>
+        <p class="quote">“Entender el movimiento vale más que memorizar cien técnicas.”</p>
+        <p>Trabaja el grappling como un sistema vivo: control, reacción, ritmo y decisiones. Sus clases conectan el detalle técnico con situaciones reales.</p>
+        <ul class="pill-list"><li>No-Gi</li><li>Grappling</li><li>Movimiento</li><li>Transiciones</li></ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--lime">
+    <div class="shell">
+      <SectionHeading
+        eyebrow="Método de enseñanza"
+        title="Menos ruido.<br />Más comprensión."
+        copy="Cada clase sigue un recorrido pensado para que la técnica no se quede en la demostración."
+      />
+      <div class="method-grid">
+        {method.map(([title, copy], index) => (
+          <article>
+            <span>{String(index + 1).padStart(2, '0')}</span>
+            <h3>{title}</h3>
+            <p>{copy}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--dark">
+    <div class="shell affiliation">
+      <div>
+        <p class="eyebrow">Escuela · Afiliación</p>
+        <h2>La influencia<br /><em>Calasans.</em></h2>
+      </div>
+      <div>
+        <p>Monkey Menorca crece conectado a una escuela y a una forma de entender el Jiu-Jitsu: compartir conocimiento, cuidar la técnica y mantener la mente abierta.</p>
+        <p>La relación con Calasans alimenta nuestro método a través del intercambio, el estudio y la posibilidad de entrenar con una comunidad más amplia.</p>
+        <a class="text-link" href="/comunidad">Conocer la comunidad <Icon name="arrow" /></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--paper">
+    <div class="shell split">
+      <div>
+        <p class="eyebrow">Seminarios e invitados</p>
+        <p class="prose-lead">Abrir la puerta para seguir aprendiendo.</p>
+        <p class="seminars-copy">Organizamos seminarios, campus y sesiones con instructores invitados. Nuevas miradas, detalles distintos y una oportunidad de conectar la isla con el Jiu-Jitsu de fuera.</p>
+        <a class="btn btn--dark" href={whatsappUrl('Hola, quiero información sobre próximos seminarios o campus.')} target="_blank" rel="noreferrer">
+          Preguntar por próximos eventos <Icon name="whatsapp" />
+        </a>
+      </div>
+      <div class="image-frame">
+        <Image src={classImage} alt="Instructor invitado mostrando una técnica durante un seminario" widths={[520, 800, 1100]} sizes="(max-width: 900px) 100vw, 50vw" format="webp" quality={84} />
+        <span class="image-badge">Siempre<br />aprendiendo</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-band">
+    <div class="shell cta-band__inner">
+      <h2>Ven a entrenar con el equipo.</h2>
+      <a class="btn btn--dark" href={whatsappUrl('Hola, me gustaría entrenar con el equipo y probar una clase.')} target="_blank" rel="noreferrer">
+        Entrenar con el equipo <Icon name="arrow" />
+      </a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .coach-profile__grid { display: grid; grid-template-columns: .9fr 1fr; gap: clamp(3rem, 8vw, 9rem); align-items: center; }
+  .coach-profile--reverse .coach-profile__image { order: 2; }
+  .coach-profile__image { position: relative; min-height: 44rem; overflow: hidden; background: var(--ink); }
+  .coach-profile__image :global(img) { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .coach-profile__image > span { position: absolute; top: 1rem; right: 1rem; display: grid; place-items: center; width: 3.4rem; height: 3.4rem; border-radius: 50%; background: var(--lime); font-size: .7rem; font-weight: 900; }
+  .coach-profile__copy h2 { margin: 1rem 0 2rem; font-family: var(--font-display); font-size: clamp(6rem, 12vw, 12rem); font-weight: 900; line-height: .7; letter-spacing: -.05em; text-transform: uppercase; }
+  .coach-profile__copy > p:not(.eyebrow):not(.quote) { color: var(--muted); line-height: 1.75; }
+  .method-grid { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid rgba(17,17,15,.25); }
+  .method-grid article { min-height: 22rem; display: flex; flex-direction: column; padding: 2rem; border-right: 1px solid rgba(17,17,15,.25); border-bottom: 1px solid rgba(17,17,15,.25); }
+  .method-grid article:first-child { border-left: 1px solid rgba(17,17,15,.25); }
+  .method-grid span { font-family: var(--font-display); font-size: 3rem; font-weight: 300; }
+  .method-grid h3 { margin: auto 0 .7rem; font-family: var(--font-display); font-size: 3.2rem; line-height: .8; text-transform: uppercase; }
+  .method-grid p { margin: 0; font-size: .82rem; line-height: 1.65; }
+  .affiliation { display: grid; grid-template-columns: 1.2fr .65fr; gap: clamp(3rem, 8vw, 9rem); align-items: end; }
+  .affiliation h2 { margin: 1rem 0 0; font-family: var(--font-display); font-size: clamp(5rem, 10vw, 10rem); font-weight: 900; line-height: .75; letter-spacing: -.04em; text-transform: uppercase; }
+  .affiliation h2 em { color: var(--lime); font-style: normal; }
+  .affiliation > div:last-child > p { color: rgba(255,255,255,.62); line-height: 1.75; }
+  .seminars-copy { margin: 1.5rem 0 2rem; color: var(--muted); line-height: 1.75; }
+  .image-frame :global(img) { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  @media (max-width: 850px) {
+    .coach-profile__grid, .affiliation { grid-template-columns: 1fr; }
+    .coach-profile--reverse .coach-profile__image { order: initial; }
+    .method-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 520px) {
+    .method-grid { grid-template-columns: 1fr; }
+    .coach-profile__image { min-height: 34rem; }
+  }
+</style>

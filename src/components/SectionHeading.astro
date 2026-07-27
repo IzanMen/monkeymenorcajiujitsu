@@ -1,0 +1,45 @@
+---
+interface Props {
+  eyebrow?: string;
+  title: string;
+  copy?: string;
+  light?: boolean;
+  align?: 'left' | 'center';
+}
+const { eyebrow, title, copy, light = false, align = 'left' } = Astro.props;
+---
+
+<header class:list={['section-heading', `section-heading--${align}`, { 'section-heading--light': light }]}>
+  {eyebrow && <p class="eyebrow">{eyebrow}</p>}
+  <h2 set:html={title} />
+  {copy && <p class="section-heading__copy">{copy}</p>}
+</header>
+
+<style>
+  .section-heading { max-width: 62rem; margin-bottom: clamp(2.5rem, 5vw, 5rem); }
+  .section-heading--center { text-align: center; margin-inline: auto; }
+  .eyebrow { margin-bottom: 1.15rem; }
+  h2 {
+    margin: 0;
+    color: var(--ink);
+    font-family: var(--font-display);
+    font-size: clamp(3.6rem, 8vw, 8.3rem);
+    font-weight: 900;
+    line-height: .82;
+    letter-spacing: -.035em;
+    text-transform: uppercase;
+    text-wrap: balance;
+  }
+  :global(h2 em) { color: var(--lime-dark); font-style: normal; }
+  :global(.section-heading--light h2 em) { color: var(--lime); }
+  .section-heading--light h2 { color: var(--cream); }
+  .section-heading__copy {
+    max-width: 44rem;
+    margin: 1.6rem 0 0;
+    color: var(--muted);
+    font-size: clamp(1rem, 1.6vw, 1.25rem);
+    line-height: 1.65;
+  }
+  .section-heading--center .section-heading__copy { margin-inline: auto; }
+  .section-heading--light .section-heading__copy { color: rgba(255,255,255,.65); }
+</style>
