@@ -429,7 +429,6 @@ const wa = (message?: string) => whatsappUrl(message, locale);
           </div>
           <div class="coach-grid__info">
             <div><h3>Fernando</h3><p>{content.coachRole}</p></div>
-            <Icon name="arrow" size={28} />
           </div>
         </article>
         <article>
@@ -439,7 +438,6 @@ const wa = (message?: string) => whatsappUrl(message, locale);
           </div>
           <div class="coach-grid__info">
             <div><h3>Erik</h3><p>{content.coachRole}</p></div>
-            <Icon name="arrow" size={28} />
           </div>
         </article>
       </div>
@@ -454,7 +452,7 @@ const wa = (message?: string) => whatsappUrl(message, locale);
       </div>
       <ul>
         {content.facilities.map((item, index) => (
-          <li><span>{String(index + 1).padStart(2, '0')}</span>{item}<Icon name="check" /></li>
+          <li><span>{String(index + 1).padStart(2, '0')}</span>{item}</li>
         ))}
       </ul>
     </div>
@@ -572,7 +570,7 @@ const wa = (message?: string) => whatsappUrl(message, locale);
   .facilities h2 { margin: 1.2rem 0 0; font-family: var(--font-display); font-size: clamp(4rem, 7vw, 7.5rem); font-weight: 400; line-height: .8; letter-spacing: 0; text-transform: uppercase; }
   .facilities h2 em { font-style: normal; color: #870000; }
   .facilities ul { margin: 0; padding: 0; list-style: none; border-top: 1px solid rgba(17,17,15,.22); }
-  .facilities li { display: grid; grid-template-columns: 2.5rem 1fr auto; align-items: center; gap: 1rem; padding: 1rem 0; border-bottom: 1px solid rgba(17,17,15,.22); font-family: var(--font-display); font-size: clamp(1.35rem, 2.5vw, 2.2rem); font-weight: 700; text-transform: uppercase; }
+  .facilities li { display: grid; grid-template-columns: 2.5rem 1fr; align-items: center; gap: 1rem; padding: 1rem 0; border-bottom: 1px solid rgba(17,17,15,.22); font-family: var(--font-display); font-size: clamp(1.35rem, 2.5vw, 2.2rem); font-weight: 700; text-transform: uppercase; }
   .facilities li span { color: #870000; font-family: var(--font-body); font-size: .6rem; }
   .community-feature { position: relative; min-height: 48rem; display: flex; align-items: center; overflow: hidden; background: var(--ink); color: white; }
   .community-feature :global(> img) { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
@@ -662,24 +660,27 @@ const wa = (message?: string) => whatsappUrl(message, locale);
     .coach-grid h3 { font-size: 3rem; }
     .coaches-cta { width: 100%; }
     .facilities__grid { gap: 2rem; }
-    .facilities h2 { margin: 0; font-size: 3.9rem; }
+    .facilities h2 { margin: 0; font-size: 3.75rem; }
     .facilities ul {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      border-left: 1px solid rgba(17,17,15,.22);
+      grid-template-columns: 1fr;
+      border-top-color: rgba(17,17,15,.3);
     }
     .facilities li {
-      min-height: 7.5rem;
-      grid-template-columns: 1fr auto;
-      align-content: space-between;
-      gap: .55rem;
-      padding: .9rem;
-      border-right: 1px solid rgba(17,17,15,.22);
-      font-size: 1.25rem;
-      line-height: .92;
+      grid-template-columns: 2.1rem minmax(0, 1fr);
+      min-height: 0;
+      gap: .9rem;
+      padding: .85rem 0;
+      border-bottom-color: rgba(17,17,15,.3);
+      font-size: 1.55rem;
+      line-height: .95;
     }
-    .facilities li span { grid-column: 1; }
-    .facilities li :global(svg) { grid-column: 2; grid-row: 1 / span 2; }
+    .facilities li span {
+      align-self: start;
+      padding-top: .1rem;
+      font-size: .62rem;
+      line-height: 1;
+    }
     .community-feature { min-height: 34rem; align-items: flex-end; padding-block: 3.5rem; }
     .community-feature h2 { font-size: 4.25rem; }
     .community-feature__content > p:not(.eyebrow) { font-size: .88rem; line-height: 1.6; }

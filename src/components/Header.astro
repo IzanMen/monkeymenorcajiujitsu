@@ -34,26 +34,27 @@ const alternates = languageAlternates(Astro.url.pathname);
       <span></span><span></span>
     </button>
   </div>
-  <div class="mobile-menu" data-mobile-menu>
-    <nav aria-label={messages.mobileNavLabel}>
-      {nav.map((item, index) => (
-        <a class:list={{ active: isActive(stripLocale(item.href)) }} href={item.href}>
-          <span>{String(index + 1).padStart(2, '0')}</span>{item.label}
-        </a>
-      ))}
-    </nav>
-    <nav class="mobile-languages" aria-label={messages.language}>
-      {alternates.map((item) => (
-        <a class:list={{ active: item.locale === locale }} href={item.href} lang={item.locale} hreflang={item.locale}>
-          {item.label}
-        </a>
-      ))}
-    </nav>
-    <a class="btn btn--lime" href={whatsappUrl(undefined, locale)} target="_blank" rel="noreferrer">
-      {messages.tryFreeClass} <Icon name="arrow" />
-    </a>
-  </div>
 </header>
+
+<div class="mobile-menu" data-mobile-menu>
+  <nav aria-label={messages.mobileNavLabel}>
+    {nav.map((item, index) => (
+      <a class:list={{ active: isActive(stripLocale(item.href)) }} href={item.href}>
+        <span>{String(index + 1).padStart(2, '0')}</span>{item.label}
+      </a>
+    ))}
+  </nav>
+  <nav class="mobile-languages" aria-label={messages.language}>
+    {alternates.map((item) => (
+      <a class:list={{ active: item.locale === locale }} href={item.href} lang={item.locale} hreflang={item.locale}>
+        {item.label}
+      </a>
+    ))}
+  </nav>
+  <a class="btn btn--lime" href={whatsappUrl(undefined, locale)} target="_blank" rel="noreferrer">
+    {messages.tryFreeClass} <Icon name="arrow" />
+  </a>
+</div>
 
 <script>
   const button = document.querySelector<HTMLButtonElement>('[data-menu-toggle]');
@@ -90,6 +91,12 @@ const alternates = languageAlternates(Astro.url.pathname);
     background: color-mix(in srgb, var(--cream) 94%, transparent);
     border-bottom: 1px solid rgba(20, 20, 18, 0.12);
     backdrop-filter: blur(18px);
+  }
+  :global(body.menu-open) .header {
+    position: fixed;
+    right: 0;
+    left: 0;
+    width: 100%;
   }
   .header__inner {
     width: min(100% - 2rem, 92rem);
@@ -190,8 +197,11 @@ const alternates = languageAlternates(Astro.url.pathname);
   .mobile-menu {
     display: none;
     position: fixed;
-    inset: 5.15rem 0 auto;
-    min-height: calc(100dvh - 5.15rem);
+    top: var(--header-height);
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 45;
     padding: 2rem 1rem 7rem;
     background: var(--ink);
     overflow-y: auto;
@@ -250,9 +260,6 @@ const alternates = languageAlternates(Astro.url.pathname);
     }
     .menu-toggle { width: 2.85rem; height: 2.85rem; }
     .mobile-menu {
-      inset: var(--header-height) 0 0;
-      min-height: 0;
-      height: calc(100dvh - var(--header-height));
       padding: 1.1rem 1rem max(2rem, env(safe-area-inset-bottom));
     }
     .mobile-menu nav a {
