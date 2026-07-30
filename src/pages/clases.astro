@@ -23,6 +23,9 @@ const content = {
     introCopy: 'Los grupos se organizan por nivel y algunas clases son adecuadas para principiantes. No necesitas experiencia previa para empezar.',
     introAction: 'Preguntar qué clase encaja conmigo',
     introMessage: 'Hola, no sé qué clase encaja conmigo. ¿Me podéis orientar?',
+    hygieneTitle: 'Antes de entrar al tatami',
+    hygieneCopy: 'Como deporte de contacto, la higiene es parte de la seguridad de todos. Si tienes dudas sobre una herida, síntoma o accesorio, escríbenos antes de venir.',
+    hygieneItems: ['Ropa o kimono limpio', 'Uñas cortas en manos y pies', 'Sin heridas abiertas ni infecciones de piel', 'Sin fiebre, virus o síntomas contagiosos', 'Sin piercings, joyas, relojes ni accesorios', 'Chanclas fuera del tatami'],
     classAction: 'Consultar esta clase',
     classMessage: (title: string) => `Hola, me interesa ${title}. ¿Puedo probar una clase?`,
     organizationBadge: 'Grupos<br />por nivel',
@@ -48,6 +51,9 @@ const content = {
     introCopy: 'Els grups s’organitzen per nivell i algunes classes són adequades per a principiants. No necessites experiència prèvia per començar.',
     introAction: 'Preguntar quina classe m’encaixa',
     introMessage: 'Hola, no sé quina classe m’encaixa. Em podeu orientar?',
+    hygieneTitle: 'Abans d’entrar al tatami',
+    hygieneCopy: 'Com a esport de contacte, la higiene forma part de la seguretat de tothom. Si tens dubtes sobre una ferida, símptoma o accessori, escriu-nos abans de venir.',
+    hygieneItems: ['Roba o quimono net', 'Ungles curtes a mans i peus', 'Sense ferides obertes ni infeccions a la pell', 'Sense febre, virus o símptomes contagiosos', 'Sense pírcings, joies, rellotges ni accessoris', 'Xancletes fora del tatami'],
     classAction: 'Consultar aquesta classe',
     classMessage: (title: string) => `Hola, m’interessa ${title}. Puc provar una classe?`,
     organizationBadge: 'Grups<br />per nivell',
@@ -73,6 +79,9 @@ const content = {
     introCopy: 'Groups are organised by level and some classes are suitable for beginners. You do not need previous experience to start.',
     introAction: 'Ask which class suits me',
     introMessage: 'Hi, I am not sure which class suits me. Could you advise me?',
+    hygieneTitle: 'Before stepping on the mat',
+    hygieneCopy: 'As a contact sport, hygiene is part of everyone’s safety. If you are unsure about a wound, symptom or accessory, message us before coming.',
+    hygieneItems: ['Clean clothes or gi', 'Short fingernails and toenails', 'No open wounds or skin infections', 'No fever, viruses or contagious symptoms', 'No piercings, jewellery, watches or accessories', 'Flip-flops off the mat'],
     classAction: 'Ask about this class',
     classMessage: (title: string) => `Hi, I am interested in ${title}. Can I try a class?`,
     organizationBadge: 'Groups<br />by level',
@@ -132,6 +141,18 @@ const wa = (message?: string) => whatsappUrl(message, locale);
           {content.introAction} <Icon name="whatsapp" />
         </a>
       </div>
+    </div>
+  </section>
+
+  <section class="section class-hygiene">
+    <div class="shell class-hygiene__grid">
+      <div>
+        <h2>{content.hygieneTitle}</h2>
+        <p>{content.hygieneCopy}</p>
+      </div>
+      <ul style={`--class-hygiene-bg: url('${giImage.src}')`}>
+        {content.hygieneItems.map((item) => <li>{item}</li>)}
+      </ul>
     </div>
   </section>
 
@@ -197,6 +218,90 @@ const wa = (message?: string) => whatsappUrl(message, locale);
   .classes-intro { display: flex; justify-content: flex-end; }
   .classes-intro__content { max-width: 23rem; }
   .classes-intro__content > p { margin: 0 0 2rem; color: var(--muted); line-height: 1.75; }
+  .class-hygiene { background: var(--paper); border-block: 1px solid var(--line); }
+  .class-hygiene__grid {
+    display: grid;
+    grid-template-columns: .85fr 1.15fr;
+    gap: clamp(2rem, 6vw, 6rem);
+    align-items: start;
+  }
+  .class-hygiene h2 {
+    max-width: 34rem;
+    margin: 0 0 1.25rem;
+    font-family: var(--font-display);
+    font-size: clamp(3.4rem, 6vw, 6rem);
+    font-weight: 700;
+    letter-spacing: 0;
+    line-height: .86;
+    text-transform: uppercase;
+  }
+  .class-hygiene p {
+    max-width: 32rem;
+    margin: 0;
+    color: var(--muted);
+    line-height: 1.75;
+  }
+  .class-hygiene ul {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    margin: 0;
+    padding: 0;
+    background: var(--ink-soft);
+    border: 1px solid var(--line);
+    list-style: none;
+  }
+  .class-hygiene ul::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    background-image: var(--class-hygiene-bg);
+    background-position: center;
+    background-size: cover;
+    filter: saturate(.86) contrast(1.08);
+    transform: scale(1.02);
+  }
+  .class-hygiene ul::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background:
+      linear-gradient(135deg, rgba(176,0,0,.5), rgba(8,8,7,.28) 44%, rgba(8,8,7,.76)),
+      linear-gradient(0deg, rgba(8,8,7,.42), rgba(8,8,7,.42));
+  }
+  .class-hygiene li {
+    min-height: 7rem;
+    display: grid;
+    grid-template-columns: 1.45rem minmax(0, 15rem);
+    align-items: center;
+    justify-content: center;
+    gap: .85rem;
+    padding: 1.1rem;
+    background: rgba(8,8,7,.5);
+    color: white;
+    font-size: .86rem;
+    font-weight: 850;
+    line-height: 1.45;
+    text-shadow: 0 1px 12px rgba(0,0,0,.65);
+  }
+  .class-hygiene li::before {
+    content: '✓';
+    width: 1.45rem;
+    height: 1.45rem;
+    display: grid;
+    flex: 0 0 auto;
+    place-items: center;
+    border-radius: 50%;
+    background: var(--lime);
+    color: var(--ink);
+    font-size: .7rem;
+    font-weight: 900;
+  }
   .class-item { padding-block: clamp(4rem, 7vw, 7rem); background: var(--sand); scroll-margin-top: 5.2rem; }
   .class-item--dark { background: var(--ink); color: var(--cream); }
   .class-item__grid { display: grid; grid-template-columns: 4rem 1.1fr .75fr; gap: clamp(1.5rem, 5vw, 6rem); align-items: start; }
@@ -212,13 +317,18 @@ const wa = (message?: string) => whatsappUrl(message, locale);
   .image-frame :global(img) { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
   @media (max-width: 850px) {
     .classes-intro { justify-content: flex-start; }
-    .class-item__grid { grid-template-columns: 1fr; }
+    .class-hygiene__grid, .class-item__grid { grid-template-columns: 1fr; }
     .class-item__number { font-size: 2.5rem; }
   }
   @media (max-width: 580px) {
     .classes-intro__content { max-width: none; }
     .classes-intro__content > p { margin-bottom: 1.25rem; font-size: .88rem; line-height: 1.6; }
     .classes-intro .btn { width: 100%; }
+    .class-hygiene__grid { gap: 1.5rem; }
+    .class-hygiene h2 { font-size: clamp(3rem, 14vw, 4rem); }
+    .class-hygiene p { font-size: .86rem; line-height: 1.62; }
+    .class-hygiene ul { grid-template-columns: 1fr; }
+    .class-hygiene li { min-height: 5.25rem; padding: .95rem; font-size: .8rem; }
     .class-item { padding-block: 3.25rem; scroll-margin-top: var(--header-height); }
     .class-item__grid { position: relative; gap: 0; }
     .class-item__number {

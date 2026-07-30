@@ -60,7 +60,7 @@ export const faqs = [
   },
   {
     q: '¿Qué ropa tengo que llevar?',
-    a: 'Trae chanclas, ropa adecuada para entrenar y ven aseado.',
+    a: 'Trae chanclas, ropa limpia para entrenar y ven aseado, con uñas cortas, sin heridas abiertas, síntomas contagiosos, piercings, joyas o accesorios.',
   },
   {
     q: '¿Puedo probar una clase?',
