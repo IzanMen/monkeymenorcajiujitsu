@@ -20,7 +20,6 @@ const content = {
     heroTitle: 'Clases',
     heroCopy: 'BJJ con kimono, BJJ sin kimono, Grappling, clases privadas y Open Mat. Te ayudamos a encontrar tu punto de partida.',
     heroAlt: 'Grupo de practicantes reunido después de entrenar',
-    introTitle: 'Introducción',
     introCopy: 'Los grupos se organizan por nivel y algunas clases son adecuadas para principiantes. No necesitas experiencia previa para empezar.',
     introAction: 'Preguntar qué clase encaja conmigo',
     introMessage: 'Hola, no sé qué clase encaja conmigo. ¿Me podéis orientar?',
@@ -46,7 +45,6 @@ const content = {
     heroTitle: 'Classes',
     heroCopy: 'BJJ amb quimono, BJJ sense quimono, Grappling, classes privades i Open Mat. T’ajudem a trobar el teu punt de partida.',
     heroAlt: 'Grup de practicants reunit després d’entrenar',
-    introTitle: 'Introducció',
     introCopy: 'Els grups s’organitzen per nivell i algunes classes són adequades per a principiants. No necessites experiència prèvia per començar.',
     introAction: 'Preguntar quina classe m’encaixa',
     introMessage: 'Hola, no sé quina classe m’encaixa. Em podeu orientar?',
@@ -72,7 +70,6 @@ const content = {
     heroTitle: 'Classes',
     heroCopy: 'Gi BJJ, No-Gi BJJ, Grappling, private classes and Open Mat. We will help you find the right place to start.',
     heroAlt: 'Group of practitioners together after training',
-    introTitle: 'Introduction',
     introCopy: 'Groups are organised by level and some classes are suitable for beginners. You do not need previous experience to start.',
     introAction: 'Ask which class suits me',
     introMessage: 'Hi, I am not sure which class suits me. Could you advise me?',
@@ -129,10 +126,7 @@ const wa = (message?: string) => whatsappUrl(message, locale);
 
   <section class="section section--cream">
     <div class="shell classes-intro">
-      <div>
-        <h2 class="statement">{content.introTitle}</h2>
-      </div>
-      <div>
+      <div class="classes-intro__content">
         <p>{content.introCopy}</p>
         <a class="btn btn--dark" href={wa(content.introMessage)} target="_blank" rel="noreferrer">
           {content.introAction} <Icon name="whatsapp" />
@@ -200,8 +194,9 @@ const wa = (message?: string) => whatsappUrl(message, locale);
 </BaseLayout>
 
 <style>
-  .classes-intro { display: grid; grid-template-columns: 1.5fr .65fr; gap: clamp(3rem, 8vw, 9rem); align-items: end; }
-  .classes-intro > div:last-child > p { margin: 0 0 2rem; color: var(--muted); line-height: 1.75; }
+  .classes-intro { display: flex; justify-content: flex-end; }
+  .classes-intro__content { max-width: 23rem; }
+  .classes-intro__content > p { margin: 0 0 2rem; color: var(--muted); line-height: 1.75; }
   .class-item { padding-block: clamp(4rem, 7vw, 7rem); background: var(--sand); scroll-margin-top: 5.2rem; }
   .class-item--dark { background: var(--ink); color: var(--cream); }
   .class-item__grid { display: grid; grid-template-columns: 4rem 1.1fr .75fr; gap: clamp(1.5rem, 5vw, 6rem); align-items: start; }
@@ -216,12 +211,13 @@ const wa = (message?: string) => whatsappUrl(message, locale);
   .class-item__copy li { padding: .6rem .8rem; border: 1px solid currentColor; border-radius: 999px; font-size: .65rem; font-weight: 900; letter-spacing: .08em; text-transform: uppercase; }
   .image-frame :global(img) { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
   @media (max-width: 850px) {
-    .classes-intro, .class-item__grid { grid-template-columns: 1fr; }
+    .classes-intro { justify-content: flex-start; }
+    .class-item__grid { grid-template-columns: 1fr; }
     .class-item__number { font-size: 2.5rem; }
   }
   @media (max-width: 580px) {
-    .classes-intro { gap: 1.5rem; }
-    .classes-intro > div:last-child > p { margin-bottom: 1.25rem; font-size: .88rem; line-height: 1.6; }
+    .classes-intro__content { max-width: none; }
+    .classes-intro__content > p { margin-bottom: 1.25rem; font-size: .88rem; line-height: 1.6; }
     .classes-intro .btn { width: 100%; }
     .class-item { padding-block: 3.25rem; scroll-margin-top: var(--header-height); }
     .class-item__grid { position: relative; gap: 0; }
