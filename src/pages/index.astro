@@ -54,7 +54,6 @@ const content = {
     hygieneEyebrow: 'Higiene y seguridad',
     hygieneTitle: 'Cuidamos el tatami',
     hygieneCopy: 'El Jiu-Jitsu es un deporte de contacto. Entrenar limpios y sin riesgos visibles es una muestra de respeto hacia tus compañeros y ayuda a que todos disfruten de una práctica segura.',
-    hygieneBadge: 'Respeto<br />mutuo',
     hygieneItems: ['Kimono o ropa de entrenamiento limpia', 'Uñas cortas en manos y pies', 'Sin heridas abiertas ni infecciones en la piel', 'No entrenar con fiebre, virus o síntomas contagiosos', 'Sin piercings, joyas, relojes ni accesorios', 'Chanclas fuera del tatami y pies limpios al entrar'],
     modalitiesTitle: 'Modalidades',
     modalitiesCopy: 'BJJ con kimono, BJJ sin kimono, Grappling, clases privadas y entrenamientos abiertos.',
@@ -129,7 +128,6 @@ const content = {
     hygieneEyebrow: 'Higiene i seguretat',
     hygieneTitle: 'Cuidem el tatami',
     hygieneCopy: 'El Jiu-Jitsu és un esport de contacte. Entrenar nets i sense riscos visibles és una mostra de respecte cap als companys i ajuda que tothom gaudeixi d’una pràctica segura.',
-    hygieneBadge: 'Respecte<br />mutu',
     hygieneItems: ['Quimono o roba d’entrenament neta', 'Ungles curtes a mans i peus', 'Sense ferides obertes ni infeccions a la pell', 'No entrenar amb febre, virus o símptomes contagiosos', 'Sense pírcings, joies, rellotges ni accessoris', 'Xancletes fora del tatami i peus nets en entrar'],
     modalitiesTitle: 'Modalitats',
     modalitiesCopy: 'BJJ amb quimono, BJJ sense quimono, Grappling, classes privades i entrenaments oberts.',
@@ -204,7 +202,6 @@ const content = {
     hygieneEyebrow: 'Hygiene and safety',
     hygieneTitle: 'We take care of the mat',
     hygieneCopy: 'Jiu-Jitsu is a contact sport. Training clean and without visible risks is a sign of respect for your teammates and helps everyone enjoy a safe practice.',
-    hygieneBadge: 'Mutual<br />respect',
     hygieneItems: ['Clean gi or training clothes', 'Short fingernails and toenails', 'No open wounds or skin infections', 'Do not train with fever, viruses or contagious symptoms', 'No piercings, jewellery, watches or accessories', 'Flip-flops off the mat and clean feet before stepping on'],
     modalitiesTitle: 'Training options',
     modalitiesCopy: 'Gi BJJ, No-Gi BJJ, Grappling, private classes and open training sessions.',
@@ -367,7 +364,6 @@ const wa = (message?: string) => whatsappUrl(message, locale);
         <p>{content.hygieneCopy}</p>
       </div>
       <div class="hygiene-panel" style={`--hygiene-bg: url('${classImage.src}')`}>
-        <span class="hygiene-panel__badge" set:html={content.hygieneBadge} />
         <ul>
           {content.hygieneItems.map((item) => <li>{item}</li>)}
         </ul>
@@ -618,25 +614,6 @@ const wa = (message?: string) => whatsappUrl(message, locale);
       linear-gradient(135deg, rgba(176,0,0,.55), rgba(8,8,7,.28) 42%, rgba(8,8,7,.72)),
       linear-gradient(0deg, rgba(8,8,7,.38), rgba(8,8,7,.38));
   }
-  .hygiene-panel__badge {
-    position: absolute;
-    right: 1.1rem;
-    top: -3rem;
-    width: 6.5rem;
-    aspect-ratio: 1;
-    display: grid;
-    place-items: center;
-    border-radius: 50%;
-    background: var(--lime);
-    color: var(--ink);
-    font-size: .58rem;
-    font-weight: 900;
-    letter-spacing: .08em;
-    line-height: 1.3;
-    text-align: center;
-    text-transform: uppercase;
-    transform: rotate(8deg);
-  }
   .hygiene-panel ul {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -769,7 +746,6 @@ const wa = (message?: string) => whatsappUrl(message, locale);
     .hygiene-copy h2 { font-size: clamp(3.55rem, 16vw, 4.5rem); }
     .hygiene-copy p:last-child { font-size: .86rem; line-height: 1.62; }
     .hygiene-panel { padding: 1rem; }
-    .hygiene-panel__badge { right: .85rem; top: -3.15rem; width: 5.7rem; font-size: .52rem; }
     .hygiene-panel ul { grid-template-columns: 1fr; }
     .hygiene-panel li { min-height: 5.6rem; padding: 1rem; font-size: .82rem; }
     .modalities a {
