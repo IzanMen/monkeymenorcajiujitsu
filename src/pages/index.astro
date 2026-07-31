@@ -6,11 +6,12 @@ import SectionHeading from '../components/SectionHeading.astro';
 import Schedule from '../components/Schedule.astro';
 import { whatsappUrl } from '../data/site';
 import { getLocale, localizedPath } from '../i18n';
-import heroImage from '../assets/photos/pexels-11391978.jpg';
+import heroImage from '../assets/photos/coaches-ground-wide.jpg';
+import aboutImage from '../assets/photos/coaches-ground-wide.jpg';
 import classImage from '../assets/photos/pexels-8611381.jpg';
 import communityImage from '../assets/photos/pexels-35029376.jpg';
-import fernandoImage from '../assets/photos/fernando-temp-coach.jpg';
-import erikImage from '../assets/photos/erik-temp-coach.avif';
+import salvadorImage from '../assets/photos/salvador-coach.jpg';
+import ericImage from '../assets/photos/eric-machado-coach.jpg';
 import childrenImage from '../assets/photos/pexels-7988960.jpg';
 import basicsImage from '../assets/photos/pexels-8612498.jpg';
 import islandImage from '../assets/photos/pexels-9510812.jpg';
@@ -46,7 +47,7 @@ const content = {
       ['Defensa personal y forma física', 'Técnica, control y movimiento para quienes buscan cuidarse y sentirse más seguros.'],
       ['Residentes y visitantes', 'Entrena en Cala Galdana tanto si vives en Menorca como si estás de vacaciones.'],
     ],
-    classAlt: 'Una clase técnica de Jiu-Jitsu en un tatami',
+    classAlt: 'Salvador y Eric Machado entrenando una técnica de Jiu-Jitsu en el tatami',
     aboutTitle: 'Qué es Monkey Menorca Jiu-Jitsu',
     aboutCopy: 'Monkey Menorca Jiu-Jitsu es un club de Jiu-Jitsu brasileño donde enseñamos mucho más que un deporte. A través de un ambiente cercano, transmitimos valores como el respeto, la disciplina y la superación personal, ayudando a cada alumno a crecer dentro y fuera del tatami.',
     aboutItems: ['Gimnasio pequeño con atención personalizada', 'Grupos organizados por nivel', 'Método en la línea de Claudio Calasans', 'Profesores cualificados e instructores invitados', 'Comunidad actual de 5 alumnos'],
@@ -120,7 +121,7 @@ const content = {
       ['Defensa personal i forma física', 'Tècnica, control i moviment per a qui vol cuidar-se i sentir-se més segur.'],
       ['Residents i visitants', 'Entrena a Cala Galdana tant si vius a Menorca com si hi ets de vacances.'],
     ],
-    classAlt: 'Una classe tècnica de Jiu-Jitsu en un tatami',
+    classAlt: 'Salvador i Eric Machado entrenant una tècnica de Jiu-Jitsu al tatami',
     aboutTitle: 'Què és Monkey Menorca Jiu-Jitsu',
     aboutCopy: 'Monkey Menorca Jiu-Jitsu és un club de Jiu-Jitsu brasiler on ensenyem molt més que un esport. En un ambient proper, transmetem valors com el respecte, la disciplina i la superació personal, i ajudem cada alumne a créixer dins i fora del tatami.',
     aboutItems: ['Gimnàs petit amb atenció personalitzada', 'Grups organitzats per nivell', 'Mètode en la línia de Claudio Calasans', 'Professors qualificats i instructors convidats', 'Comunitat actual de 5 alumnes'],
@@ -194,7 +195,7 @@ const content = {
       ['Self-defence and fitness', 'Technique, control and movement for people who want to take care of themselves and feel more confident.'],
       ['Residents and visitors', 'Train in Cala Galdana whether you live in Menorca or are here on holiday.'],
     ],
-    classAlt: 'A technical Jiu-Jitsu class on the mat',
+    classAlt: 'Salvador and Eric Machado training a Jiu-Jitsu technique on the mat',
     aboutTitle: 'What is Monkey Menorca Jiu-Jitsu?',
     aboutCopy: 'Monkey Menorca Jiu-Jitsu is a Brazilian Jiu-Jitsu club where we teach much more than a sport. In a friendly environment, we share values such as respect, discipline and personal growth, helping every student develop on and off the mat.',
     aboutItems: ['Small gym with personal attention', 'Groups organised by level', 'A method inspired by Claudio Calasans', 'Qualified coaches and guest instructors', 'A current community of 5 students'],
@@ -332,7 +333,7 @@ const wa = (message?: string) => whatsappUrl(message, locale);
     <div class="shell split">
       <div class="image-frame class-photo">
         <Image
-          src={classImage}
+          src={aboutImage}
           alt={content.classAlt}
           widths={[480, 720, 960]}
           sizes="(max-width: 900px) 100vw, 50vw"
@@ -447,20 +448,20 @@ const wa = (message?: string) => whatsappUrl(message, locale);
       <div class="coach-grid">
         <article>
           <div class="coach-grid__image">
-            <Image src={fernandoImage} alt={content.coachAlt('Fernando')} widths={[420, 680]} sizes="(max-width: 700px) 100vw, 50vw" format="webp" quality={84} />
+            <Image src={salvadorImage} alt={content.coachAlt('Salvador')} widths={[420, 680]} sizes="(max-width: 700px) 100vw, 50vw" format="webp" quality={84} />
             <span>01</span>
           </div>
           <div class="coach-grid__info">
-            <div><h3>Fernando</h3><p>{content.coachRole}</p></div>
+            <div><h3>Salvador</h3><p>{content.coachRole}</p></div>
           </div>
         </article>
         <article>
           <div class="coach-grid__image">
-            <Image src={erikImage} alt={content.coachAlt('Erik')} widths={[420, 680]} sizes="(max-width: 700px) 100vw, 50vw" format="webp" quality={84} />
+            <Image src={ericImage} alt={content.coachAlt('Eric Machado')} widths={[420, 680]} sizes="(max-width: 700px) 100vw, 50vw" format="webp" quality={84} />
             <span>02</span>
           </div>
           <div class="coach-grid__info">
-            <div><h3>Erik</h3><p>{content.coachRole}</p></div>
+            <div><h3>Eric Machado</h3><p>{content.coachRole}</p></div>
           </div>
         </article>
       </div>
@@ -671,8 +672,8 @@ const wa = (message?: string) => whatsappUrl(message, locale);
   .start-action { display: flex; justify-content: flex-start; margin-top: .5rem; }
   .schedule-actions { display: flex; align-items: center; gap: 2rem; margin-top: 2rem; }
   .coach-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
-  .coach-grid__image { position: relative; aspect-ratio: 4/5; overflow: hidden; background: var(--ink-soft); }
-  .coach-grid__image :global(img) { width: 100%; height: 100%; object-fit: cover; filter: saturate(.86); transition: transform .5s ease; }
+  .coach-grid__image { position: relative; aspect-ratio: 2 / 3; overflow: hidden; background: var(--ink-soft); }
+  .coach-grid__image :global(img) { width: 100%; height: 100%; object-fit: contain; filter: saturate(.86); transition: transform .5s ease; }
   .coach-grid article:hover .coach-grid__image :global(img) { transform: scale(1.025); }
   .coach-grid__image span { position: absolute; right: 1rem; top: 1rem; display: grid; place-items: center; width: 3rem; height: 3rem; border-radius: 50%; background: var(--lime); font-size: .7rem; font-weight: 900; }
   .coach-grid__info { display: flex; justify-content: space-between; align-items: center; padding: 1.25rem 0; border-bottom: 1px solid var(--line); }

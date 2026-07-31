@@ -5,21 +5,23 @@ import PageHero from '../components/PageHero.astro';
 import Icon from '../components/Icon.astro';
 import { whatsappUrl } from '../data/site';
 import { getLocale, localizedPath } from '../i18n';
-import heroImage from '../assets/photos/pexels-28945401.jpg';
-import fernandoImage from '../assets/photos/fernando-temp-coach.jpg';
-import erikImage from '../assets/photos/erik-temp-coach.avif';
-import classImage from '../assets/photos/pexels-35029376.jpg';
+import heroImage from '../assets/photos/coaches-salvador-eric.jpg';
+import salvadorImage from '../assets/photos/salvador-coach.jpg';
+import ericImage from '../assets/photos/eric-machado-coach.jpg';
+import classImage from '../assets/photos/coaches-training-ground.jpeg';
 import calasansImage from '../assets/photos/claudio-calasans.webp';
 
 const locale = getLocale(Astro.url);
 const content = {
   es: {
     metaTitle: 'Entrenadores',
-    metaDescription: 'Conoce a Fernando y Erik, el equipo de entrenadores de Monkey Menorca Jiu-Jitsu, su método y la influencia Calasans.',
+    metaDescription: 'Conoce a Salvador y Eric Machado, el equipo de entrenadores de Monkey Menorca Jiu-Jitsu, su método y la influencia Calasans.',
     heroTitle: 'Entrenadores',
-    heroCopy: 'Fernando y Erik forman el equipo de entrenadores de Monkey Menorca Jiu-Jitsu.',
-    heroAlt: 'Clase de artes marciales siguiendo una explicación técnica',
+    heroCopy: 'Salvador y Eric Machado forman el equipo de entrenadores de Monkey Menorca Jiu-Jitsu.',
+    heroAlt: 'Salvador y Eric Machado posando con kimono en Monkey Menorca Jiu-Jitsu',
     coachAlt: (name: string) => `${name}, entrenador de Monkey Menorca Jiu-Jitsu`,
+    coachRole: 'Entrenador',
+    ericBio: 'Cinturón negro de primer grado e instructor de Jiu-Jitsu desde hace cinco años. Eric suma 15 años de experiencia en entrenamiento personal, ha enseñado en Brasil durante cinco años y trabaja con alumnos de todas las edades, desde niños de tres años hasta adultos mayores. También está especializado en educación inclusiva para personas con autismo y cuenta con trayectoria competitiva tras haberse formado con un campeón mundial.',
     methodTitle: 'Método de enseñanza',
     methodIntro: 'Una enseñanza basada en la línea de Claudio Calasans, adaptada a un entorno más cercano y personalizado.',
     method: [
@@ -35,7 +37,7 @@ const content = {
     seminarsCopy: 'El gimnasio invita regularmente a instructores de referencia para impartir seminarios y entrenamientos especiales. Así, los alumnos pueden aprender de diferentes estilos y seguir evolucionando.',
     seminarsAction: 'Preguntar por próximos eventos',
     seminarsMessage: 'Hola, quiero información sobre próximos seminarios o campus.',
-    seminarsAlt: 'Instructor invitado mostrando una técnica durante un seminario',
+    seminarsAlt: 'Salvador y Eric Machado entrenando una técnica de Jiu-Jitsu en el tatami',
     learningBadge: 'Siempre<br />aprendiendo',
     ctaTitle: 'Entrenar con el equipo',
     ctaAction: 'Entrenar con el equipo',
@@ -43,11 +45,13 @@ const content = {
   },
   ca: {
     metaTitle: 'Entrenadors',
-    metaDescription: 'Coneix en Fernando i l’Erik, l’equip d’entrenadors de Monkey Menorca Jiu-Jitsu, el seu mètode i la influència Calasans.',
+    metaDescription: 'Coneix en Salvador i l’Eric Machado, l’equip d’entrenadors de Monkey Menorca Jiu-Jitsu, el seu mètode i la influència Calasans.',
     heroTitle: 'Entrenadors',
-    heroCopy: 'En Fernando i l’Erik formen l’equip d’entrenadors de Monkey Menorca Jiu-Jitsu.',
-    heroAlt: 'Classe d’arts marcials seguint una explicació tècnica',
+    heroCopy: 'En Salvador i l’Eric Machado formen l’equip d’entrenadors de Monkey Menorca Jiu-Jitsu.',
+    heroAlt: 'Salvador i Eric Machado posant amb quimono a Monkey Menorca Jiu-Jitsu',
     coachAlt: (name: string) => `${name}, entrenador de Monkey Menorca Jiu-Jitsu`,
+    coachRole: 'Entrenador',
+    ericBio: 'Cinturó negre de primer grau i instructor de Jiu-Jitsu des de fa cinc anys. L’Eric suma 15 anys d’experiència en entrenament personal, ha ensenyat al Brasil durant cinc anys i treballa amb alumnes de totes les edats, des d’infants de tres anys fins a adults grans. També està especialitzat en educació inclusiva per a persones amb autisme i compta amb trajectòria competitiva després d’haver-se format amb un campió mundial.',
     methodTitle: 'Mètode d’ensenyament',
     methodIntro: 'Un ensenyament basat en la línia de Claudio Calasans, adaptat a un entorn més proper i personalitzat.',
     method: [
@@ -63,7 +67,7 @@ const content = {
     seminarsCopy: 'El gimnàs convida regularment instructors de referència per impartir seminaris i entrenaments especials. Així, els alumnes poden aprendre estils diferents i continuar evolucionant.',
     seminarsAction: 'Preguntar pels pròxims esdeveniments',
     seminarsMessage: 'Hola, vull informació sobre els pròxims seminaris o campus.',
-    seminarsAlt: 'Instructor convidat mostrant una tècnica durant un seminari',
+    seminarsAlt: 'Salvador i Eric Machado entrenant una tècnica de Jiu-Jitsu al tatami',
     learningBadge: 'Sempre<br />aprenent',
     ctaTitle: 'Entrenar amb l’equip',
     ctaAction: 'Entrenar amb l’equip',
@@ -71,11 +75,13 @@ const content = {
   },
   en: {
     metaTitle: 'Coaches',
-    metaDescription: 'Meet Fernando and Erik, the coaching team at Monkey Menorca Jiu-Jitsu, their method and the Calasans influence.',
+    metaDescription: 'Meet Salvador and Eric Machado, the coaching team at Monkey Menorca Jiu-Jitsu, their method and the Calasans influence.',
     heroTitle: 'Coaches',
-    heroCopy: 'Fernando and Erik are the coaching team at Monkey Menorca Jiu-Jitsu.',
-    heroAlt: 'Martial arts class following a technical explanation',
+    heroCopy: 'Salvador and Eric Machado are the coaching team at Monkey Menorca Jiu-Jitsu.',
+    heroAlt: 'Salvador and Eric Machado posing in gis at Monkey Menorca Jiu-Jitsu',
     coachAlt: (name: string) => `${name}, coach at Monkey Menorca Jiu-Jitsu`,
+    coachRole: 'Coach',
+    ericBio: 'First-degree black belt and Jiu-Jitsu instructor for five years. Eric brings 15 years of personal training experience, taught at an academy in Brazil for five years and works with students of all ages, from three-year-old children to older adults. He also specialises in inclusive education for people with autism and has a competitive background after training under a world champion.',
     methodTitle: 'Teaching method',
     methodIntro: 'Teaching based on Claudio Calasans’ approach, adapted to a friendlier and more personal environment.',
     method: [
@@ -91,7 +97,7 @@ const content = {
     seminarsCopy: 'The gym regularly invites leading instructors to teach seminars and special training sessions. This gives students the chance to learn different styles and keep developing.',
     seminarsAction: 'Ask about upcoming events',
     seminarsMessage: 'Hi, I would like information about upcoming seminars or camps.',
-    seminarsAlt: 'Guest instructor demonstrating a technique during a seminar',
+    seminarsAlt: 'Salvador and Eric Machado training a Jiu-Jitsu technique on the mat',
     learningBadge: 'Always<br />learning',
     ctaTitle: 'Train with the team',
     ctaAction: 'Train with the team',
@@ -118,15 +124,18 @@ const wa = (message: string) => whatsappUrl(message, locale);
     <div class="shell coach-list__grid">
       <article>
         <div class="coach-list__image">
-          <Image src={fernandoImage} alt={content.coachAlt('Fernando')} widths={[520, 820, 1100]} sizes="(max-width: 850px) 100vw, 50vw" format="webp" quality={85} />
+          <Image src={salvadorImage} alt={content.coachAlt('Salvador')} widths={[520, 820, 1100]} sizes="(max-width: 850px) 100vw, 50vw" format="webp" quality={85} />
         </div>
-        <h2>Fernando</h2>
+        <h2>Salvador</h2>
+        <p class="coach-list__role">{content.coachRole}</p>
       </article>
       <article>
         <div class="coach-list__image">
-          <Image src={erikImage} alt={content.coachAlt('Erik')} widths={[520, 820, 1100]} sizes="(max-width: 850px) 100vw, 50vw" format="webp" quality={85} />
+          <Image src={ericImage} alt={content.coachAlt('Eric Machado')} widths={[520, 820, 1100]} sizes="(max-width: 850px) 100vw, 50vw" format="webp" quality={85} />
         </div>
-        <h2>Erik</h2>
+        <h2>Eric Machado</h2>
+        <p class="coach-list__role">{content.coachRole}</p>
+        <p class="coach-list__bio">{content.ericBio}</p>
       </article>
     </div>
   </section>
@@ -216,9 +225,11 @@ const wa = (message: string) => whatsappUrl(message, locale);
 <style>
   .coach-list__grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(1.25rem, 4vw, 3rem); }
   .coach-list article { margin: 0; }
-  .coach-list__image { position: relative; aspect-ratio: 4 / 5; overflow: hidden; background: var(--ink); }
-  .coach-list__image :global(img) { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-  .coach-list h2 { margin: 1.2rem 0 0; font-family: var(--font-display); font-size: clamp(4rem, 9vw, 9rem); font-weight: 400; line-height: .76; letter-spacing: 0; text-transform: uppercase; }
+  .coach-list__image { position: relative; aspect-ratio: 2 / 3; overflow: hidden; background: var(--ink); }
+  .coach-list__image :global(img) { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
+  .coach-list h2 { margin: 1.2rem 0 0; font-family: var(--font-display); font-size: clamp(4rem, 8.2vw, 8.2rem); font-weight: 400; line-height: .76; letter-spacing: 0; text-transform: uppercase; }
+  .coach-list__role { margin: 1rem 0 0; color: var(--red); font-size: .7rem; font-weight: 900; letter-spacing: .12em; text-transform: uppercase; }
+  .coach-list__bio { max-width: 42rem; margin: 1rem 0 0; color: var(--muted); font-size: .98rem; line-height: 1.78; }
   .method-grid { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid rgba(17,17,15,.25); }
   .method-grid article { min-height: 22rem; display: flex; flex-direction: column; padding: 2rem; border-right: 1px solid rgba(17,17,15,.25); border-bottom: 1px solid rgba(17,17,15,.25); }
   .method-grid article:first-child { border-left: 1px solid rgba(17,17,15,.25); }
@@ -262,7 +273,9 @@ const wa = (message: string) => whatsappUrl(message, locale);
       scroll-snap-type: x mandatory;
     }
     .coach-list article { scroll-snap-align: start; }
-    .coach-list h2 { margin-top: .8rem; font-size: 3.45rem; }
+    .coach-list h2 { margin-top: .8rem; font-size: 3.25rem; }
+    .coach-list__role { margin-top: .7rem; font-size: .62rem; }
+    .coach-list__bio { font-size: .84rem; line-height: 1.62; }
     .method-heading {
       grid-template-columns: minmax(0, 1fr) 5.4rem;
       gap: 1rem;
