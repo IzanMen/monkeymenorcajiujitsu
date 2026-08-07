@@ -11,7 +11,8 @@ import aboutImage from '../assets/photos/coaches-ground-wide.jpg';
 import classImage from '../assets/photos/pexels-8611381.jpg';
 import communityImage from '../assets/photos/pexels-35029376.jpg';
 import salvadorImage from '../assets/photos/salvador-coach.jpg';
-import ericImage from '../assets/photos/eric-machado-coach.jpg';
+import fernandoImage from '../assets/photos/fernando-coach.png';
+import ericImage from '../assets/photos/eric-machado-coach.webp';
 import childrenImage from '../assets/photos/pexels-7988960.jpg';
 import basicsImage from '../assets/photos/pexels-8612498.jpg';
 import islandImage from '../assets/photos/pexels-9510812.jpg';
@@ -448,7 +449,7 @@ const wa = (message?: string) => whatsappUrl(message, locale);
       <div class="coach-grid">
         <article>
           <div class="coach-grid__image">
-            <Image src={salvadorImage} alt={content.coachAlt('Salvador')} widths={[420, 680]} sizes="(max-width: 700px) 100vw, 50vw" format="webp" quality={84} />
+            <Image src={salvadorImage} alt={content.coachAlt('Salvador')} widths={[420, 680]} sizes="(max-width: 700px) 100vw, 33vw" format="webp" quality={84} />
             <span>01</span>
           </div>
           <div class="coach-grid__info">
@@ -457,11 +458,20 @@ const wa = (message?: string) => whatsappUrl(message, locale);
         </article>
         <article>
           <div class="coach-grid__image">
-            <Image src={ericImage} alt={content.coachAlt('Eric Machado')} widths={[420, 680]} sizes="(max-width: 700px) 100vw, 50vw" format="webp" quality={84} />
+            <Image src={fernandoImage} alt={content.coachAlt('Fernando')} widths={[420, 680]} sizes="(max-width: 700px) 100vw, 33vw" format="webp" quality={84} />
             <span>02</span>
           </div>
           <div class="coach-grid__info">
-            <div><h3>Eric Machado</h3><p>{content.coachRole}</p></div>
+            <div><h3>Fernando</h3><p>{content.coachRole}</p></div>
+          </div>
+        </article>
+        <article>
+          <div class="coach-grid__image">
+            <Image class="coach-grid__photo--eric" src={ericImage} alt={content.coachAlt('Eric Machado')} widths={[420, 680]} sizes="(max-width: 700px) 100vw, 33vw" format="webp" quality={84} />
+            <span>03</span>
+          </div>
+          <div class="coach-grid__info">
+            <div><h3>Eric</h3><p>{content.coachRole}</p></div>
           </div>
         </article>
       </div>
@@ -671,9 +681,10 @@ const wa = (message?: string) => whatsappUrl(message, locale);
   .start-steps p { max-width: 42rem; margin: 0; color: var(--muted); font-size: 1rem; line-height: 1.65; }
   .start-action { display: flex; justify-content: flex-start; margin-top: .5rem; }
   .schedule-actions { display: flex; align-items: center; gap: 2rem; margin-top: 2rem; }
-  .coach-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+  .coach-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.25rem; }
   .coach-grid__image { position: relative; aspect-ratio: 2 / 3; overflow: hidden; background: var(--ink-soft); }
   .coach-grid__image :global(img) { width: 100%; height: 100%; object-fit: contain; filter: saturate(.86); transition: transform .5s ease; }
+  .coach-grid__image :global(.coach-grid__photo--eric) { object-fit: cover; object-position: 22% 50%; }
   .coach-grid article:hover .coach-grid__image :global(img) { transform: scale(1.025); }
   .coach-grid__image span { position: absolute; right: 1rem; top: 1rem; display: grid; place-items: center; width: 3rem; height: 3rem; border-radius: 50%; background: var(--lime); font-size: .7rem; font-weight: 900; }
   .coach-grid__info { display: flex; justify-content: space-between; align-items: center; padding: 1.25rem 0; border-bottom: 1px solid var(--line); }

@@ -7,7 +7,8 @@ import { whatsappUrl } from '../data/site';
 import { getLocale, localizedPath } from '../i18n';
 import heroImage from '../assets/photos/coaches-salvador-eric.jpg';
 import salvadorImage from '../assets/photos/salvador-coach.jpg';
-import ericImage from '../assets/photos/eric-machado-coach.jpg';
+import fernandoImage from '../assets/photos/fernando-coach.png';
+import ericImage from '../assets/photos/eric-machado-coach.webp';
 import classImage from '../assets/photos/coaches-training-ground.jpeg';
 import calasansImage from '../assets/photos/claudio-calasans.webp';
 
@@ -15,12 +16,21 @@ const locale = getLocale(Astro.url);
 const content = {
   es: {
     metaTitle: 'Entrenadores',
-    metaDescription: 'Conoce a Salvador y Eric Machado, el equipo de entrenadores de Monkey Menorca Jiu-Jitsu, su método y la influencia Calasans.',
+    metaDescription: 'Conoce a Salvador, Fernando y Eric Machado, el equipo de entrenadores de Monkey Menorca Jiu-Jitsu, su método y la influencia Calasans.',
     heroTitle: 'Entrenadores',
-    heroCopy: 'Salvador y Eric Machado forman el equipo de entrenadores de Monkey Menorca Jiu-Jitsu.',
-    heroAlt: 'Salvador y Eric Machado posando con kimono en Monkey Menorca Jiu-Jitsu',
+    heroCopy: 'Salvador, Fernando y Eric Machado forman el equipo de entrenadores de Monkey Menorca Jiu-Jitsu.',
+    heroAlt: 'Entrenadores de Monkey Menorca Jiu-Jitsu posando con kimono',
     coachAlt: (name: string) => `${name}, entrenador de Monkey Menorca Jiu-Jitsu`,
     coachRole: 'Entrenador',
+    coaches: [
+      { name: 'Salvador', image: salvadorImage, bio: '' },
+      {
+        name: 'Fernando',
+        image: fernandoImage,
+        bio: 'De Florianópolis al mundo, Fernando lleva 16 años dedicado al Jiu-Jitsu. Formado en la Equipe Araújo Jiu-Jitsu, transmite disciplina, superación y respeto como cinturón negro 1º Dan.',
+      },
+      { name: 'Eric', image: ericImage, bio: 'Eric Machado es cinturón negro de primer grado e instructor de Jiu-Jitsu. Suma experiencia en entrenamiento personal, enseñanza en Brasil y trabajo con alumnos de todas las edades.' },
+    ],
     ericBio: 'Cinturón negro de primer grado e instructor de Jiu-Jitsu desde hace cinco años. Eric suma 15 años de experiencia en entrenamiento personal, ha enseñado en Brasil durante cinco años y trabaja con alumnos de todas las edades, desde niños de tres años hasta adultos mayores. También está especializado en educación inclusiva para personas con autismo y cuenta con trayectoria competitiva tras haberse formado con un campeón mundial.',
     methodTitle: 'Método de enseñanza',
     methodIntro: 'Una enseñanza basada en la línea de Claudio Calasans, adaptada a un entorno más cercano y personalizado.',
@@ -45,12 +55,21 @@ const content = {
   },
   ca: {
     metaTitle: 'Entrenadors',
-    metaDescription: 'Coneix en Salvador i l’Eric Machado, l’equip d’entrenadors de Monkey Menorca Jiu-Jitsu, el seu mètode i la influència Calasans.',
+    metaDescription: 'Coneix en Salvador, en Fernando i l’Eric Machado, l’equip d’entrenadors de Monkey Menorca Jiu-Jitsu, el seu mètode i la influència Calasans.',
     heroTitle: 'Entrenadors',
-    heroCopy: 'En Salvador i l’Eric Machado formen l’equip d’entrenadors de Monkey Menorca Jiu-Jitsu.',
-    heroAlt: 'Salvador i Eric Machado posant amb quimono a Monkey Menorca Jiu-Jitsu',
+    heroCopy: 'En Salvador, en Fernando i l’Eric Machado formen l’equip d’entrenadors de Monkey Menorca Jiu-Jitsu.',
+    heroAlt: 'Entrenadors de Monkey Menorca Jiu-Jitsu posant amb quimono',
     coachAlt: (name: string) => `${name}, entrenador de Monkey Menorca Jiu-Jitsu`,
     coachRole: 'Entrenador',
+    coaches: [
+      { name: 'Salvador', image: salvadorImage, bio: '' },
+      {
+        name: 'Fernando',
+        image: fernandoImage,
+        bio: 'De Florianópolis al món, en Fernando porta 16 anys dedicat al Jiu-Jitsu. Format a l’Equipe Araújo Jiu-Jitsu, transmet disciplina, superació i respecte com a cinturó negre 1r Dan.',
+      },
+      { name: 'Eric', image: ericImage, bio: 'Eric Machado és cinturó negre de primer grau i instructor de Jiu-Jitsu. Aporta experiència en entrenament personal, ensenyament al Brasil i treball amb alumnes de totes les edats.' },
+    ],
     ericBio: 'Cinturó negre de primer grau i instructor de Jiu-Jitsu des de fa cinc anys. L’Eric suma 15 anys d’experiència en entrenament personal, ha ensenyat al Brasil durant cinc anys i treballa amb alumnes de totes les edats, des d’infants de tres anys fins a adults grans. També està especialitzat en educació inclusiva per a persones amb autisme i compta amb trajectòria competitiva després d’haver-se format amb un campió mundial.',
     methodTitle: 'Mètode d’ensenyament',
     methodIntro: 'Un ensenyament basat en la línia de Claudio Calasans, adaptat a un entorn més proper i personalitzat.',
@@ -75,12 +94,21 @@ const content = {
   },
   en: {
     metaTitle: 'Coaches',
-    metaDescription: 'Meet Salvador and Eric Machado, the coaching team at Monkey Menorca Jiu-Jitsu, their method and the Calasans influence.',
+    metaDescription: 'Meet Salvador, Fernando and Eric Machado, the coaching team at Monkey Menorca Jiu-Jitsu, their method and the Calasans influence.',
     heroTitle: 'Coaches',
-    heroCopy: 'Salvador and Eric Machado are the coaching team at Monkey Menorca Jiu-Jitsu.',
-    heroAlt: 'Salvador and Eric Machado posing in gis at Monkey Menorca Jiu-Jitsu',
+    heroCopy: 'Salvador, Fernando and Eric Machado are the coaching team at Monkey Menorca Jiu-Jitsu.',
+    heroAlt: 'Monkey Menorca Jiu-Jitsu coaches posing in gis',
     coachAlt: (name: string) => `${name}, coach at Monkey Menorca Jiu-Jitsu`,
     coachRole: 'Coach',
+    coaches: [
+      { name: 'Salvador', image: salvadorImage, bio: '' },
+      {
+        name: 'Fernando',
+        image: fernandoImage,
+        bio: 'From Florianópolis to the world, Fernando has spent 16 years dedicated to Jiu-Jitsu. Formed at Equipe Araújo Jiu-Jitsu, he shares discipline, resilience and respect as a 1st Dan black belt.',
+      },
+      { name: 'Eric', image: ericImage, bio: 'Eric Machado is a first-degree black belt and Jiu-Jitsu instructor. He brings experience in personal training, teaching in Brazil and working with students of every age.' },
+    ],
     ericBio: 'First-degree black belt and Jiu-Jitsu instructor for five years. Eric brings 15 years of personal training experience, taught at an academy in Brazil for five years and works with students of all ages, from three-year-old children to older adults. He also specialises in inclusive education for people with autism and has a competitive background after training under a world champion.',
     methodTitle: 'Teaching method',
     methodIntro: 'Teaching based on Claudio Calasans’ approach, adapted to a friendlier and more personal environment.',
@@ -122,21 +150,16 @@ const wa = (message: string) => whatsappUrl(message, locale);
 
   <section class="coach-list section section--cream">
     <div class="shell coach-list__grid">
-      <article>
-        <div class="coach-list__image">
-          <Image src={salvadorImage} alt={content.coachAlt('Salvador')} widths={[520, 820, 1100]} sizes="(max-width: 850px) 100vw, 50vw" format="webp" quality={85} />
-        </div>
-        <h2>Salvador</h2>
-        <p class="coach-list__role">{content.coachRole}</p>
-      </article>
-      <article>
-        <div class="coach-list__image">
-          <Image src={ericImage} alt={content.coachAlt('Eric Machado')} widths={[520, 820, 1100]} sizes="(max-width: 850px) 100vw, 50vw" format="webp" quality={85} />
-        </div>
-        <h2>Eric Machado</h2>
-        <p class="coach-list__role">{content.coachRole}</p>
-        <p class="coach-list__bio">{content.ericBio}</p>
-      </article>
+      {content.coaches.map((coach) => (
+        <article>
+          <div class="coach-list__image">
+            <Image class:list={['coach-list__photo', coach.name === 'Eric' && 'coach-list__photo--eric']} src={coach.image} alt={content.coachAlt(coach.name)} widths={[520, 820, 1100]} sizes="(max-width: 850px) 100vw, 33vw" format="webp" quality={85} />
+          </div>
+          <h2>{coach.name}</h2>
+          <p class="coach-list__role">{content.coachRole}</p>
+          {coach.bio && <p class="coach-list__bio">{coach.bio}</p>}
+        </article>
+      ))}
     </div>
   </section>
 
@@ -223,10 +246,11 @@ const wa = (message: string) => whatsappUrl(message, locale);
 </BaseLayout>
 
 <style>
-  .coach-list__grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(1.25rem, 4vw, 3rem); }
+  .coach-list__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(1.25rem, 3vw, 2.5rem); }
   .coach-list article { margin: 0; }
   .coach-list__image { position: relative; aspect-ratio: 2 / 3; overflow: hidden; background: var(--ink); }
   .coach-list__image :global(img) { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
+  .coach-list__image :global(.coach-list__photo--eric) { object-fit: cover; object-position: 22% 50%; }
   .coach-list h2 { margin: 1.2rem 0 0; font-family: var(--font-display); font-size: clamp(4rem, 8.2vw, 8.2rem); font-weight: 400; line-height: .76; letter-spacing: 0; text-transform: uppercase; }
   .coach-list__role { margin: 1rem 0 0; color: var(--red); font-size: .7rem; font-weight: 900; letter-spacing: .12em; text-transform: uppercase; }
   .coach-list__bio { max-width: 42rem; margin: 1rem 0 0; color: var(--muted); font-size: .98rem; line-height: 1.78; }
